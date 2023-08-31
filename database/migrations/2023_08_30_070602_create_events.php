@@ -16,14 +16,14 @@ return new class extends Migration
             $table->bigInteger('user_id')
             ->foreignId()
             ->constrained();
-            $table->varchar('title');
-            $table->varchar('meeting_with');
-            $table->enum('meeting_type');
+            $table->string('title');
+            $table->string('meeting_with');
+            $table->enum('meeting_type', ['create_event', 'create_presentation', 'create_followup_event', 'create_call_event']);
             $table->dateTime('start_date');
             $table->dateTime('end_date');
-            $table->varchar('location');
+            $table->string('location');
             $table->dateTime('reminder');
-            $table->varchar('note');
+            $table->string('note');
             $table->timestamps();
             $table->softDeletes();
         });

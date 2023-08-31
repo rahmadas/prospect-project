@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('tutorials', function (Blueprint $table) {
             $table->id();
-            $table->enum('type');
-            $table->varchar('description');
-            $table->varchar('vidio_source');
+            $table->enum('type', ['text', 'vidio']);
+            $table->string('description');
+            $table->string('vidio_source');
             $table->timestamps();
             $table->softDeletes();
         });

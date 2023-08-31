@@ -16,12 +16,12 @@ return new class extends Migration
             $table->bigInteger('user_id')
             ->foreignId()
             ->constrained();
-            $table->varchar('fist_name');
-            $table->varchar('last_name');
-            $table->varchar('phone_number');
-            $table->varchar('home_number');
-            $table->varchar('work_number');
-            $table->varchar('email');
+            $table->string('fist_name');
+            $table->string('last_name');
+            $table->string('phone_number');
+            $table->string('home_number');
+            $table->string('work_number');
+            $table->string('email');
             $table->timestamps();
             $table->softDeletes();
         });

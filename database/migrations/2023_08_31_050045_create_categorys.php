@@ -16,7 +16,7 @@ return new class extends Migration
             $table->bigInteger('user_id')
             ->foreignId()
             ->constrained();
-            $table->varchar('name');
+            $table->string('name');
             $table->timestamps();
             $table->softDeletes();
         });

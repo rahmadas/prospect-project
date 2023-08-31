@@ -19,8 +19,8 @@ return new class extends Migration
             $table->bigInteger('message_template_id')
             ->foreignId()
             ->constrained();
-            $table->varchar('message');
-            $table->enum('status');
+            $table->string('message');
+            $table->enum('status', ['in_queue', 'success', 'failed']);
             $table->timestamps();
             $table->softDeletes();
         });

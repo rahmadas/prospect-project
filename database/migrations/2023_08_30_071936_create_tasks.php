@@ -16,13 +16,13 @@ return new class extends Migration
             $table->bigInteger('user_id')
             ->foreignId()
             ->constrained();
-            $table->varchar('title');
-            $table->varchar('note');
+            $table->string('title');
+            $table->string('note');
             $table->date('due_date');
             $table->dateTime('due_time');
-            $table->enum('priority');
+            $table->enum('priority', ['low', 'medium', 'hight']);
             $table->dateTime('reminder');
-            $table->enum('status');
+            $table->enum('status', ['completed', 'not_completed', 'due_today']);
             $table->bigInteger('relate_to');
             $table->timestamps();
             $table->softDeletes();

@@ -16,7 +16,7 @@ return new class extends Migration
             $table->bigInteger('contact_id')
             ->foreignId()
             ->constrained();
-            $table->varchar('note');
+            $table->string('note');
             $table->dateTime('date');
             $table->timestamps();
             $table->softDeletes();

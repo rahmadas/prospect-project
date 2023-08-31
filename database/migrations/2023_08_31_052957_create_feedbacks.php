@@ -16,8 +16,8 @@ return new class extends Migration
             $table->bigInteger('user_id')
             ->foreignId()
             ->constrained();
-            $table->varchar('title');
-            $table->varchar('feedback_message');
+            $table->string('title');
+            $table->string('feedback_message');
             $table->timestamps();
         });
     }
