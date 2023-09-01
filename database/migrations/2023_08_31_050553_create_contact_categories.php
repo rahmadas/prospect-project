@@ -11,14 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('contact_mass', function (Blueprint $table) {
+        Schema::create('contact_categories', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('contact_id')
-            ->foreignId()
-            ->constrained();
-            $table->bigInteger('mass_message_id')
-            ->foreignId()
-            ->constrained();
+            $table->foreignId('category_id')->constrained();
+            $table->foreignId('contact_id')->constrained();
             $table->timestamps();
         });
     }
@@ -28,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('contact_mass');
+        Schema::dropIfExists('contact_categories');
     }
 };

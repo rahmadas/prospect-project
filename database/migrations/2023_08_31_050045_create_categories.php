@@ -11,15 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('contact_categorys', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('category_id')
-            ->foreignId()
-            ->constrained();
-            $table->bigInteger('contact_id')
-            ->foreignId()
-            ->constrained();
+            $table->foreignId('user_id')->constrained();
+            $table->string('name');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -28,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('contact_categorys');
+        Schema::dropIfExists('categories');
     }
 };

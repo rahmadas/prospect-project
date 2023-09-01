@@ -18,10 +18,19 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'firs_name',
+        'last_name',
         'email',
+        'referral_code',
         'password',
+        'status',
+        'qty_referral',
+        'exp_user_pro'
     ];
+
+    public function referral() {
+        return $this->hasMany(Referral::class);
+    }
 
     /**
      * The attributes that should be hidden for serialization.

@@ -13,9 +13,7 @@ return new class extends Migration
     {
         Schema::create('tasks', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id')
-            ->foreignId()
-            ->constrained();
+            $table->foreignId('user_id')->constrained();
             $table->string('title');
             $table->string('note');
             $table->date('due_date');

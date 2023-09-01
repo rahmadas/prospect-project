@@ -13,9 +13,7 @@ return new class extends Migration
     {
         Schema::create('notes', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('contact_id')
-            ->foreignId()
-            ->constrained();
+            $table->foreignId('contact_id')->constrained();
             $table->string('note');
             $table->dateTime('date');
             $table->timestamps();

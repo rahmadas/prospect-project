@@ -11,14 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('mass_messages', function (Blueprint $table) {
+        Schema::create('messages', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id')
-            ->foreignId()
-            ->constrained();
-            $table->bigInteger('message_template_id')
-            ->foreignId()
-            ->constrained();
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('message_template_id')->constrained();
             $table->string('message');
             $table->enum('status', ['in_queue', 'success', 'failed']);
             $table->timestamps();
@@ -31,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('mass_messages');
+        Schema::dropIfExists('messages');
     }
 };

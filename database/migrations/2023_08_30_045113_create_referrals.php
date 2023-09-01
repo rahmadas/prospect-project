@@ -13,12 +13,10 @@ return new class extends Migration
     {
         Schema::create('referrals', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id')
-            ->foreigId()
-            ->constrained();
-            $table->bigInteger('invited_id')
-            ->foreigId()
-            ->constrained();
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->unsignedBigInteger('invited_id');
+            $table->foreign('invited_id')->references('id')->on('users');
             $table->dateTime('date');
             $table->timestamps();
         });

@@ -13,9 +13,7 @@ return new class extends Migration
     {
         Schema::create('events', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id')
-            ->foreignId()
-            ->constrained();
+            $table->foreignId('user_id')->constrained();
             $table->string('title');
             $table->string('meeting_with');
             $table->enum('meeting_type', ['create_event', 'create_presentation', 'create_followup_event', 'create_call_event']);

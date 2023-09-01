@@ -13,12 +13,8 @@ return new class extends Migration
     {
         Schema::create('user_pro_features', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('user_id')
-            ->foreignId()
-            ->constrained();
-            $table->bigInteger('pro_feature_id')
-            ->foreignId()
-            ->constrained();
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('pro_feature_id')->constrained();
             $table->timestamps();
         });
     }
