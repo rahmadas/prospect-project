@@ -20,4 +20,8 @@ class Referral extends Model
     {
         return $this->belongsTo(Users::class);
     }
+
+    public function invited() {
+        return $this->hasOne(User::class);
+    }
 }

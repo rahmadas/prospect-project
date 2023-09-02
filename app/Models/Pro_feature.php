@@ -13,4 +13,9 @@ class Pro_feature extends Model
         'name',
         'description'
     ]; 
+
+    public function pro_feature() {
+        return $this->hasMany(User_pro_feature::class);
+    }
+    
 }

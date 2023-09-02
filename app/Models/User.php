@@ -28,10 +28,50 @@ class User extends Authenticatable
         'exp_user_pro'
     ];
 
-    public function referral() {
+    public function User_pro_feature()
+    {
+        return $this->hasMany(User_pro_feature::class);
+    }
+
+    public function referral()
+    {
         return $this->hasMany(Referral::class);
     }
 
+    public function feedback()
+    {
+        return $this->belongsTo(Feedback::class);
+    }
+
+    public function event()
+    {
+        return $this->belongsTo(Event::class);
+    }
+
+    public function task()
+    {
+        return $this->belongsTo(Task::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function contact()
+    {
+        return $this->belongsTo(Contact::class);
+    }
+
+    public function message()
+    {
+        return $this->belongsTo(Message::class);
+    }
+
+    public function message_template()
+    {
+        return $this->belongsTo(Message_template::class);
+    }
     /**
      * The attributes that should be hidden for serialization.
      *

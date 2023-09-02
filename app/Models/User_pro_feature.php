@@ -13,4 +13,13 @@ class User_pro_feature extends Model
         'user_id',
         'pro_feature_id'
     ];
+
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
+    
+    public function pro_feature() {
+        return $this->belongsTo(Pro_feature::class);
+    }
+
 }
