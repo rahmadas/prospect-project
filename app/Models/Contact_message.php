@@ -5,17 +5,20 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Note extends Model
+class Contact_massage extends Model
 {
     use HasFactory;
-    protected $table = 'notes';
+    protected $table = 'contact_messages';
     protected $fillable = [
         'contact_id',
-        'note',
-        'date'
+        'message_id'
     ];
 
+    public function message() {
+        return $this->belongsToMany(Message::class);
+    }
+
     public function contact() {
-        return $this->belongsTo(Contact::class);
+        return $this->belongsToMany(Contact::class);
     }
 }

@@ -15,11 +15,11 @@ class User_pro_feature extends Model
     ];
 
     public function user() {
-        return $this->belongsTo(User::class);
+        return $this->belongsToMany(User::class);
     }
     
     public function pro_feature() {
-        return $this->belongsTo(Pro_feature::class);
+        return $this->belongsToMany(Pro_feature::class);
     }
 
 }

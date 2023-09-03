@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Tutorial extends Model
 {
     use HasFactory;
+    protected $table = 'tutorials'; 
+    protected $fillable = [
+        'type',
+        'description',
+        'vidio_source'
+    ];
 }
