@@ -18,14 +18,12 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'firs_name',
+        'first_name',
         'last_name',
         'email',
         'referral_code',
         'password',
-        'status',
-        'qty_referral',
-        'exp_user_pro'
+        'status'
     ];
 
     public function User_pro_feature()

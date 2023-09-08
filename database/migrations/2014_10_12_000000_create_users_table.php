@@ -17,11 +17,9 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('email')->unique();
             $table->string('referral_code');
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->enum('status', ['pro', 'free']);
-            $table->bigInteger('qty_referral');
-            $table->dateTime('exp_user_pro');
+            $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
