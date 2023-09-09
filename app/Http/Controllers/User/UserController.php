@@ -10,7 +10,7 @@ class UserController extends Controller
 {
     function show()
     { 
-        dd(auth()->user());
+        // dd(auth()->user());
         return response()->json([
             'data' => auth()->user(),
             'status' => 'true'

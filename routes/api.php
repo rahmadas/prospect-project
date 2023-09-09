@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\Api\Auth\LoginController;
+use App\Http\Controllers\Api\Auth\LogoutController;
 use App\Http\Controllers\Api\Auth\RegisterController;
+use App\Http\Controllers\Contact\ContactController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -19,16 +21,20 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::post('/register', [RegisterController::class, 'register']);
-
 Route::post('/login', [LoginController::class, 'login'] );
+Route::post('/logout', [LogoutController::class, 'logout']);
 
 
-// Route::group(['middleware' => 'auth:sanctum'], function () 
-// {
+Route::group(['middleware' => 'auth:sanctum'], function () 
+{
 
-// });
+    Route::post('/logout', [LogoutController::class, 'logout']);
+});
 
 Route::get('/user', [UserController::class, 'show']);
+
+//
+Route::apiResource('/contact', ContactController::class);
 
 
 
