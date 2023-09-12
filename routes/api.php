@@ -5,6 +5,8 @@ use App\Http\Controllers\Api\Auth\LogoutController;
 use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Category\CategoryController;
 use App\Http\Controllers\Contact\ContactController;
+use App\Http\Controllers\ContactCategory\ContactCategoryController;
+use App\Http\Controllers\Message\MessageController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -28,6 +30,8 @@ Route::post('/logout', [LogoutController::class, 'logout']);
 
 Route::apiResource('/contact', ContactController::class);
 Route::apiResource('/category', CategoryController::class);
+Route::apiResource('/contact-category', ContactCategoryController::class);
+Route::apiResource('/message', MessageController::class);
 
 
 

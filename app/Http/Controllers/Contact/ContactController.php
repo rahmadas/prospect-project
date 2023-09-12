@@ -23,9 +23,7 @@ class ContactController extends Controller
 
     public function store(StoreContactRequest $request)
     {
-        //
         $data = $request->validated();
-
         $contact = Contact::create($data);
 
         return response()->json([
@@ -36,7 +34,6 @@ class ContactController extends Controller
 
     function show(Contact $contact)
     { 
-        // Contact::find($contact);
         return response()->json([
             'data' => $contact,
             'status' => 'true'
@@ -45,12 +42,6 @@ class ContactController extends Controller
 
     function update(StoreContactRequest $request, Contact $contact)
     {
-        // $contact = Contact::query()
-        // ->where("id","=",$contact)
-        // ->first();
-
-        // $payload = $request->validated();
-        // $contact->update($payload);
 
         $data = $contact->update($request->validated());
         return response()->json([
