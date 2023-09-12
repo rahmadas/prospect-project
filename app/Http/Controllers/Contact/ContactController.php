@@ -45,11 +45,18 @@ class ContactController extends Controller
 
     function update(StoreContactRequest $request, Contact $contact)
     {
+        // $contact = Contact::query()
+        // ->where("id","=",$contact)
+        // ->first();
+
+        // $payload = $request->validated();
+        // $contact->update($payload);
+
         $data = $contact->update($request->validated());
         return response()->json([
             'data' => $data,
             'status' => 'true'
-        ])->setStatusCode(202);
+        ]);
     }
 
     function destroy(Contact $contact)

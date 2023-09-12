@@ -23,7 +23,8 @@ class User extends Authenticatable
         'email',
         'referral_code',
         'password',
-        'status'
+        'status',
+        'expired_at'
     ];
 
     public function User_pro_feature()

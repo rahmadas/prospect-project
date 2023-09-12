@@ -3,6 +3,7 @@
 use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Auth\LogoutController;
 use App\Http\Controllers\Api\Auth\RegisterController;
+use App\Http\Controllers\Category\CategoryController;
 use App\Http\Controllers\Contact\ContactController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Http\Request;
@@ -25,6 +26,11 @@ Route::post('/login', [LoginController::class, 'login'] );
 Route::post('/logout', [LogoutController::class, 'logout']);
 
 
+Route::apiResource('/contact', ContactController::class);
+Route::apiResource('/category', CategoryController::class);
+
+
+
 Route::group(['middleware' => 'auth:sanctum'], function () 
 {
 
@@ -34,7 +40,6 @@ Route::group(['middleware' => 'auth:sanctum'], function ()
 Route::get('/user', [UserController::class, 'show']);
 
 //
-Route::apiResource('/contact', ContactController::class);
 
 
 
