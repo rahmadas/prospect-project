@@ -11,7 +11,8 @@ use Illuminate\Http\Request;
 
 class ContactCategoryController extends Controller
 {
-    public function index() {
+    public function index()
+    {
 
         $contactCategory = Contact_category::all();
         return response([
@@ -20,8 +21,9 @@ class ContactCategoryController extends Controller
         ]);
     }
 
-    public function store(ContactCategoryRequest $request) {
-        
+    public function store(ContactCategoryRequest $request)
+    {
+
         $data = $request->validated();
         $contactCategory = Contact_category::create($data);
 
@@ -31,24 +33,27 @@ class ContactCategoryController extends Controller
         ]);
     }
 
-    function show(ContactCategoryRequest $contactCategory) {
+    function show(ContactCategoryRequest $contactCategory)
+    {
         return response()->json([
             'data' => $contactCategory,
             'status'
         ]);
     }
 
-    function update(ContactCategoryRequest $request, Contact_category $contactCategory) {
-        
+    function update(ContactCategoryRequest $request, Contact_category $contactCategory)
+    {
+
         $data = $contactCategory->update($request->validated());
         return response()->json([
             'data' => $data,
             'status' => 'true'
-        ]); 
+        ]);
     }
 
-    function delete(CategoryController $contactCategory) {
-        
+    function delete(CategoryController $contactCategory)
+    {
+
         $contactCategory->delete();
         return response()->json([
             'data' => $contactCategory,

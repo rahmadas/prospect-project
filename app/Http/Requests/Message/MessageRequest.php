@@ -22,7 +22,7 @@ class MessageRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => 'required',
+            // 'user_id' => 'required',
             'message_template_id' => 'required',
             'message' => 'required|string',
             'status' => 'required|in:in_queue,success,failed'

@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Http\Requests\Category;
+namespace App\Http\Requests\ContactMessage;
 
+use App\Models\Contact_massage;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CategoryRequest extends FormRequest
+class ContactMessageRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,8 +23,8 @@ class CategoryRequest extends FormRequest
     public function rules(): array
     {
         return [
-            // 'user_id' => 'required',
-            'name' => 'required|string'
+            'contact_id' => 'required',
+            'message_id' => 'required'
         ];
     }
 }

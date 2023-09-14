@@ -6,7 +6,9 @@ use App\Http\Controllers\Api\Auth\RegisterController;
 use App\Http\Controllers\Category\CategoryController;
 use App\Http\Controllers\Contact\ContactController;
 use App\Http\Controllers\ContactCategory\ContactCategoryController;
+use App\Http\Controllers\ContactMessage\ContactMessageController;
 use App\Http\Controllers\Message\MessageController;
+use App\Http\Controllers\MessageTemplate\MessageTemplateController;
 use App\Http\Controllers\User\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -28,22 +30,25 @@ Route::post('/login', [LoginController::class, 'login'] );
 Route::post('/logout', [LogoutController::class, 'logout']);
 
 
-Route::apiResource('/contact', ContactController::class);
-Route::apiResource('/category', CategoryController::class);
-Route::apiResource('/contact-category', ContactCategoryController::class);
-Route::apiResource('/message', MessageController::class);
 
 
 
 Route::group(['middleware' => 'auth:sanctum'], function () 
 {
+    Route::get('/user', [UserController::class, 'show']);
+
+    Route::apiResource('/contact', ContactController::class);
+    Route::apiResource('/category', CategoryController::class);
+    Route::apiResource('/contact-category', ContactCategoryController::class);
+    Route::apiResource('/message', MessageController::class);
+    Route::apiResource('/message-template', MessageTemplateController::class);
+    Route::apiResource('/contact-message', ContactMessageController::class);
 
     Route::post('/logout', [LogoutController::class, 'logout']);
 });
 
-Route::get('/user', [UserController::class, 'show']);
 
-//
+
 
 
 

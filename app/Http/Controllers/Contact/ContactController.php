@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Contact;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Contact\ContactRequest;
 use App\Http\Requests\Contact\StoreContactRequest;
+use App\Http\Resources\ContactResource;
 use App\Models\Contact;
 use Illuminate\Database\Eloquent\Casts\Json;
 use Illuminate\Http\Request;
@@ -24,16 +25,33 @@ class ContactController extends Controller
     public function store(StoreContactRequest $request)
     {
         $data = $request->validated();
+        $data['user_id'] = auth()->user()->id;
         $contact = Contact::create($data);
 
+        $user = auth()->user();
+        $firstName = $user->first_name;
+        $lastName = $user->last_name;
+        $phoneNumber = $user->phone_number;
+        $homeNumber = $user->home_number;
+        $workNumber = $user->work_number;
+        $email = $user->email;
+
+        $contact->with('user');
+
         return response()->json([
-            'data' => $contact,
+            'data' => new ContactResource($contact),
+            'user_first_name' => $firstName,
+            'user_last_name' => $lastName,
+            'user_phone_number' => $phoneNumber,
+            'user_home_number' => $homeNumber,
+            'user_work_number' => $workNumber,
+            'user_email' => $email,
             'status' => 'true'
         ]);
     }
 
     function show(Contact $contact)
-    { 
+    {
         return response()->json([
             'data' => $contact,
             'status' => 'true'

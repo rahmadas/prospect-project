@@ -10,10 +10,10 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-    function login(LoginRequest $request) {
-        
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) 
-        {
+    function login(LoginRequest $request)
+    {
+
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $user = User::where('email', $request->email)->first();
             $token = $user->createToken('auth_token')->plainTextToken;
 

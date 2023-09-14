@@ -22,7 +22,7 @@ class StoreContactRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'user_id' => 'required',
+            // 'user_id' => 'required',
             'first_name' => 'required|string',
             'last_name' => 'required|string',
             'phone_number' => 'required|string',

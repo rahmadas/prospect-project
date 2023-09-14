@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Message;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Message\MessageRequest;
+use App\Http\Resources\MessageResource;
 use App\Models\Message;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class MessageController extends Controller
@@ -24,10 +26,19 @@ class MessageController extends Controller
     {
 
         $data = $request->validated();
+        $data['user_id'] = auth()->user()->id;
         $message = Message::create($data);
 
+        $user = auth()->user();
+        $messageTemplateId = $user->message_template_id;
+        $messageField = $user->message;
+        $status = $user->status;
+
+        $message->with('user');
+
         return response()->json([
-            'data' => $data,
+            'data' => new MessageResource($message),
+            'user_message_template_id'
             'status' => 'true'
         ]);
     }

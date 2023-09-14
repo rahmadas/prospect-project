@@ -5,8 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Contact_massage extends Model
+class Contact_message extends Model
 {
+    use HasFactory;
     use HasFactory;
     protected $table = 'contact_messages';
     protected $fillable = [
