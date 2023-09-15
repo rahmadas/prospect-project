@@ -29,7 +29,8 @@ class ContactMessageController extends Controller
 
         return response()->json([
             'date' => $contactMessage,
-            'status' => 'Success Create date'
+            'message' => 'Successs create date',
+            'status' => true
         ]);
     }
 

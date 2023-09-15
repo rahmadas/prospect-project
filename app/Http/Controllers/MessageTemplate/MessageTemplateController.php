@@ -26,11 +26,23 @@ class MessageTemplateController extends Controller
     {
 
         $data = $request->validated();
+        $data['user_id'] = auth()->user()->id;
         $messageTemplate = Message_template::create($data);
 
+        $user = auth()->user();
+        $title = $user->title;
+        $message = $user->message;
+
+        $messageTemplate->with('user');
+
         return response()->json([
-            'date' => $messageTemplate,
-            'status' => 'Successs create  date'
+            'data' => [
+                'user_id' => $data['user_id'],
+                'user_title' => $title,
+                'user_message' => $message
+            ],
+            'message' => 'Successs create date',
+            'status' => true
         ]);
     }
 

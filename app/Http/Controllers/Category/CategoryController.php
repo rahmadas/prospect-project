@@ -22,41 +22,60 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function store(CategoryRequest $request)
+    public function store(Request $request)
     {
+        $user_id = $request->input('user_id');
 
-        // Mengambil data yang divalidasi dari request
-        $data = $request->validated();
-        // Menambahkan user_id pengguna yang sedang masuk
-        $data['user_id'] = auth()->user()->id;
-
-        // operasi menyisipkan data
-        $category = Category::create($data);
-
-        // Mengambil first_name dan last_name pengguna yang sedang masuk
-        $user = auth()->user();
-        $firstName = $user->first_name;
-        $lastName = $user->last_name;
-
-        //membuat relasi user
-        // $category->load('user');
-        $category->with('user');
-
-        // Membuat artikel baru dan mengaitkannya dengan pengguna (penulis)
-        // $category = new Category([
-        //     'user_first_name' => $data['user_id'],
-        //     // 'user_last_name' => $data[''],
-        //     'user_id' => $user, // Mengaitkan artikel dengan ID pengguna yang saat ini login
-        // ]);
-
-        // untuk mengembalikan data dalam format json
-        return response()->json([
-            'data' => new CategoryResource($category),
-            'user_first_name' => $firstName,
-            'user_last_name' => $lastName,
-            'status' => 'true'
-        ]);
+        
+        $category = new Category();
+        $category->user_id = $user_id;
+        $category->name = $request->input('name');
+        
+        if ($category->save()) {
+            return new CategoryResource($category);
+        }
+        if (!$user_id) {
+            return response()->json([
+                'data' => [
+                    'user_id' => $category['user_id'],
+                ],
+            ]);
+        }
     }
+
+    // public function store(CategoryRequest $request)
+    // {
+
+    //     // Mengambil data yang divalidasi dari request
+    //     $data = $request->validated();
+    //     // Menambahkan user_id pengguna yang sedang masuk
+    //     $data['user_id'] = auth()->user()->id;
+    //     $data['name'];
+
+    //     // operasi menyisipkan data
+    //     $category = Category::create($data);
+
+    //     // Mengambil first_name dan last_name pengguna yang sedang masuk
+    //     $user = auth()->user();
+    //     $firstName = $user->first_name;
+    //     $lastName = $user->last_name;
+
+    //     //membuat relasi user
+    //     // $category->load('user');
+    //     $category->with('user');
+
+    //     // untuk mengembalikan data dalam format json
+    //     return response()->json([
+    //         'data' => [
+    //             'user_id' => $data['user_id'],
+    //             'user_nameCategory' => $data['name'],
+    //             'user_first_name' => $firstName,
+    //             'user_last_name' => $lastName,
+    //         ],
+    //         'message' => 'Successs create date',
+    //         'status' => true
+    //     ]);
+    // }
 
     function show(Category $category)
     {

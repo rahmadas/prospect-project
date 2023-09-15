@@ -39,14 +39,17 @@ class ContactController extends Controller
         $contact->with('user');
 
         return response()->json([
-            'data' => new ContactResource($contact),
-            'user_first_name' => $firstName,
-            'user_last_name' => $lastName,
-            'user_phone_number' => $phoneNumber,
-            'user_home_number' => $homeNumber,
-            'user_work_number' => $workNumber,
-            'user_email' => $email,
-            'status' => 'true'
+            'data' => [
+                'user_id' => $data['user_id'],
+                'user_first_name' => $firstName,
+                'user_last_name' => $lastName,
+                'user_phone_number' => $phoneNumber,
+                'user_home_number' => $homeNumber,
+                'user_work_number' => $workNumber,
+                'user_email' => $email,
+            ],
+            'message' => 'Successs create date',
+            'status' => true
         ]);
     }
 

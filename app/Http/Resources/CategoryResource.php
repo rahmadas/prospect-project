@@ -17,7 +17,6 @@ class CategoryResource extends JsonResource
         // return parent::toArray($request);
         return [
             'user_id' => $this->user_id
-        
         ];
     }
 }

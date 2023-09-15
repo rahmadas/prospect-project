@@ -29,7 +29,8 @@ class ContactCategoryController extends Controller
 
         return response()->json([
             'data' => $contactCategory,
-            'status' => 'true'
+            'message' => 'Successs create date',
+            'status' => true
         ]);
     }
 

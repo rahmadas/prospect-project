@@ -37,9 +37,15 @@ class MessageController extends Controller
         $message->with('user');
 
         return response()->json([
-            'data' => new MessageResource($message),
-            'user_message_template_id'
-            'status' => 'true'
+            'data' => [
+                // 'data' => new MessageResource($message)
+                'user_id' => $data['user_id'],
+                'user_message_template_id' => $messageTemplateId,
+                'user_messaeField' => $messageField,
+                'user_status' => $status
+            ],
+            'message' => 'Successs create date',
+            'status' => true
         ]);
     }
 
