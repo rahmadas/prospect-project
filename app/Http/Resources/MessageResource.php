@@ -16,7 +16,10 @@ class MessageResource extends JsonResource
     {
         // return parent::toArray($request);
         return [
-            'user_id' => $this->user_id
+            'user_id' => $this->user_id,
+            'message_template_id' => $this->message_template_id,
+            'message' => $this->message,
+            'status' => $this->status
 
         ];
     }

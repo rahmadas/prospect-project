@@ -24,29 +24,20 @@ class MessageController extends Controller
 
     public function store(MessageRequest $request)
     {
-
-        $data = $request->validated();
-        $data['user_id'] = auth()->user()->id;
-        $message = Message::create($data);
-
         $user = auth()->user();
-        $messageTemplateId = $user->message_template_id;
-        $messageField = $user->message;
-        $status = $user->status;
 
-        $message->with('user');
+        $message = new Message();
+        $message->user_id = $request->input('user_id');
+        $message->message_template_id = $request->input('message_template_id');
+        $message->message = $request->input('message');
+        $message->status = $request->input('status');
 
-        return response()->json([
-            'data' => [
-                // 'data' => new MessageResource($message)
-                'user_id' => $data['user_id'],
-                'user_message_template_id' => $messageTemplateId,
-                'user_messaeField' => $messageField,
-                'user_status' => $status
-            ],
-            'message' => 'Successs create date',
-            'status' => true
-        ]);
+        //saya menggunakn $user->id untuk mencari data user, yang dimana
+        // yang akan di ambil adalah nilai id
+        $message->user_id = $user->id;
+
+        $message->save();
+        return new MessageResource($message);
     }
 
     function show(Message $message)

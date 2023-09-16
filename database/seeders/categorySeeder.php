@@ -14,6 +14,7 @@ class categorySeeder extends Seeder
     public function run(): void
     {
         $category = new Category();
+        // $category->user_id = "user_id";
         $category->name = "kampus";
         $category->save();
     }

@@ -22,25 +22,20 @@ class CategoryController extends Controller
         ]);
     }
 
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        $user_id = $request->input('user_id');
+        $user = auth()->user();
 
-        
         $category = new Category();
-        $category->user_id = $user_id;
+        $category->user_id = $request->input('user_id');
         $category->name = $request->input('name');
-        
-        if ($category->save()) {
-            return new CategoryResource($category);
-        }
-        if (!$user_id) {
-            return response()->json([
-                'data' => [
-                    'user_id' => $category['user_id'],
-                ],
-            ]);
-        }
+
+        //saya menggunakn $user->id untuk mencari data user, yang dimana
+        // yang akan di ambil adalah nilai id
+        $category->user_id = $user->id;
+
+        $category->save();
+        return new CategoryResource($category);
     }
 
     // public function store(CategoryRequest $request)
