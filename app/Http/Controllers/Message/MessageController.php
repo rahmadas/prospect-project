@@ -32,6 +32,7 @@ class MessageController extends Controller
         $message->message = $request->input('message');
         $message->status = $request->input('status');
 
+        // dd($message);
         //saya menggunakn $user->id untuk mencari data user, yang dimana
         // yang akan di ambil adalah nilai id
         $message->user_id = $user->id;

@@ -10,15 +10,17 @@ class Contact_category extends Model
     use HasFactory;
     protected $table = 'contact_categories';
     protected $fillable = [
-        'cotegory_id',
+        'category_id',
         'contact_id'
     ];
 
-    public function category() {
+    public function category()
+    {
         return $this->belongsToMany(Category::class);
     }
 
-    public function contact() {
+    public function contact()
+    {
         return $this->belongsToMany(Contact::class);
     }
 }

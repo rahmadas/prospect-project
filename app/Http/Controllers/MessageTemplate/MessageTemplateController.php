@@ -33,6 +33,7 @@ class MessageTemplateController extends Controller
         $messageTemplate->title = $request->input('title');
         $messageTemplate->message = $request->input('message');
 
+        // dd($messageTemplate);
         //saya menggunakn $user->id untuk mencari data user, yang dimana
         // yang akan di ambil adalah nilai id
         $messageTemplate->user_id = $user->id;
