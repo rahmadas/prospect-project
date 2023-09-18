@@ -4,6 +4,7 @@ namespace App\Http\Controllers\MessageTemplate;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MessageTemplate\MessageTemplateRequest;
+use App\Http\Resources\MessageTemplateResource;
 use App\Models\Message_template;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\Request;
@@ -25,25 +26,19 @@ class MessageTemplateController extends Controller
     public function store(MessageTemplateRequest $request)
     {
 
-        $data = $request->validated();
-        $data['user_id'] = auth()->user()->id;
-        $messageTemplate = Message_template::create($data);
-
         $user = auth()->user();
-        $title = $user->title;
-        $message = $user->message;
 
-        $messageTemplate->with('user');
+        $messageTemplate = new Message_template();
+        $messageTemplate->user_id = $request->input('user_id');
+        $messageTemplate->title = $request->input('title');
+        $messageTemplate->message = $request->input('message');
 
-        return response()->json([
-            'data' => [
-                'user_id' => $data['user_id'],
-                'user_title' => $title,
-                'user_message' => $message
-            ],
-            'message' => 'Successs create date',
-            'status' => true
-        ]);
+        //saya menggunakn $user->id untuk mencari data user, yang dimana
+        // yang akan di ambil adalah nilai id
+        $messageTemplate->user_id = $user->id;
+
+        $messageTemplate->save();
+        return new MessageTemplateResource($messageTemplate);
     }
 
     function show(Message_template $messageTemplate)
