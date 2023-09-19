@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Message;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Message\MessageRequest;
 use App\Http\Resources\MessageResource;
+use App\Models\Contact_message;
 use App\Models\Message;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -13,32 +14,30 @@ class MessageController extends Controller
 {
     public function index()
     {
+        $messages = Message::orderBy('user_id', 'asc')->get();
+        return MessageResource::collection($messages);
 
-        $message = Message::all();
+        // $message = Message::all();
 
-        return response()->json([
-            'data' => $message,
-            'status' => 'true'
-        ]);
+        // return response()->json([
+        //     'data' => $message,
+        //     'status' => 'true'
+        // ]);
     }
 
     public function store(MessageRequest $request)
     {
-        $user = auth()->user();
+        $data = $request->validated();
+        $data['user_id'] = auth()->user()->id;
 
-        $message = new Message();
-        $message->user_id = $request->input('user_id');
-        $message->message_template_id = $request->input('message_template_id');
-        $message->message = $request->input('message');
-        $message->status = $request->input('status');
-
-        // dd($message);
-        //saya menggunakn $user->id untuk mencari data user, yang dimana
-        // yang akan di ambil adalah nilai id
-        $message->user_id = $user->id;
-
-        $message->save();
-        return new MessageResource($message);
+        $message = Message::create($data);
+        // $contactMessage = Contact_message::create([
+        //     'contact_id' => $data['contact_id'],
+        //     'message_id' => $message->id
+        // ]);
+        return (new MessageResource($message))->additional([
+            'status' => 'Successfully Create Date'
+        ], 200);
     }
 
     function show(Message $message)

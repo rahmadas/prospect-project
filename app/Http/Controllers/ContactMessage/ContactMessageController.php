@@ -4,6 +4,8 @@ namespace App\Http\Controllers\ContactMessage;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ContactMessage\ContactMessageRequest;
+use App\Http\Resources\ContactMessageResource;
+use App\Models\Contact;
 use App\Models\Contact_message;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Test\Constraint\ResponseFormatSame;
@@ -23,15 +25,15 @@ class ContactMessageController extends Controller
 
     public function store(ContactMessageRequest $request)
     {
-
+        // Mengambil data yang divalidasi dari request
         $data = $request->validated();
-        $contactMessage = Contact_message::create();
+        // Menambahkan user_id pengguna yang sedang masuk
+        $data['user_id'] = auth()->user()->id;
 
-        return response()->json([
-            'date' => $contactMessage,
-            'message' => 'Successs create date',
-            'status' => true
-        ]);
+        //     // operasi menyisipkan data
+        $contact_message = Contact::create($data);
+
+        return new ContactMessageResource($contact_message);
     }
 
     function show(Contact_message $contactMessage)

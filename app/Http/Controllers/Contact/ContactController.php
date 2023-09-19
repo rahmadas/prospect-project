@@ -8,6 +8,7 @@ use App\Http\Requests\Contact\StoreContactRequest;
 use App\Http\Resources\ContactResource;
 use App\Models\Contact;
 use App\Models\Contact_category;
+use App\Models\Contact_message;
 use Illuminate\Database\Eloquent\Casts\Json;
 use Illuminate\Http\Request;
 use PSpell\Config;
@@ -42,6 +43,8 @@ class ContactController extends Controller
             'category_id' => $data['category_id'],
             'contact_id' => $contact->id
         ]);
+
+
         return (new ContactResource($contact))->additional([
             'status' => 'Successfully Create Date'
         ], 200);
@@ -116,6 +119,7 @@ class ContactController extends Controller
 
         // karena di dalam methode update sudah ada di model Contact
         // tidak perlu membuat syntax
+        // mencoba menemukan catatan dengan ID-nya untuk Anda, dan Anda tidak perlu menggunakan file 
         // $category = Category::findOrFail($category);
 
         // Delete the Category record

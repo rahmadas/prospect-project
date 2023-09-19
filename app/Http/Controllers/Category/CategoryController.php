@@ -53,8 +53,6 @@ class CategoryController extends Controller
         //     // operasi menyisipkan data
         $category = Category::create($data);
         return new CategoryResource($category);
-
-        //  
     }
 
     // public function store(CategoryRequest $request)
