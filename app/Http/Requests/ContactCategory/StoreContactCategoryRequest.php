@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Requests\MessageTemplate;
+namespace App\Http\Requests\ContactCategory;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class MessageTemplateRequest extends FormRequest
+class StoreContactCategoryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -22,10 +22,8 @@ class MessageTemplateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            // 'user_id' => 'required',
-            // 'message_template_id' => 'required',
-            'title' => 'required|string',
-            'message' => 'required|string'
+            'category_id' => 'required',
+            'contact_id' => 'required'
         ];
     }
 }

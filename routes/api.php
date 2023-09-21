@@ -9,7 +9,9 @@ use App\Http\Controllers\ContactCategory\ContactCategoryController;
 use App\Http\Controllers\ContactMessage\ContactMessageController;
 use App\Http\Controllers\Message\MessageController;
 use App\Http\Controllers\MessageTemplate\MessageTemplateController;
+use App\Http\Controllers\ProFeature\ProFeatureController;
 use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\UserProFeature\UserProFeatureController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -26,15 +28,14 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::post('/register', [RegisterController::class, 'register']);
-Route::post('/login', [LoginController::class, 'login'] );
+Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LogoutController::class, 'logout']);
 
 
 
 
 
-Route::group(['middleware' => 'auth:sanctum'], function () 
-{
+Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('/user', [UserController::class, 'show']);
 
     Route::apiResource('/contact', ContactController::class);
@@ -43,6 +44,8 @@ Route::group(['middleware' => 'auth:sanctum'], function ()
     Route::apiResource('/message', MessageController::class);
     Route::apiResource('/message-template', MessageTemplateController::class);
     Route::apiResource('/contact-message', ContactMessageController::class);
+    Route::apiResource('/pro-feature', ProFeatureController::class);
+    Route::apiResource('/user-pro-feature', UserProFeatureController::class);
 
     Route::post('/logout', [LogoutController::class, 'logout']);
 });
@@ -61,4 +64,3 @@ Route::group(['middleware' => 'auth:sanctum'], function ()
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-

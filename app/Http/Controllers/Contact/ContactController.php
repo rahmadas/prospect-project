@@ -19,17 +19,6 @@ class ContactController extends Controller
     {
         $contacts = Contact::orderBy('user_id', 'asc')->get();
         return ContactResource::collection($contacts);
-
-        // $user = auth()->user();
-        // $contacts = Contact::where('user_id', $user->id)->get();    
-
-        // return ContactResource::collection($contacts);
-
-        // $contact = Contact::all();
-        // return response()->json([
-        //     'data' => $contact,
-        //     'status' => 'true'
-        // ]);
     }
 
     public function store(StoreContactRequest $request)
@@ -48,33 +37,6 @@ class ContactController extends Controller
         return (new ContactResource($contact))->additional([
             'status' => 'Successfully Create Date'
         ], 200);
-
-        // $data = $request->validated();
-        // $data['user_id'] = auth()->user()->id;
-        // $contact = Contact::create($data);
-
-        // $firstName = $user->first_name;
-        // $lastName = $user->last_name;
-        // $phoneNumber = $user->phone_number;
-        // $homeNumber = $user->home_number;
-        // $workNumber = $user->work_number;
-        // $email = $user->email;
-
-        // $contact->with('user');
-
-        // return response()->json([
-        //     'data' => [
-        //         'user_id' => $data['user_id'],
-        //         'user_first_name' => $firstName,
-        //         'user_last_name' => $lastName,
-        //         'user_phone_number' => $phoneNumber,
-        //         'user_home_number' => $homeNumber,
-        //         'user_work_number' => $workNumber,
-        //         'user_email' => $email,
-        //     ],
-        //     'message' => 'Successs create date',
-        //     'status' => true
-        // ]);
     }
 
     function show(Contact $contact)
@@ -82,10 +44,6 @@ class ContactController extends Controller
         return (new ContactResource($contact))->additional([
             'status' => true
         ], 200);
-        // return response()->json([
-        //     'data' => $contact,
-        //     'status' => 'true'
-        // ]);
     }
 
     function update(StoreContactRequest $request, Contact $contact)
@@ -106,12 +64,6 @@ class ContactController extends Controller
         return (new ContactResource($contact))->additional([
             'status' => 'Successfully Update Date'
         ], 200);
-
-        // $data = $contact->update($request->validated());
-        // return response()->json([
-        //     'data' => $data,
-        //     'status' => 'true'
-        // ]);
     }
 
     function destroy(Contact $contact)
@@ -129,9 +81,5 @@ class ContactController extends Controller
         return response()->json([
             'message' => 'Category deleted successfully'
         ], 200);
-        // $contact->delete();
-        // return response()->json([
-        //     'status' => true
-        // ]);
     }
 }

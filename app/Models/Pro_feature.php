@@ -12,10 +12,10 @@ class Pro_feature extends Model
     protected $fillable = [
         'name',
         'description'
-    ]; 
+    ];
 
-    public function pro_feature() {
+    public function pro_feature()
+    {
         return $this->hasMany(User_pro_feature::class);
     }
-    
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\MessageTemplate;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\MessageTemplate\MessageTemplateRequest;
+use App\Http\Requests\MessageTemplate\StoreMessageTemplateRequest;
 use App\Http\Resources\MessageTemplateResource;
 use App\Models\Message;
 use App\Models\Message_template;
@@ -17,26 +18,15 @@ class MessageTemplateController extends Controller
     {
         $message_template = Message_template::orderBy('user_id', 'asc')->get();
         return MessageTemplateResource::collection($message_template);
-
-        // $messageTemplate = Message_template::all();
-
-        // return response()->json([
-        //     'date' => $messageTemplate,
-        //     'status' => 'true'
-        // ]);
     }
 
-    public function store(MessageTemplateRequest $request)
+    public function store(StoreMessageTemplateRequest $request)
     {
 
         $data = $request->validated();
         $data['user_id'] = auth()->user()->id;
 
         $message_template = Message_template::create($data);
-        // $message_template = Message_template::create([
-        //     'message' => $data['message'],
-        //     // 'contact_id' => $contact->id
-        // ]);
 
         return (new MessageTemplateResource($message_template))->additional([
             'status' => 'Successfully Create Date'
@@ -48,14 +38,9 @@ class MessageTemplateController extends Controller
         return (new MessageTemplateResource($message_template))->additional([
             'status' => true
         ], 200);
-
-        // return response()->json([
-        //     'date' => $messageTemplate,
-        //     'status' => 'true'
-        // ]);
     }
 
-    function update(MessageTemplateRequest $request, Message_template $message_template)
+    function update(StoreMessageTemplateRequest $request, Message_template $message_template)
     {
 
         $data = $message_template->update($request->validated());
@@ -72,11 +57,6 @@ class MessageTemplateController extends Controller
         return (new MessageTemplateResource($message_template))->additional([
             'status' => 'Successfully Update Date'
         ], 200);
-
-        // return response()->json([
-        //     'date' => $data,
-        //     'status' => 'Successs update date'
-        // ]);
     }
 
     function destroy(Message_template $message_template)
@@ -88,12 +68,5 @@ class MessageTemplateController extends Controller
         return response()->json([
             'message' => 'Category deleted successfully'
         ], 200);
-
-        // $messageTemplate->delete();
-
-        // return response()->json([
-        //     'date' => $messageTemplate,
-        //     'status' => 'Success delete date'
-        // ]);
     }
 }

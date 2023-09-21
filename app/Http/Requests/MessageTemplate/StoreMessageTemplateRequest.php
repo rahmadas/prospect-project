@@ -4,7 +4,7 @@ namespace App\Http\Requests\MessageTemplate;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class MessageTemplateRequest extends FormRequest
+class StoreMessageTemplateRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

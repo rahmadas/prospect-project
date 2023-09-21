@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Message;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Message\MessageRequest;
+use App\Http\Requests\Message\StoreMessageRequest;
 use App\Http\Resources\MessageResource;
 use App\Models\Contact_message;
 use App\Models\Message;
+use App\Models\Message_template;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -16,25 +18,15 @@ class MessageController extends Controller
     {
         $messages = Message::orderBy('user_id', 'asc')->get();
         return MessageResource::collection($messages);
-
-        // $message = Message::all();
-
-        // return response()->json([
-        //     'data' => $message,
-        //     'status' => 'true'
-        // ]);
     }
 
-    public function store(MessageRequest $request)
+    public function store(StoreMessageRequest $request)
     {
         $data = $request->validated();
         $data['user_id'] = auth()->user()->id;
 
         $message = Message::create($data);
-        // $contactMessage = Contact_message::create([
-        //     'contact_id' => $data['contact_id'],
-        //     'message_id' => $message->id
-        // ]);
+
         return (new MessageResource($message))->additional([
             'status' => 'Successfully Create Date'
         ], 200);
@@ -49,7 +41,7 @@ class MessageController extends Controller
         ]);
     }
 
-    function update(MessageRequest $request, Message $message)
+    function update(StoreMessageRequest $request, Message $message)
     {
 
         $data = $message->update($request->validated());
