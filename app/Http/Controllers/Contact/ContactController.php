@@ -28,9 +28,9 @@ class ContactController extends Controller
         $data['user_id'] = auth()->user()->id;
 
         $contact = Contact::create($data);
-        $contactCategory = Contact_category::create([
-            'category_id' => $data['category_id'],
-            'contact_id' => $contact->id
+        $contactMessage = Contact_message::create([
+            'contact_id' => $contact->id,
+            'message_id' => $data['message_id']
         ]);
 
 
@@ -79,7 +79,7 @@ class ContactController extends Controller
 
         // Return a response indicating success or appropriate error handling
         return response()->json([
-            'message' => 'Category deleted successfully'
+            'message' => 'successfully deleted date'
         ], 200);
     }
 }

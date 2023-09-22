@@ -17,6 +17,8 @@ class UserProFeatureResource extends JsonResource
         return [
             'id' => $this->id,
             'user_id' => $this->user_id,
+            // 'user_first_name' => $this->first_name,
+            // 'user_last_name' => $this->last_name,
             'pro_feature_id' => $this->pro_feature_id
         ];
     }

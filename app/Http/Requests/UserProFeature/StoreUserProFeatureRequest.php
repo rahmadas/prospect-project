@@ -22,7 +22,8 @@ class StoreUserProFeatureRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'user_id' => 'required',
+            'pro_feature_id' => 'required'
         ];
     }
 }

@@ -27,7 +27,8 @@ class RegisterRequest extends FormRequest
             'email' => 'required|email',
             'inviter_referral_code ' => 'sometimes|numeric',
             'password' => 'required|min:8|confirmed',
-            'password_confirmation' => 'required|min:8'
+            'password_confirmation' => 'required|min:8',
+            'pro_feature_id' => 'required'
             // 'status' => 'required|in:pro,free',
         ];
     }

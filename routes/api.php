@@ -46,6 +46,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::apiResource('/contact-message', ContactMessageController::class);
     Route::apiResource('/pro-feature', ProFeatureController::class);
     Route::apiResource('/user-pro-feature', UserProFeatureController::class);
+    // Route::apiResource('/user', UserController::class);
 
     Route::post('/logout', [LogoutController::class, 'logout']);
 });

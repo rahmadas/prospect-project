@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterRequest;
+use App\Http\Resources\User\UserResource;
 use App\Models\Referral;
 use App\Models\User;
+use App\Models\User_pro_feature;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -63,6 +65,12 @@ class RegisterController extends Controller
                 'date' => Carbon::now()
             ]);
         }
+
+        // tabel baru lahir dari tabel user dan pro_feature
+        $userProFeature = User_pro_feature::create([
+            'pro_feature_id' => $data['pro_feature_id'],
+            'user_id' => $user->id
+        ]);
 
         $token = $user->createToken('auth_token')->plainTextToken;
 

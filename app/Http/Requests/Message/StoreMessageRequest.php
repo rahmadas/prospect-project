@@ -23,7 +23,7 @@ class StoreMessageRequest extends FormRequest
     {
         return [
             // 'user_id' => 'required',
-            // 'contact_id' => 'required',
+            'contact_id' => 'required',
             'message_template_id' => 'required',
             'message' => 'required|string',
             'status' => 'required|in:in_queue,success,failed'

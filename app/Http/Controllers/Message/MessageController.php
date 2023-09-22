@@ -26,6 +26,10 @@ class MessageController extends Controller
         $data['user_id'] = auth()->user()->id;
 
         $message = Message::create($data);
+        $contactMessage = Contact_message::create([
+            'contact_id' => $data['contact_id'],
+            'message_id' => $message->id
+        ]);
 
         return (new MessageResource($message))->additional([
             'status' => 'Successfully Create Date'
