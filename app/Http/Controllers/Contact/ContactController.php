@@ -28,10 +28,10 @@ class ContactController extends Controller
         $data['user_id'] = auth()->user()->id;
 
         $contact = Contact::create($data);
-        $contactMessage = Contact_message::create([
-            'contact_id' => $contact->id,
-            'message_id' => $data['message_id']
-        ]);
+        // $contactMessage = Contact_message::create([
+        //     'contact_id' => $contact->id,
+        //     'message_id' => $data['message_id']
+        // ]);
 
 
         return (new ContactResource($contact))->additional([
