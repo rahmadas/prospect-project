@@ -9,6 +9,8 @@ use App\Http\Resources\ContactResource;
 use App\Models\Contact;
 use App\Models\Contact_category;
 use App\Models\Contact_message;
+use App\Models\Note;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Casts\Json;
 use Illuminate\Http\Request;
 use PSpell\Config;
@@ -28,11 +30,10 @@ class ContactController extends Controller
         $data['user_id'] = auth()->user()->id;
 
         $contact = Contact::create($data);
-        // $contactMessage = Contact_message::create([
-        //     'contact_id' => $contact->id,
-        //     'message_id' => $data['message_id']
+        // $note = Note::create([
+        //     'contact_id' => $data['contact_id'],
+        //     'date' => Carbon::now()
         // ]);
-
 
         return (new ContactResource($contact))->additional([
             'status' => 'Successfully Create Date'
