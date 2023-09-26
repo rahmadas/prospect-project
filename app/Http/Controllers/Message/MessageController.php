@@ -24,6 +24,7 @@ class MessageController extends Controller
     {
         $data = $request->validated();
         $data['user_id'] = auth()->user()->id;
+        $data['status'] = 1;
 
         $message = Message::create($data);
         $contactMessage = Contact_message::create([
@@ -38,11 +39,9 @@ class MessageController extends Controller
 
     function show(Message $message)
     {
-
-        return response([
-            'data' => $message,
-            'status' => 'true'
-        ]);
+        return (new MessageResource($message))->additional([
+            'status' => true
+        ], 200);
     }
 
     function update(StoreMessageRequest $request, Message $message)
@@ -52,17 +51,7 @@ class MessageController extends Controller
 
         return response()->json([
             'data' => $data,
-            'status' => 'Success update'
-        ]);
-    }
-
-    function destroy(Message $message)
-    {
-
-        $message->delete();
-
-        return response([
-            'status' => 'Success delete date'
-        ]);
+            'status' => 'Successfully Update Date'
+        ], 200);
     }
 }

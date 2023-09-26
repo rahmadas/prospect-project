@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->enum('type', ['text', 'vidio']);
             $table->string('description');
-            $table->string('vidio_source');
+            $table->string('video_source');
             $table->timestamps();
             $table->softDeletes();
         });

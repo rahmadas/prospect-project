@@ -30,9 +30,14 @@ class ContactController extends Controller
         $data['user_id'] = auth()->user()->id;
 
         $contact = Contact::create($data);
+
+        $contactCategory = Contact_category::create([
+            'category_id' => $data['category_id'],
+            'contact_id' => $contact->id
+        ]);
+
         // $note = Note::create([
-        //     'contact_id' => $data['contact_id'],
-        //     'date' => Carbon::now()
+        //     'contact_id' => $data['contact_id']
         // ]);
 
         return (new ContactResource($contact))->additional([
@@ -49,10 +54,6 @@ class ContactController extends Controller
 
     function update(StoreContactRequest $request, Contact $contact)
     {
-        // karena di dalam methode update sudah ada 
-        // di dalam model Contact
-        // $category = Category::findOrFail($category);
-
         // Validate the request data
         $data = $request->validated();
 
@@ -69,12 +70,6 @@ class ContactController extends Controller
 
     function destroy(Contact $contact)
     {
-
-        // karena di dalam methode update sudah ada di model Contact
-        // tidak perlu membuat syntax
-        // mencoba menemukan catatan dengan ID-nya untuk Anda, dan Anda tidak perlu menggunakan file 
-        // $category = Category::findOrFail($category);
-
         // Delete the Category record
         $contact->delete();
 

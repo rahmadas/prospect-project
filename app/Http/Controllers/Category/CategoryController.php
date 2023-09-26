@@ -32,7 +32,9 @@ class CategoryController extends Controller
 
         //     // operasi menyisipkan data
         $category = Category::create($data);
-        return new CategoryResource($category);
+        return (new CategoryResource($category))->additional([
+            'Successfully Create Date'
+        ], 200);
     }
 
     function show(Category $category)
@@ -53,7 +55,9 @@ class CategoryController extends Controller
         // Update the Category record with the new data
         $category->update($data);
 
-        return new CategoryResource($category);
+        return (new CategoryResource($category))->additional([
+            'Successfully Update Date'
+        ], 200);
     }
 
     function destroy($category)

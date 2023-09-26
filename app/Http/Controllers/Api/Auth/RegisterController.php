@@ -17,25 +17,13 @@ class RegisterController extends Controller
     function register(RegisterRequest $request)
     {
 
-        // pecahkan 2 persoalan tersubut!!!
-        // cari id user dari inviter referral code, ambil id usernya untuk di input ke tabel referral 
-        // if iD USER INVETERREFERRALCODE not found keluarin return respone referralcode not found
 
-        //     <<<<<<<<<<<            jawaban          >>>>>>>>>>>>
-
-        // Data yang dikirimkan dalam permintaan di-validasi menggunakan-
-        // aturan yang telah didefinisikan dalam RegisterRequest dan hasilnya disimpan dalam variabel $data.
         $data = $request->validated();
 
-        // mencari pengguna (user) yang memiliki kode referral yang sesuai dengan kode referral- 
-        // yang dikirimkan dalam permintaan. 
-        // Jika kode referral tidak ditemukan, maka variabel $inviter akan menjadi null.
+
         $inviter = User::where('referral_code', $request['inviter_referral_code'])->first();
 
-        // pengujian untuk memeriksa apakah pengguna yang merujuk ditemukan. 
-        // Jika tidak ditemukan (nilai $inviter adalah null), 
-        // maka Anda mengembalikan respons JSON yang berisi pesan kesalahan bahwa "respone referral code not found".
-        if ($inviter == null) {
+        if (!$inviter == null) {
             return response()->json([
                 'message' => 'respone referral code not found'
             ]);

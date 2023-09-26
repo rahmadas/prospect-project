@@ -11,6 +11,8 @@ use App\Http\Controllers\Message\MessageController;
 use App\Http\Controllers\MessageTemplate\MessageTemplateController;
 use App\Http\Controllers\Note\NoteController;
 use App\Http\Controllers\ProFeature\ProFeatureController;
+use App\Http\Controllers\Task\TaskController;
+use App\Http\Controllers\Tutorial\TutorialController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\UserProFeature\UserProFeatureController;
 use Illuminate\Http\Request;
@@ -48,6 +50,8 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::apiResource('/pro-feature', ProFeatureController::class);
     Route::apiResource('/user-pro-feature', UserProFeatureController::class);
     Route::apiResource('/note', NoteController::class);
+    Route::apiResource('/tutorial', TutorialController::class);
+    Route::apiResource('/task', TaskController::class);
 
     Route::post('/logout', [LogoutController::class, 'logout']);
 });

@@ -24,7 +24,7 @@ class StoreNoteRequest extends FormRequest
         return [
             'contact_id' => 'required',
             'note' => 'required|string',
-            'date' => 'required|date'
+            // 'date' => 'required|date'
         ];
     }
 }

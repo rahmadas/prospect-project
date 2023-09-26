@@ -11,7 +11,7 @@ class StoreTutorialRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class StoreTutorialRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            // 'type' => 'required|in:text,vidio',
+            'description' => 'required|string',
+            'video_source' => 'required|mimetypes:video/avi,video/mp4,video/mpeg,video/quicktime'
         ];
     }
 }

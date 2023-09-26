@@ -15,7 +15,7 @@ class ProFeatureController extends Controller
     public function index()
     {
 
-        $pro_feature = Pro_feature::orderBy('name', 'asc')->get();
+        $pro_feature = Pro_feature::orderBy('name', 'desc')->get();
         return ProFeatureResource::collection($pro_feature);
     }
 

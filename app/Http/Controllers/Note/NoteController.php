@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Note;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Note\StoreNoteRequest;
 use App\Http\Resources\Note\NoteResource;
+use App\Models\Contact;
 use App\Models\Note;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -21,8 +22,9 @@ class NoteController extends Controller
     {
         $data = $request->validated();
         $data['user'] = auth()->user()->id;
-        // $data['date'] = Carbon::now();
+        $data['date'] = Carbon::now();
 
+        // dd($data);
         $note = Note::create($data);
 
         return (new NoteResource($note))->additional([
@@ -50,7 +52,7 @@ class NoteController extends Controller
 
     function destroy(Note $note)
     {
-        $note->delete;
+        $note->delete();
 
         return response()->json([
             'status' => 'Seccessfully Delete Date'

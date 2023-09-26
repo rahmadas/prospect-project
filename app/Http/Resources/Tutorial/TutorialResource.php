@@ -14,6 +14,11 @@ class TutorialResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'type' => $this->type,
+            'description' => $this->description,
+            'video_source' => $this->video_source
+        ];
     }
 }

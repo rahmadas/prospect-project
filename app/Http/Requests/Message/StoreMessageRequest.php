@@ -26,7 +26,7 @@ class StoreMessageRequest extends FormRequest
             'contact_id' => 'required',
             'message_template_id' => 'required',
             'message' => 'required|string',
-            'status' => 'required|in:in_queue,success,failed'
+            // 'status' => 'required|in:in_queue,success,failed'
         ];
     }
 }
