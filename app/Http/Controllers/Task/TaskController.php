@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Task\StoreTaskRequest;
 use App\Http\Resources\Task\TaskResource;
 use App\Models\Task;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class TaskController extends Controller
@@ -21,6 +22,17 @@ class TaskController extends Controller
 
         $data = $request->validated();
         $data['user_id'] = auth()->user()->id;
+        $data['due_date'] = Carbon::now();
+        $data['due_time'] = Carbon::now();
+        $data['reminder'] = Carbon::parse($data['due_date'])
+            ->subHour() // Mengurangkan satu jam dari waktu due_date
+            ->setTimezone('Asia/Jakarta');
+        $data['status'] = 1;
+
+        // perulangan untuk status, akan di kerjakan nesok di kantor
+        // if (condition) {
+        //     # code...
+        // }
 
         $task = Task::create($data);
 

@@ -25,11 +25,11 @@ class StoreTaskRequest extends FormRequest
             'contact_id' => 'required',
             'title' => 'required|string',
             'note' => 'required|string',
-            'due_date' => 'required|date',
-            'due_time' => 'required|YYYY-MM-DD HH:mm:ss',
+            // 'due_date' => 'required|date',
+            // 'due_time' => 'required|YYYY-MM-DD HH:mm:ss',
             'priority' => 'required|in:low,medium,hight',
-            'reminder' => 'required|YYYY-MM-DD HH:mm:ss',
-            'status' => 'required|in:completed,not_completed,due_today',
+            // 'reminder' => 'required|YYYY-MM-DD HH:mm:ss',
+            // 'status' => 'required|in:completed,not_completed,due_today',
             'relate_to' => 'nullable|integer'
         ];
     }
