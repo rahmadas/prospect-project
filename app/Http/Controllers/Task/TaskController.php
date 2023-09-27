@@ -28,7 +28,6 @@ class TaskController extends Controller
             ->setTimezone('Asia/Jakarta');
         $data['status'] = 1;
 
-        // perulangan untuk status, akan di kerjakan nesok di kantor
         // if (condition) {
         //     # code...
         // }
