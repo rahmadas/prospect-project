@@ -7,6 +7,7 @@ use App\Http\Controllers\Category\CategoryController;
 use App\Http\Controllers\Contact\ContactController;
 use App\Http\Controllers\ContactCategory\ContactCategoryController;
 use App\Http\Controllers\ContactMessage\ContactMessageController;
+use App\Http\Controllers\Event\EventController;
 use App\Http\Controllers\Feedback\FeedbackController;
 use App\Http\Controllers\Message\MessageController;
 use App\Http\Controllers\MessageTemplate\MessageTemplateController;
@@ -54,6 +55,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::apiResource('/tutorial', TutorialController::class);
     Route::apiResource('/task', TaskController::class);
     Route::apiResource('/feedback', FeedbackController::class);
+    Route::apiResource('/event', EventController::class);
 
     Route::post('/logout', [LogoutController::class, 'logout']);
 });

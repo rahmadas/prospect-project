@@ -19,7 +19,6 @@ class TaskController extends Controller
 
     public function store(StoreTaskRequest $request)
     {
-
         $data = $request->validated();
         $data['user_id'] = auth()->user()->id;
         $data['due_date'] = Carbon::now();

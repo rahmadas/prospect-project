@@ -23,48 +23,4 @@ class ContactMessageController extends Controller
             'status' => 'true'
         ]);
     }
-
-    public function store(StoreContactMessageRequest $request)
-    {
-        // Mengambil data yang divalidasi dari request
-        $data = $request->validated();
-        // Menambahkan user_id pengguna yang sedang masuk
-        $data['user_id'] = auth()->user()->id;
-
-        //     // operasi menyisipkan data
-        $contact_message = Contact::create($data);
-
-        return new ContactMessageResource($contact_message);
-    }
-
-    function show(Contact_message $contactMessage)
-    {
-
-        return response()->json([
-            'date' => $contactMessage,
-            'status' => 'true'
-        ]);
-    }
-
-    function update(StoreContactMessageRequest $request, Contact_message $contactMessage)
-    {
-
-        $data = $contactMessage->update($request->validated());
-
-        return response()->json([
-            'date' => $data,
-            'status' => 'Success update date'
-        ]);
-    }
-
-    function destroy(Contact_message $contactMessage)
-    {
-
-        $contactMessage->delete;
-
-        return response()->json([
-            'date' => $contactMessage,
-            'status' => 'Success Delete date'
-        ]);
-    }
 }
