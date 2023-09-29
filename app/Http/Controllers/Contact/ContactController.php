@@ -8,19 +8,35 @@ use App\Http\Requests\Contact\StoreContactRequest;
 use App\Http\Resources\ContactResource;
 use App\Models\Contact;
 use App\Models\Contact_category;
-use App\Models\Contact_message;
-use App\Models\Note;
-use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Casts\Json;
-use Illuminate\Http\Request;
-use PSpell\Config;
+use GuzzleHttp\Psr7\Request;
 
 class ContactController extends Controller
 {
     public function index()
     {
-        $contacts = Contact::orderBy('user_id', 'asc')->get();
-        return ContactResource::collection($contacts);
+        $contacts = Contact::orderBy('user_id', 'asc')->paginate(3);
+        // $contacts = Contact::orderBy('user_id', 'asc')->get();
+        // return ContactResource::collection($contacts);
+
+        //Buat koleksi ContactResource
+        $contactCollection = ContactResource::collection($contacts);
+
+        //Buat data paginasi kustom
+        $pagination = [
+            'total' => $contactCollection->total(),
+            'per_page' => $contactCollection->perPage(),
+            'current_page' => $contactCollection->currentPage(),
+            'last_page' => $contactCollection->lastPage(),
+            'next_page_url' => $contactCollection->nextPageUrl(),
+            'prev_page_url' => $contactCollection->previousPageUrl(),
+        ];
+
+        //Menggabungkan data paginasi dengan data kontak dalam respons JSON
+        $responseData = [
+            'data' => $contactCollection,
+            'pagination' => $pagination,
+        ];
+        return response()->json($responseData);
     }
 
     public function store(StoreContactRequest $request)
@@ -35,10 +51,6 @@ class ContactController extends Controller
             'category_id' => $data['category_id'],
             'contact_id' => $contact->id
         ]);
-
-        // $note = Note::create([
-        //     'contact_id' => $data['contact_id']
-        // ]);
 
         return (new ContactResource($contact))->additional([
             'status' => 'Successfully Create Date'
