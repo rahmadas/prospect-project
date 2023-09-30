@@ -14,11 +14,23 @@ class ContactController extends Controller
 {
     public function index()
     {
-        $contacts = Contact::orderBy('user_id', 'asc')->paginate(3);
-        // $contacts = Contact::orderBy('user_id', 'asc')->get();
-        // return ContactResource::collection($contacts);
 
-        //Buat koleksi ContactResource
+        $query = ('arim');
+
+        // Query data Contact berdasarkan query pencarian jika ada
+        $contactsQuery = Contact::orderBy('user_id', 'asc');
+
+        if ($query) {
+            $contactsQuery->where('first_name', 'like', '%' . $query . '%')
+                ->orWhere('last_name', 'like', '%' . $query . '%');
+        }
+
+        // Paginasi hasil query
+        // $contacts = Contact::orderBy('user_id', 'asc')->paginate(3);
+        // return ContactResource::collection($contacts);
+        $contacts = $contactsQuery->paginate(3);
+
+        // Buat koleksi ContactResource
         $contactCollection = ContactResource::collection($contacts);
 
         //Buat data paginasi kustom
