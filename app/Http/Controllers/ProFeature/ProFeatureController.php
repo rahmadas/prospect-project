@@ -12,11 +12,25 @@ use Illuminate\Http\Request;
 
 class ProFeatureController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $perPage = $request->perPage;
+        $query = $request->$perPage;
+        $proFeatures = Pro_feature::orderBy('name', 'asc');
 
-        $pro_feature = Pro_feature::orderBy('name', 'desc')->get();
-        return ProFeatureResource::collection($pro_feature);
+        $query = $request->input('query', '');
+
+        if (!empty($query)) {
+            $proFeatures->where(function ($queryBuilder) use ($query) {
+                $queryBuilder->where('name', 'like', '%' . $query . '%')
+                    ->orWhere('description', 'like', '%' . $query . '%');
+            });
+        }
+
+        $proFeatures = $proFeatures->paginate($perPage);
+        return ProFeatureResource::collection($proFeatures)->additional([
+            'status' => 'Successfully Index Date'
+        ], 200);
     }
 
     public function Store(StoreProFeatureRequest $request)

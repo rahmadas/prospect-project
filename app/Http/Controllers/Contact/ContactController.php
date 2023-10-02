@@ -8,47 +8,44 @@ use App\Http\Requests\Contact\StoreContactRequest;
 use App\Http\Resources\ContactResource;
 use App\Models\Contact;
 use App\Models\Contact_category;
-use GuzzleHttp\Psr7\Request;
+use Illuminate\Http\Request;
 
 class ContactController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        // Mengambil nilai per_page dari query parameter, default 3 jika tidak ada
+        $perPage = $request->perPage;
 
-        $query = ('arim');
+        // Mengambil query parameter "query" untuk pencarian jika diberikan
+        $query = $request->$perPage;
 
-        // Query data Contact berdasarkan query pencarian jika ada
-        $contactsQuery = Contact::orderBy('user_id', 'asc');
+        // Query data Contact berdasarkan kondisi
+        $contacts = Contact::orderBy('user_id', 'asc');
 
-        if ($query) {
-            $contactsQuery->where('first_name', 'like', '%' . $query . '%')
-                ->orWhere('last_name', 'like', '%' . $query . '%');
+
+
+        // Mengambil query parameter "query" untuk pencarian jika diberikan
+        $query = $request->input('query', '');
+
+        if (!empty($query)) {
+            $contacts->where(function ($queryBuilder) use ($query) {
+                $queryBuilder->where('first_name', 'like', '%' . $query . '%')
+                    ->orWhere('last_name', 'like', '%' . $query . '%')
+                    ->orWhere('phone_number', 'like', '%' . $query . '%')
+                    ->orWhere('home_number', 'like', '%' . $query . '%')
+                    ->orWhere('work_number', 'like', '%' . $query . '%')
+                    ->orWhere('email', 'like', '%' . $query . '%');
+            });
         }
 
-        // Paginasi hasil query
-        // $contacts = Contact::orderBy('user_id', 'asc')->paginate(3);
-        // return ContactResource::collection($contacts);
-        $contacts = $contactsQuery->paginate(3);
+        // Paginasi hasil query dengan custom "per_page"
+        $contacts = $contacts->paginate($perPage);
 
         // Buat koleksi ContactResource
-        $contactCollection = ContactResource::collection($contacts);
-
-        //Buat data paginasi kustom
-        $pagination = [
-            'total' => $contactCollection->total(),
-            'per_page' => $contactCollection->perPage(),
-            'current_page' => $contactCollection->currentPage(),
-            'last_page' => $contactCollection->lastPage(),
-            'next_page_url' => $contactCollection->nextPageUrl(),
-            'prev_page_url' => $contactCollection->previousPageUrl(),
-        ];
-
-        //Menggabungkan data paginasi dengan data kontak dalam respons JSON
-        $responseData = [
-            'data' => $contactCollection,
-            'pagination' => $pagination,
-        ];
-        return response()->json($responseData);
+        return ContactResource::collection($contacts)->additional([
+            'status' => 'Successfully Index Date'
+        ], 200);
     }
 
     public function store(StoreContactRequest $request)

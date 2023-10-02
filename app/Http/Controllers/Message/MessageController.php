@@ -14,10 +14,27 @@ use Illuminate\Http\Request;
 
 class MessageController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $messages = Message::orderBy('user_id', 'asc')->get();
-        return MessageResource::collection($messages);
+        $perPage = $request->perPage;
+        $query = $request->$perPage;
+        $messages = Message::orderBy('user_id', 'asc');
+
+        $query = $request->input('query', '');
+
+        if (!empty($query)) {
+            $messages->where(function ($queryBuilder) use ($query) {
+                $queryBuilder->where('message_template_id', 'like', '%' . $query . '%')
+                    ->orWhere('message', 'like', '%' . $query . '%')
+                    ->orWhere('status', 'like', '%' . $query . '%');
+            });
+        }
+
+        $messages = $messages->paginate($perPage);
+
+        return MessageResource::collection($messages)->additional([
+            'status' => 'Successfully Index Date'
+        ], 200);
     }
 
     public function store(StoreMessageRequest $request)

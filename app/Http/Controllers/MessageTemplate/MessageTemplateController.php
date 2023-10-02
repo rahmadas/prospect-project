@@ -10,14 +10,30 @@ use App\Models\Message;
 use App\Models\Message_template;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Test\Constraint\ResponseFormatSame;
+
 
 class MessageTemplateController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $message_template = Message_template::orderBy('user_id', 'asc')->get();
-        return MessageTemplateResource::collection($message_template);
+        $perPage = $request->perPage;
+        $query = $request->$perPage;
+        $messageTemplates = Message_template::orderBy('user_id', 'asc');
+
+        $query = $request->input('query', '');
+
+        if (!empty($query)) {
+            $messageTemplates->where(function ($queryBuilder) use ($query) {
+                $queryBuilder->where('title', 'like', '%' . $query . '%')
+                    ->orWhere('message', 'like', '%' . $query . '%');
+            });
+        }
+
+        $messageTemplates = $messageTemplates->paginate($perPage);
+
+        return MessageTemplateResource::collection($messageTemplates)->additional([
+            'status' => 'Successfulyy Index Date'
+        ], 200);
     }
 
     public function store(StoreMessageTemplateRequest $request)

@@ -15,11 +15,27 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+        $perPage = $request->perPage;
+        $query = $request->perPage;
+        $categories = Category::orderBy('user_id', 'asc');
 
-        $categorys = Category::orderBy('user_id', 'asc')->get();
-        return CategoryResource::collection($categorys);
+        // get query parameter for search
+        $query = $request->input('query', '');
+
+        if (!empty($query)) {
+            $categories->where(function ($queryBuilder) use ($query) {
+                $queryBuilder->where('name', 'like', '%' . $query . '%');
+            });
+        }
+
+        //
+        $categories = $categories->paginate($perPage);
+
+        return CategoryResource::collection($categories)->additional([
+            'status' => 'Successfully Index Date'
+        ], 200);
     }
 
     public function store(StoreCategoryRequest $request)
