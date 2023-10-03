@@ -12,10 +12,26 @@ use Illuminate\Http\Request;
 
 class NoteController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $note = Note::orderBy('contact_id', 'asc')->get();
-        return NoteResource::collection($note);
+        $perPage = $request->perPage;
+        $query = $request->$perPage;
+        $notes = Note::orderBy('contact_id', 'asc');
+
+        $query = $request->input('query', '');
+
+        if (!empty($query)) {
+            $notes->where(function ($queryBuilder) use ($query) {
+                $queryBuilder->where('note', 'like', '%' . $query . '%')
+                    ->orWhere('date', 'like', '%' . $query . '%');
+            });
+        }
+
+        $notes = $notes->paginate($perPage);
+
+        return NoteResource::collection($notes)->additional([
+            'status' => 'Successfuly Index Date'
+        ], 200);
     }
 
     public function store(StoreNoteRequest $request)
@@ -24,7 +40,6 @@ class NoteController extends Controller
         $data['user'] = auth()->user()->id;
         $data['date'] = Carbon::now();
 
-        // dd($data);
         $note = Note::create($data);
 
         return (new NoteResource($note))->additional([

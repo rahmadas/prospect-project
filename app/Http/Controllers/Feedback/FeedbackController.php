@@ -10,10 +10,26 @@ use Illuminate\Http\Request;
 
 class FeedbackController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $feedback = Feedback::orderBy('user_id', 'asc')->get();
-        return FeedbackResource::collection($feedback);
+        $perPage = $request->perPage;
+        $query = $request->$perPage;
+        $feedbacks = Feedback::orderBy('user_id', 'asc');
+
+        $query = $request->input('query', '');
+
+        if (!empty($query)) {
+            $feedbacks->where(function ($queryBuilder) use ($query) {
+                $queryBuilder->where('title', 'like', '%' . $query . '%')
+                    ->orWhere('feedback_message', 'like', '%' . $query . '%');
+            });
+        }
+
+        $feedbacks = $feedbacks->paginate($perPage);
+
+        return FeedbackResource::collection($feedbacks)->additional([
+            'status' => 'Successfully Index Date'
+        ], 200);
     }
 
     public function store(StoreFeedbackRequest $request)

@@ -11,10 +11,32 @@ use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $event = Event::orderBy('user_id', 'asc')->get();
-        return EventResource::collection($event);
+        $perPage = $request->Perpage;
+        $query = $request->$perPage;
+        $events = Event::orderBy('user_id', 'asc');
+
+        $query = $request->input('query', '');
+
+        if (!empty($query)) {
+            $events->where(function ($queryBuilder) use ($query) {
+                $queryBuilder->where('title', 'like', '%' . $query . '%')
+                    ->orWhere('meeting_with', 'like', '%' . $query . '%')
+                    ->orWhere('meeting_type', 'like', '%' . $query . '%')
+                    ->orWhere('start_date', 'like', '%' . $query . '%')
+                    ->orWhere('end_date', 'like', '%' . $query . '%')
+                    ->orWhere('location', 'like', '%' . $query . '%')
+                    ->orWhere('reminder', 'like', '%' . $query . '%')
+                    ->orWhere('note', 'like', '%' . $query . '%');
+            });
+        }
+
+        $events = $events->paginate($perPage);
+
+        return EventResource::collection($events)->additional([
+            'status' => 'Successfully Index Date'
+        ], 200);
     }
 
     public function store(StoreEventRequest $request)

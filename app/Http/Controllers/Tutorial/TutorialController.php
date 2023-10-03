@@ -14,10 +14,27 @@ use function Laravel\Prompts\text;
 
 class TutorialController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $tutorial = Tutorial::orderBy('id')->get();
-        return TutorialResource::collection($tutorial);
+        $perPage = $request->perPage;
+        $query = $request->$perPage;
+        $tutorials = Tutorial::orderBy('type', 'asc');
+
+        $query = $request->input('query', '');
+
+        if (!empty($query)) {
+            $tutorials->where(function ($queryBuilder) use ($query) {
+                $queryBuilder->where('type', 'like', '%' . $query . '%')
+                    ->orWhere('description', 'like', '%' . $query . '%')
+                    ->orWhere('video_source', 'like', '%' . $query . '%');
+            });
+        }
+
+        $tutorials = $tutorials->paginate($perPage);
+
+        return TutorialResource::collection($tutorials)->additional([
+            'status' => 'Successfully Index Date'
+        ], 200);
     }
 
     public function store(StoreTutorialRequest $request)

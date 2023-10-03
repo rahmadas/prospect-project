@@ -11,10 +11,32 @@ use Illuminate\Http\Request;
 
 class TaskController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $task = Task::orderBy('user_id', 'asc')->get();
-        return TaskResource::collection($task);
+        $perPage = $request->perPage;
+        $query = $request->$perPage;
+        $tasks = Task::orderBy('user_id', 'asc');
+
+        $query = $request->input('query', '');
+
+        if (!empty($query)) {
+            $tasks->where(function ($queryBuilder) use ($query) {
+                $queryBuilder->where('title', 'like', '%' . $query . '%')
+                    ->orWhere('note', 'like', '%' . $query . '%')
+                    ->orWhere('due_date', 'like', '%' . $query . '%')
+                    ->orWhere('due_time', 'like', '%' . $query . '%')
+                    ->orWhere('priority', 'like', '%' . $query . '%')
+                    ->orWhere('reminder', 'like', '%' . $query . '%')
+                    ->orWhere('status', 'like', '%' . $query . '%')
+                    ->orWhere('relate_to', 'like', '%' . $query . '%');
+            });
+        }
+
+        $tasks = $tasks->paginate($perPage);
+
+        return TaskResource::collection($tasks)->additional([
+            'status' => 'Successfully Index Date'
+        ], 200);
     }
 
     public function store(StoreTaskRequest $request)
