@@ -23,8 +23,6 @@ class ContactController extends Controller
         // Query data Contact berdasarkan kondisi
         $contacts = Contact::orderBy('user_id', 'asc');
 
-
-
         // Mengambil query parameter "query" untuk pencarian jika diberikan
         $query = $request->input('query', '');
 
