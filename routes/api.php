@@ -12,11 +12,13 @@ use App\Http\Controllers\Feedback\FeedbackController;
 use App\Http\Controllers\Message\MessageController;
 use App\Http\Controllers\MessageTemplate\MessageTemplateController;
 use App\Http\Controllers\Note\NoteController;
+use App\Http\Controllers\phonebook\PhoneBookController;
 use App\Http\Controllers\ProFeature\ProFeatureController;
 use App\Http\Controllers\Task\TaskController;
 use App\Http\Controllers\Tutorial\TutorialController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\UserProFeature\UserProFeatureController;
+use App\Models\PhoneBook;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -61,7 +63,9 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::post('/logout', [LogoutController::class, 'logout']);
 });
 
+Route::post('/events/import-from-phone-book', [EventController::class, 'importFromPhoneBook'])->name('events.importFromPhoneBook');
 
+// Route::post('/phone-book', [PhoneBookController::class, 'importPhoneBook'])->name('phone-book.import');
 
 
 

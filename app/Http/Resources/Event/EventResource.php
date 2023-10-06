@@ -24,9 +24,12 @@ class EventResource extends JsonResource
             'meeting_type' => $this->meeting_type,
             'start_date' => $this->start_date,
             'end_date' => $this->end_date,
+            'latitude' => $this->latitude,
+            'longitude' => $this->longitude,
             'location' => $this->location,
             'reminder' => $this->reminder,
-            'note' => $this->note
+            'note' => $this->note,
+            'phone_book_id' => $this->phone_book_id
         ];
     }
 }

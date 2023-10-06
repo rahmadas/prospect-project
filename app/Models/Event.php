@@ -16,12 +16,16 @@ class Event extends Model
         'meeting_type',
         'start_date',
         'end_date',
+        'latitude',
+        'longitude',
         'location',
         'reminder',
-        'note'
+        'note',
+        'phone_book_id'
     ];
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 }

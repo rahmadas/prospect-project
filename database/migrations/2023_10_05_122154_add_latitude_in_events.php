@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('events', function (Blueprint $table) {
-            $table->string('latitude')->after('location');
-            $table->string('longitude')->after('latitude');
+            // $table->string('latitude')->after('end_date');
+            // $table->string('longitude')->after('latitude');
             // $table->string('location')->nullable()->after('latitude');
         });
     }

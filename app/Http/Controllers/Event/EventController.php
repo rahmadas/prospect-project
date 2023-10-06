@@ -4,13 +4,46 @@ namespace App\Http\Controllers\Event;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Event\StoreEventRequest;
+use App\Http\Requests\PhoneBook\StorePhoneBookRequest;
 use App\Http\Resources\Event\EventResource;
 use App\Models\Event;
+use App\Models\PhoneBook;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class EventController extends Controller
 {
+
+    public function importFromPhoneBook(StorePhoneBookRequest $request)
+    {
+
+        // // Validasi input
+        // $request->validate([
+        //     'phone_book_id' => 'required',
+        //     // 'phone_book_id' => 'required|exists:phone_books,id',
+        // ]);
+
+        // Dapatkan phone_book_id dari input
+
+        $data = $request->validated();
+        $data = $request->input('phone_book_id');
+
+        // Dapatkan data kontak dari buku telepon
+        $phoneBook = PhoneBook::findOrFail($data);
+
+        // Proses impor ke event
+        $phoneBook = Event::create($data);
+
+        return response()->json([
+            'status' => 'Successfully imported from phone book'
+        ], 200);
+
+        return EventResource::collection($phoneBook)->additional([
+            'status' => 'Successfully Index Date'
+        ], 200);
+    }
+
+
     public function index(Request $request)
     {
         $perPage = $request->Perpage;
@@ -26,6 +59,8 @@ class EventController extends Controller
                     ->orWhere('meeting_type', 'like', '%' . $query . '%')
                     ->orWhere('start_date', 'like', '%' . $query . '%')
                     ->orWhere('end_date', 'like', '%' . $query . '%')
+                    ->orWhere('latitude', 'like', '%' . $query . '&')
+                    ->orWhere('longitude', 'like', '%' . $query . '%')
                     ->orWhere('location', 'like', '%' . $query . '%')
                     ->orWhere('reminder', 'like', '%' . $query . '%')
                     ->orWhere('note', 'like', '%' . $query . '%');
@@ -50,6 +85,12 @@ class EventController extends Controller
             ->setTimezone('Asia/Jakarta');
         $data['meeting_type'] = 2;
 
+        // Tambahkan data latitude, longitude, dan location
+        $data['latitude'] = $request->input('latitude');
+        $data['longitude'] = $request->input('longitude');
+        $data['location'] = $request->input('location');
+        // $data['phone_book_id'] = $request->input('phone_book_id');
+
         $event = Event::create($data);
 
         return (new EventResource($event))->additional([
@@ -68,6 +109,13 @@ class EventController extends Controller
     {
         $data = $request->validated();
         $data['user_id'] = auth()->user()->id;
+
+        // Tambahkan data latitude, longitude, dan location
+        $data['latitude'] = $request->input('latitude');
+        $data['longitude'] = $request->input('longitude');
+        $data['location'] = $request->input('location');
+        // $data['phone_book_id'] = $request->input('phone_book_id');
+
         $event->update($data);
 
         return (new EventResource($event))->additional([

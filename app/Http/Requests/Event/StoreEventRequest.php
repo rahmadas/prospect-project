@@ -28,9 +28,13 @@ class StoreEventRequest extends FormRequest
             // 'meeting_type' => 'required|in:create_event,create_presentation,event_create_followup_event,create_call_event',
             // 'start_date' => 'required|date',
             // 'end_date' => 'required|date',
+            'latitude' => 'required|string',
+            'longitude' => 'required|string',
             'location' => 'required|string',
             // 'reminder' => 'required|YYYY-MM-DD HH:mm:ss',
-            'note' => 'required|string'
+            'note' => 'required|string',
+            // 'phone_book_id' => 'required'
+
         ];
     }
 }
