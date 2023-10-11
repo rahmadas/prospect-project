@@ -16,13 +16,14 @@ class NoteController extends Controller
     {
         $perPage = $request->perPage;
         $query = $request->$perPage;
-        $notes = Note::orderBy('contact_id', 'asc');
+        $notes = Note::orderBy('contact_id');
 
         $query = $request->input('query', '');
 
         if (!empty($query)) {
             $notes->where(function ($queryBuilder) use ($query) {
-                $queryBuilder->where('note', 'like', '%' . $query . '%')
+                $queryBuilder->where('contact_id', 'like', '%' . $query . '%')
+                    ->orWhere('note', 'like', '%' . $query . '%')
                     ->orWhere('date', 'like', '%' . $query . '%');
             });
         }

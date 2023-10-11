@@ -6,9 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Contact\ContactRequest;
 use App\Http\Requests\Contact\StoreContactRequest;
 use App\Http\Resources\ContactResource;
+use App\Jobs\ProcessContact;
 use App\Models\Contact;
 use App\Models\Contact_category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Process;
 
 class ContactController extends Controller
 {
@@ -53,6 +55,9 @@ class ContactController extends Controller
         $data['user_id'] = auth()->user()->id;
 
         $contact = Contact::create($data);
+
+        // Pemicuan job setelah menyimpan kontak
+        ProcessContact::dispatch($contact);
 
         $contactCategory = Contact_category::create([
             'category_id' => $data['category_id'],
