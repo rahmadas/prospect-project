@@ -27,13 +27,14 @@ return new class extends Migration
             // $table->dropColumn('latitude');
             // $table->dropColumn('longitude');
             // $table->dropColumn('location')->nullable()->after('longitude');
+            
             //Periksa apakah kolom 'location' memiliki atribut nullable
-            // if (Schema::hasColumn('events', 'location')) {
-            //     $table->dropColumn('location')->nullable()->change();
-            // } else {
-            //     // Jika kolom 'location' tidak ada, Anda bisa menambahkannya dengan nullable
-            //     $table->dropColumn('location')->nullable();
-            // }
+            if (Schema::hasColumn('events', 'location')) {
+                $table->dropColumn('location')->nullable()->change();
+            } else {
+                // Jika kolom 'location' tidak ada, Anda bisa menambahkannya dengan nullable
+                $table->dropColumn('location')->nullable();
+            }
         });
     }
 };

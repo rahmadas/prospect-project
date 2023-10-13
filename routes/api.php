@@ -59,13 +59,13 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::apiResource('/feedback', FeedbackController::class);
     Route::apiResource('/event', EventController::class);
 
-
+    //get user
+    Route::get('/auth/user', [UserController::class], 'show');
     Route::post('/logout', [LogoutController::class, 'logout']);
 });
 
-Route::post('/events/import-from-phone-book', [EventController::class, 'importFromPhoneBook'])->name('events.importFromPhoneBook');
 
-// Route::post('/phone-book', [PhoneBookController::class, 'importPhoneBook'])->name('phone-book.import');
+
 
 
 

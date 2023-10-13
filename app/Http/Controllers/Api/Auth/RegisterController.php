@@ -35,6 +35,8 @@ class RegisterController extends Controller
         $data['status'] = 1;
         // Selanjutnya, kode referral baru yang berisi 6 karakter acak (huruf dan angka) dibuat menggunakan Str::random(6).
         $data['referral_code'] = Str::random(6);
+        $data['pro_feature_id'] = 1;
+        $responseData = $data;
 
         // Pengguna baru kemudian dibuat di dalam basis data dengan menggunakan data yang telah disiapkan. 
         // Hasilnya disimpan dalam variabel $user.
@@ -61,14 +63,12 @@ class RegisterController extends Controller
         ]);
 
         $token = $user->createToken('auth_token')->plainTextToken;
+        $responseData['access_token'] = $token;
 
         return response()->json([
             'success' => true,
             'message' => 'Register Success',
-            'data' => [
-                'data' => $user,
-                'token' => $token
-            ]
+            'data' => array_merge($user->toArray(), $responseData)
         ]);
     }
 }
