@@ -28,7 +28,8 @@ class StoreUserRequest extends FormRequest
             'email' => 'required|email',
             'referral_code' => 'required|string',
             'password' => 'required|password',
-            'status' => 'required|enum'
+            'status' => 'required|enum',
+            'foto_profile' => 'required|string'
         ];
     }
 }

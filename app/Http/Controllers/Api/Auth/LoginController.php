@@ -15,29 +15,29 @@ class LoginController extends Controller
 
         if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
             $user = User::where('email', $request->email)->first();
-            $userFullName = $user->first_name . ' ' . $user->last_name;
             $token = $user->createToken('auth_token')->plainTextToken;
+            $responseData['access_token'] = $token;
 
-            // return response()->json([
-            //     'success' => true,
-            //     'message' => 'Login Success',
-            //     'data' => [
-            //         'data' => $user,
-            //         'token' => $token
-            //     ]
-            // ]);
+            $first_name = $user->first_name;
+            $last_name = $user->last_name;
+            $full_name = $first_name . ' ' . $last_name;
+
             return response()->json([
                 'success' => true,
-                'message' => 'Login Success',
-                'data' => $user,
-                'user_full_name' => $userFullName,
-                'token' => $token
+                'message' => 'Register Success',
+                'data' => array_merge(['full_name' => $full_name], $user->toArray(), $responseData)
             ]);
+        } elseif (User::where('email', $request->email)->exists()) {
+            // Autentikasi gagal karena kata sandi salah
+            $errors = ['password' => 'Password yang Anda masukkan salah!'];
         } else {
-            return response()->json([
-                'success' => false,
-                'message' => "Username and Password Didn't Match"
-            ]);
+            // Autentikasi gagal karena email tidak terdaftar
+            $errors = ['email' => 'Email yang Anda masukkan tidak terdaftar!'];
         }
+
+        return response()->json([
+            "message" => "The given data was invalid.",
+            'errors' => $errors
+        ], 422); // Kode status 422 untuk unprocessable entity
     }
 }
