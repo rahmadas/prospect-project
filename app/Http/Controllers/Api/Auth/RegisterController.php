@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterRequest;
+use App\Http\Resources\RegisterResource\RegisterResource;
 use App\Http\Resources\User\UserResource;
 use App\Models\Referral;
 use App\Models\User;
@@ -66,15 +67,24 @@ class RegisterController extends Controller
         $token = $user->createToken('auth_token')->plainTextToken;
         $responseData['access_token'] = $token;
 
-        $first_name = $data['first_name'];
-        $last_name = $data['last_name'];
-        $full_name = $first_name . ' ' . $last_name;
+        // $first_name = $data['first_name'];
+        // $last_name = $data['last_name'];
+        // $full_name = $first_name . ' ' . $last_name;
 
-
-        return response()->json([
+        return (new RegisterResource($user))->additional([
             'success' => true,
             'message' => 'Register Success',
-            'data' => array_merge(['full_name' => $full_name], $user->toArray(), $responseData)
+            'data' => $responseData
         ]);
+        // return response()->json([
+        //     'success' => true,
+        //     'message' => 'Register Success',
+        //     'data' => $user, $responseData
+        // ]);
+        // return response()->json([
+        //     'success' => true,
+        //     'message' => 'Register Success',
+        //     'data' => array_merge(['full_name' => $full_name], $user->toArray(), $responseData)
+        // ]);
     }
 }

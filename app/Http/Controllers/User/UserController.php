@@ -15,28 +15,17 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    function show(StoreUserRequest $request)
+    function show(User $user)
     {
-        $data = $request->validated();
         $user = auth()->user();
-        $full_name = $user->first_name . ' ' . $user->last_name;
-        // $responseData = $data;
-
-        // $first_name = $data['first_name'];
-        // $last_name = $data['last_name'];
-        // $full_name = $first_name . ' ' . $last_name;
-        $responseData = $data;
-        $user = User::create($data);
-        // return new UserResource($user);
-        return response()->json([
+        return (new UserResource($user))->additional([
             'success' => true,
-            'message' => 'Show User Success',
-            'data' => array_merge(['full_name' => $full_name], $user->toArray())
+            'message' => 'Register Success',
         ]);
-        // dd(auth()->user());
         // return response()->json([
         //     'data' => auth()->user(),
-        //     'status' => 'true'
+        //     'status' => 'true',
+        //     'data' => $user = auth()->user()
         // ]);
     }
 
