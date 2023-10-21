@@ -24,11 +24,6 @@ class UserResource extends JsonResource
             'status' => $this->status,
             'referral_code' => $this->referral_code,
             'password' => $this->password,
-            // 'foto_profile' => $this->foto_profile,
-            // 'access_token' => $this->access_token,
-            // 'password_confirmation' => $this->password_confirmation,
-            // 'update_at' => $this->update_at,
-            // 'create_at' => $this->create_at,
         ];
     }
 }

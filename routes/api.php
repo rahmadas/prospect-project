@@ -19,6 +19,7 @@ use App\Http\Controllers\Tutorial\TutorialController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\UserProFeature\UserProFeatureController;
 use App\Models\PhoneBook;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -43,8 +44,8 @@ Route::post('/logout', [LogoutController::class, 'logout']);
 
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
-    Route::get('/user-show', [UserController::class, 'show']);
-    Route::put('/user-update', [UserController::class, 'update']);
+    Route::get('/user-get', [UserController::class, 'show']);
+    Route::apiResource('/user-profile', RegisterController::class);
 
     Route::apiResource('/contact', ContactController::class);
     Route::apiResource('/category', CategoryController::class);

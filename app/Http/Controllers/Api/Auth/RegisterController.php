@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\User\StoreUserRequest;
 use App\Http\Resources\RegisterResource\RegisterResource;
 use App\Http\Resources\User\UserResource;
 use App\Models\Referral;
@@ -66,6 +67,7 @@ class RegisterController extends Controller
 
         $token = $user->createToken('auth_token')->plainTextToken;
         $responseData['access_token'] = $token;
+        $responseData['user_id'] = $user->id;
 
         // $first_name = $data['first_name'];
         // $last_name = $data['last_name'];
@@ -76,15 +78,19 @@ class RegisterController extends Controller
             'message' => 'Register Success',
             'data' => $responseData
         ]);
-        // return response()->json([
-        //     'success' => true,
-        //     'message' => 'Register Success',
-        //     'data' => $user, $responseData
-        // ]);
-        // return response()->json([
-        //     'success' => true,
-        //     'message' => 'Register Success',
-        //     'data' => array_merge(['full_name' => $full_name], $user->toArray(), $responseData)
-        // ]);
+    }
+
+    function update(RegisterRequest $request, User $user)
+    {
+        $data = $request->validated();
+
+        $data['user_id'] = auth()->user()->id;
+        // $data['foto_profile'] = 'string';
+
+        $user->update($data);
+
+        return (new RegisterResource($user))->additional([
+            'status' => 'Successfully Update Date'
+        ], 200);
     }
 }
