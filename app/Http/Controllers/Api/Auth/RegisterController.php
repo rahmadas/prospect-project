@@ -38,7 +38,7 @@ class RegisterController extends Controller
         // Selanjutnya, kode referral baru yang berisi 6 karakter acak (huruf dan angka) dibuat menggunakan Str::random(6).
         $data['referral_code'] = Str::random(6);
         $data['pro_feature_id'] = 1;
-        $data['foto_profile'] = 'string';
+        // $data['foto_profile'];
         $responseData = $data;
 
         // Pengguna baru kemudian dibuat di dalam basis data dengan menggunakan data yang telah disiapkan. 
@@ -67,7 +67,6 @@ class RegisterController extends Controller
 
         $token = $user->createToken('auth_token')->plainTextToken;
         $responseData['access_token'] = $token;
-        $responseData['user_id'] = $user->id;
 
         // $first_name = $data['first_name'];
         // $last_name = $data['last_name'];
@@ -80,17 +79,23 @@ class RegisterController extends Controller
         ]);
     }
 
-    function update(RegisterRequest $request, User $user)
-    {
-        $data = $request->validated();
+    // function update(RegisterRequest $request, User $user)
+    // {
+    //     $data = $request->validated();
 
-        $data['user_id'] = auth()->user()->id;
-        // $data['foto_profile'] = 'string';
+    //     $data['user_id'] = auth()->user()->id;
 
-        $user->update($data);
+    //     if ($request->hasFile('foto_profile')) {
+    //         $file = $request->file('foto_profile');
+    //         $fileName = $file->getClientOriginalName();
+    //         $file->storeAs('foto_profiles', $fileName, 'public'); // Simpan berkas dengan nama asli
+    //         $data['foto_profile'] = $fileName;
+    //     }
 
-        return (new RegisterResource($user))->additional([
-            'status' => 'Successfully Update Date'
-        ], 200);
-    }
+    //     $user->update($data);
+
+    //     return (new RegisterResource($user))->additional([
+    //         'status' => 'Successfully Update Date'
+    //     ], 200);
+    // }
 }

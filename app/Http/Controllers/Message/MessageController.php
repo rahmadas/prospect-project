@@ -41,7 +41,7 @@ class MessageController extends Controller
     {
         $data = $request->validated();
         $data['user_id'] = auth()->user()->id;
-        $data['status'] = 1;
+        $data['status'] = 2;
 
         $message = Message::create($data);
         $contactMessage = Contact_message::create([

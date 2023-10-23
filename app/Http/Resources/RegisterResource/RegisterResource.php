@@ -20,6 +20,7 @@ class RegisterResource extends JsonResource
             // 'first_name' => $this->first_name,
             // 'last_name' => $this->last_name,
             'full_name' => $this->first_name . ' ' . $this->last_name,
+            'foto_profile' => $this->foto_profile,
         ];;
     }
 }

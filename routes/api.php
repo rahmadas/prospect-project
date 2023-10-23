@@ -45,7 +45,8 @@ Route::post('/logout', [LogoutController::class, 'logout']);
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('/user-get', [UserController::class, 'show']);
-    Route::apiResource('/user-profile', RegisterController::class);
+    Route::put('/user-profile/{user}', [UserController::class, 'update']);
+    // Route::put('/user-profile/{user}', [RegisterController::class, 'update']);
 
     Route::apiResource('/contact', ContactController::class);
     Route::apiResource('/category', CategoryController::class);

@@ -13,18 +13,21 @@ class Message extends Model
         'user_id',
         'message_template_id',
         'message',
-        'status'
+        'status',
     ];
 
-    public function contact_message() {
+    public function contact_message()
+    {
         return $this->hasOne(Contact_massage::class);
     }
 
-    public function message_template() {
+    public function message_template()
+    {
         return $this->belongsToMany(Message_template::class);
     }
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsToMany(User::class);
     }
 }

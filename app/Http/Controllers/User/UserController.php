@@ -27,17 +27,23 @@ class UserController extends Controller
         ]);
     }
 
-    // function update(RegisterRequest $request, User $user)
-    // {
-    //     $data = $request->validated();
+    function update(StoreUserRequest $request, User $user)
+    {
+        $data = $request->validated();
 
-    //     $data['user_id'] = auth()->user()->id;
-    //     $data['foto_profile'] = 'string';
+        $data['user_id'] = auth()->user()->id;
 
-    //     $user->update($data);
+        if ($request->hasFile('foto_profile')) {
+            $file = $request->file('foto_profile');
+            $fileName = $file->getClientOriginalName();
+            $file->storeAs('foto_profiles', $fileName, 'public'); // Simpan berkas dengan nama asli
+            $data['foto_profile'] = $fileName;
+        }
 
-    //     return (new RegisterResource($user))->additional([
-    //         'status' => 'Successfully Update Date'
-    //     ], 200);
-    // }
+        $user->update($data);
+
+        return (new UserResource($user))->additional([
+            'status' => 'Successfully Update Date'
+        ], 200);
+    }
 }

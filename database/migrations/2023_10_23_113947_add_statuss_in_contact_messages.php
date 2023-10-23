@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('contact_messages', function (Blueprint $table) {
-            // $table->enum('status', ['pending', 'success', 'failed'])->after('contact_id');
+            $table->enum('status', ['pending', 'success', 'failed'])->after('contact_id');
         });
     }
 
@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('contact_messages', function (Blueprint $table) {
-            $table->dropColumn('status');
+            // $table->dropColumn('status');
         });
     }
 };

@@ -22,14 +22,14 @@ class StoreUserRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'pro_feature_id' => 'required',
-            'first_name' => 'required|string',
-            'last_name' => 'required|string',
-            'email' => 'required|email',
-            'referral_code' => 'required|string',
-            'password' => 'required|password',
-            'status' => 'required|enum',
-            'foto_profile' => 'required|string'
+            'pro_feature_id' => 'sometimes',
+            'first_name' => 'sometimes|string',
+            'last_name' => 'sometimes|string',
+            'email' => 'sometimes|email',
+            'referral_code' => 'sometimes|string',
+            'password' => 'sometimes|password',
+            'status' => 'sometimes|enum',
+            'foto_profile' => 'sometimes|string'
         ];
     }
 }

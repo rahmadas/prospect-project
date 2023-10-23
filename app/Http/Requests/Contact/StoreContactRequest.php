@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Contact;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class StoreContactRequest extends FormRequest
 {
@@ -28,7 +29,8 @@ class StoreContactRequest extends FormRequest
             'phone_number' => 'required|string',
             'home_number' => 'required|string',
             'work_number' => 'required|string',
-            'email' => 'required|email'
+            'email' => 'required|email',
+            // 'status' => ['required', Rule::in(['pending', 'success', 'failed'])]
         ];
     }
 }
