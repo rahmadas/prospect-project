@@ -8,6 +8,9 @@ use App\Http\Resources\Task\TaskResource;
 use App\Models\Task;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
+use function Laravel\Prompts\select;
 
 class TaskController extends Controller
 {
@@ -86,5 +89,18 @@ class TaskController extends Controller
         return response()->json([
             'message' => 'successfully deleted date'
         ], 200);
+    }
+
+    public function totalTask()
+    {
+        $totalTask = DB::table('tasks')
+            ->select('user_id', DB::raw('count(*) as totalTask'))
+            ->where('status', '=', 'Completed')
+            ->groupBy('user_id')
+            ->get();
+
+        return response()->json([
+            'data' => $totalTask
+        ]);
     }
 }

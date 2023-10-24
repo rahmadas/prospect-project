@@ -39,7 +39,11 @@ Route::post('/register', [RegisterController::class, 'register']);
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LogoutController::class, 'logout']);
 
-
+// Total Count
+Route::get('/total-contact', [ContactController::class, 'totalContact']);
+Route::get('/total-messageTemplate', [MessageTemplateController::class, 'totalMessageTemplate']);
+Route::get('/total-task', [TaskController::class, 'totalTask']);
+Route::get('/total-event', [EventController::class, 'totalEvent']);
 
 
 
@@ -62,7 +66,6 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::apiResource('/feedback', FeedbackController::class);
     Route::apiResource('/event', EventController::class);
 
-    //get user
     Route::post('/logout', [LogoutController::class, 'logout']);
 });
 

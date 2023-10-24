@@ -10,7 +10,7 @@ use App\Models\Message;
 use App\Models\Message_template;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
 
 class MessageTemplateController extends Controller
 {
@@ -84,5 +84,17 @@ class MessageTemplateController extends Controller
         return response()->json([
             'message' => 'Category deleted successfully'
         ], 200);
+    }
+
+    public function totalMessageTemplate()
+    {
+        $totalMessageTemplate = DB::table('message_templates')
+            ->select(DB::raw('user_id, count(*) as total_message_template'))
+            ->groupBy('user_id')
+            ->get();
+
+        return response()->json([
+            'data' => $totalMessageTemplate
+        ]);
     }
 }

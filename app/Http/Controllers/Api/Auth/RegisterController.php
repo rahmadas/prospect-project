@@ -78,24 +78,4 @@ class RegisterController extends Controller
             'data' => $responseData
         ]);
     }
-
-    // function update(RegisterRequest $request, User $user)
-    // {
-    //     $data = $request->validated();
-
-    //     $data['user_id'] = auth()->user()->id;
-
-    //     if ($request->hasFile('foto_profile')) {
-    //         $file = $request->file('foto_profile');
-    //         $fileName = $file->getClientOriginalName();
-    //         $file->storeAs('foto_profiles', $fileName, 'public'); // Simpan berkas dengan nama asli
-    //         $data['foto_profile'] = $fileName;
-    //     }
-
-    //     $user->update($data);
-
-    //     return (new RegisterResource($user))->additional([
-    //         'status' => 'Successfully Update Date'
-    //     ], 200);
-    // }
 }

@@ -10,6 +10,7 @@ use App\Jobs\ProcessContact;
 use App\Models\Contact;
 use App\Models\Contact_category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Process;
 
 class ContactController extends Controller
@@ -101,5 +102,17 @@ class ContactController extends Controller
         return response()->json([
             'message' => 'successfully deleted date'
         ], 200);
+    }
+
+    public function totalContact()
+    {
+        $totalContact = DB::table('contacts')
+            ->select(DB::raw('user_id, count(*) as total_contact'))
+            ->groupBy('user_id')
+            ->get();
+
+        return response()->json([
+            'data' => $totalContact
+        ]);
     }
 }

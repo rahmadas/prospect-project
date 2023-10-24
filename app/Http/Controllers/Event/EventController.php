@@ -10,21 +10,13 @@ use App\Models\Event;
 use App\Models\PhoneBook;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class EventController extends Controller
 {
 
     public function importFromPhoneBook(StorePhoneBookRequest $request)
     {
-
-        // // Validasi input
-        // $request->validate([
-        //     'phone_book_id' => 'required',
-        //     // 'phone_book_id' => 'required|exists:phone_books,id',
-        // ]);
-
-        // Dapatkan phone_book_id dari input
-
         $data = $request->validated();
         $data = $request->input('phone_book_id');
 
@@ -83,7 +75,7 @@ class EventController extends Controller
         $data['reminder'] = Carbon::parse($data['start_date'])
             ->subHour()
             ->setTimezone('Asia/Jakarta');
-        $data['meeting_type'] = 2;
+        $data['meeting_type'] = 4;
 
         // Tambahkan data latitude, longitude, dan location
         $data['latitude'] = $request->input('latitude');
@@ -130,5 +122,20 @@ class EventController extends Controller
         return response()->json([
             'status' => 'Successfully Delelt Date'
         ], 200);
+    }
+
+    public function totalEvent()
+    {
+        $now = now(); // Get the current date and time
+
+        $totalEvent = DB::table('events')
+            ->select(DB::raw('meeting_type, count(*) as totalEvent'))
+            // ->where('start_date', '>', $now) // Filter events with start dates in the future
+            ->groupBy('meeting_type')
+            ->get();
+
+        return response()->json([
+            'data' => $totalEvent
+        ]);
     }
 }
