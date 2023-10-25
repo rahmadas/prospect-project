@@ -22,7 +22,6 @@ class StorePhoneBookRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'phone_book_csv' => 'required|file|mimes:csv,txt',
             'name' => 'required|string',
             'phone_number' => 'required|string',
             'email' => 'required|email',

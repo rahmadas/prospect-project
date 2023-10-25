@@ -43,14 +43,13 @@ Route::post('/logout', [LogoutController::class, 'logout']);
 Route::get('/total-contact', [ContactController::class, 'totalContact']);
 Route::get('/total-messageTemplate', [MessageTemplateController::class, 'totalMessageTemplate']);
 Route::get('/total-task', [TaskController::class, 'totalTask']);
-Route::get('/total-event', [EventController::class, 'totalEvent']);
-
+Route::get('/total-event-perlima', [EventController::class, 'totalUpcomingEvent']);
+Route::get('/total-taskdaily', [TaskController::class, 'totalTaskDaily']);
 
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::get('/user-get', [UserController::class, 'show']);
     Route::put('/user-profile/{user}', [UserController::class, 'update']);
-    // Route::put('/user-profile/{user}', [RegisterController::class, 'update']);
 
     Route::apiResource('/contact', ContactController::class);
     Route::apiResource('/category', CategoryController::class);
@@ -65,6 +64,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::apiResource('/task', TaskController::class);
     Route::apiResource('/feedback', FeedbackController::class);
     Route::apiResource('/event', EventController::class);
+    Route::apiResource('/phonebook', PhoneBookController::class);
 
     Route::post('/logout', [LogoutController::class, 'logout']);
 });

@@ -94,13 +94,29 @@ class TaskController extends Controller
     public function totalTask()
     {
         $totalTask = DB::table('tasks')
-            ->select('user_id', DB::raw('count(*) as totalTask'))
+            ->select('user_id', 'status', DB::raw('count(*) as totalTask'))
             ->where('status', '=', 'Completed')
-            ->groupBy('user_id')
+            ->groupBy('user_id', 'status')
             ->get();
 
         return response()->json([
             'data' => $totalTask
+        ]);
+    }
+
+    public function totalTaskDaily()
+    {
+        $now = now()->format('Y-m-d');
+
+        $totalTaskDaily = DB::table('tasks')
+            ->select(DB::raw('user_id, count(*) as total_Task_Daily'))
+            ->where('status', '=', 'completed')
+            ->whereDate('created_at', $now)
+            ->groupBy('user_id')
+            ->get();
+
+        return response()->json([
+            'data' => $totalTaskDaily
         ]);
     }
 }

@@ -10,28 +10,33 @@ use Illuminate\Http\Request;
 
 class PhoneBookController extends Controller
 {
-    public function importPhoneBook(StorePhoneBookRequest $request)
+    public function store(StorePhoneBookRequest $request)
     {
-        // // Validasi file yang diunggah
-        // $request->validate([
-        //     'phone_book_csv' => 'required|file|mimes:csv,txt',
-        // ]);
 
-        // Proses impor data buku telepon
-        // Contoh: Baca file CSV dan simpan data ke dalam database
-        $path = $request->file('phone_book_csv')->getRealPath();
-
-        $data = array_map('str_getcsv', file($path));
-        unset($data[0]); // Untuk menghapus header jika ada
+        $data = $request->validated();
+        $data['user_id'] = auth()->user()->id;
 
         $phoneBook = PhoneBook::create($data);
 
-        return PhoneBookResource::collection($phoneBook)->additional([
-            'status' => 'Successfully imported phone book data'
-        ], 200);
-
-        // return response()->json([
-        //     'status' => 'Successfully imported phone book data'
+        return response()->json([
+            'data' => $phoneBook
+        ]);
+        // return (new PhoneBookResource($phoneBook))->additional([
+        //     'status' => 'Phone book entry created successfully'
         // ], 200);
+    }
+
+    public function update(Request $request, PhoneBook $phoneBook)
+    {
+
+        $data = $request->validate([
+            'name' => 'required|string|max:255',
+            'phone_number' => 'required|string|max:20',
+            'email' => 'required|email|max:255',
+        ]);
+
+        $phoneBook->update($data);
+
+        return response()->json(['message' => 'Phone book entry updated successfully'], 200);
     }
 }
