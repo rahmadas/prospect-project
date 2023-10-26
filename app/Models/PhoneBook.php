@@ -9,13 +9,14 @@ class PhoneBook extends Model
 {
     use HasFactory;
     protected $fillable = [
+        'user_id',
         'name',
         'phone_number',
         'email',
     ];
 
-    // public function user()
-    // {
-    //     return $this->belongsTo(User::class);
-    // }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

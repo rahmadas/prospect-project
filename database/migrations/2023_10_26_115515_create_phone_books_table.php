@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('phone_books', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained();
             $table->string('name');
             $table->string('phone_number');
             $table->string('email');

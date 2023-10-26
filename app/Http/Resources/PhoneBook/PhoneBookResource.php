@@ -15,7 +15,8 @@ class PhoneBookResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'phone_book_csv' => $this->phone_book_csv,
+            'id' => $this->id,
+            'user_id' => $this->user_id,
             'name' => $this->name,
             'phone_number' => $this->phone_number,
             'email' => $this->email,

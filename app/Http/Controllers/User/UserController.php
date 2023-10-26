@@ -19,8 +19,10 @@ class UserController extends Controller
 {
     function show(User $user)
     {
-        $user = auth()->user();
-
+        // return response()->json([
+        //     'data' => auth()->user(),
+        //     'status' => 'true'
+        // ]);
         return (new UserResource($user))->additional([
             'success' => true,
             'message' => 'Register Success',
@@ -36,8 +38,11 @@ class UserController extends Controller
         if ($request->hasFile('foto_profile')) {
             $file = $request->file('foto_profile');
             $fileName = $file->getClientOriginalName();
-            $file->storeAs('foto_profiles', $fileName, 'public'); // Simpan berkas dengan nama asli
+            $file->storeAs('foto_profiles', $fileName, 'public');
             $data['foto_profile'] = $fileName;
+        } else {
+            // Jika tidak ada file 'foto_profile', biarkan kolom 'foto_profile' kosong (NULL).
+            // $data['foto_profile'] = 'sajbkd';
         }
 
         $user->update($data);

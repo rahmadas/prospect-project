@@ -18,10 +18,7 @@ class RegisterController extends Controller
 {
     function register(RegisterRequest $request)
     {
-
-
         $data = $request->validated();
-
 
         $inviter = User::where('referral_code', $request['inviter_referral_code'])->first();
 
@@ -38,7 +35,7 @@ class RegisterController extends Controller
         // Selanjutnya, kode referral baru yang berisi 6 karakter acak (huruf dan angka) dibuat menggunakan Str::random(6).
         $data['referral_code'] = Str::random(6);
         $data['pro_feature_id'] = 1;
-        // $data['foto_profile'];
+        // $data['foto_profile'] = null;
         $responseData = $data;
 
         // Pengguna baru kemudian dibuat di dalam basis data dengan menggunakan data yang telah disiapkan. 

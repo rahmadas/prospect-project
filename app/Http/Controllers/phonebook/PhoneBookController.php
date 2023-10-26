@@ -18,25 +18,32 @@ class PhoneBookController extends Controller
 
         $phoneBook = PhoneBook::create($data);
 
-        return response()->json([
-            'data' => $phoneBook
-        ]);
-        // return (new PhoneBookResource($phoneBook))->additional([
-        //     'status' => 'Phone book entry created successfully'
-        // ], 200);
+        return (new PhoneBookResource($phoneBook))->additional([
+            'status' => 'Phone book entry created successfully'
+        ], 200);
     }
 
-    public function update(Request $request, PhoneBook $phoneBook)
+    public function update(StorePhoneBookRequest $request, PhoneBook $phonebook)
     {
+        $data = $request->validated();
+        $data['user_id'] = auth()->user()->id;
 
-        $data = $request->validate([
-            'name' => 'required|string|max:255',
-            'phone_number' => 'required|string|max:20',
-            'email' => 'required|email|max:255',
-        ]);
+        $phonebook->update($data);
 
-        $phoneBook->update($data);
-
-        return response()->json(['message' => 'Phone book entry updated successfully'], 200);
+        return (new PhoneBookResource($phonebook))->additional([
+            'status' => 'Phone book entry updated successfully'
+        ], 200);
     }
 }
+
+// public function up(): void
+// {
+//     Schema::create('phone_books', function (Blueprint $table) {
+//         $table->id();
+//         $table->foreignId('user_id')->constrained();
+//         $table->string('name');
+//         $table->string('phone_number');
+//         $table->string('email');
+//         $table->timestamps();
+//     });
+// }

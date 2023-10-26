@@ -29,7 +29,7 @@ class StoreUserRequest extends FormRequest
             'referral_code' => 'sometimes|string',
             'password' => 'sometimes|password',
             'status' => 'sometimes|enum',
-            'foto_profile' => 'sometimes|string'
+            'foto_profile' => 'sometimes|mimes:jpg,bmp,png'
         ];
     }
 }

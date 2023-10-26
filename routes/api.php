@@ -48,8 +48,9 @@ Route::get('/total-taskdaily', [TaskController::class, 'totalTaskDaily']);
 
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
-    Route::get('/user-get', [UserController::class, 'show']);
-    Route::put('/user-profile/{user}', [UserController::class, 'update']);
+    Route::apiResource('/user', UserController::class);
+    // Route::get('/user/{user}', [UserController::class, 'show']);
+    // Route::put('/user/{user}', [UserController::class, 'update']);
 
     Route::apiResource('/contact', ContactController::class);
     Route::apiResource('/category', CategoryController::class);
