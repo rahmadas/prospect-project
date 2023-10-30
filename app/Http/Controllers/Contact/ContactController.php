@@ -107,9 +107,9 @@ class ContactController extends Controller
     public function totalContact()
     {
         $totalContact = DB::table('contact_categories')
-            ->select('category_id', DB::raw('count(*) as total_contact_perCategory'))
-            ->groupBy('category_id')
+            ->select(DB::raw('count(distinct category_id) as total_category, count(*) as total_contact_category'))
             ->get();
+        // 'count(distinct category_id) as total_contact_categories')
 
         return response()->json([
             'data' => $totalContact

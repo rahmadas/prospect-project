@@ -22,6 +22,7 @@ use App\Models\PhoneBook;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,13 +40,19 @@ Route::post('/register', [RegisterController::class, 'register']);
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LogoutController::class, 'logout']);
 
-// Total Count
-Route::get('/total-contact', [ContactController::class, 'totalContact']);
-Route::get('/total-messageTemplate', [MessageTemplateController::class, 'totalMessageTemplate']);
-Route::get('/total-task', [TaskController::class, 'totalTask']);
-Route::get('/total-event-perlima', [EventController::class, 'totalUpcomingEvent']);
-Route::get('/total-taskdaily', [TaskController::class, 'totalTaskDaily']);
+//dasboard goal
+Route::prefix('/dashboard')->group(function () {
+    Route::get('/total-contact', [ContactController::class, 'totalContact']);
+    Route::get('/total-messageTemplate', [MessageTemplateController::class, 'totalMessageTemplate']);
+    Route::get('/total-task', [TaskController::class, 'totalTask']);
+    Route::get('/total-event-akandatang', [EventController::class, 'upcomingEventTotal']);
+});
 
+// event ter-Update
+Route::prefix('/recently-updated')->group(function () {
+    Route::get('/event-upcoming-activity', [EventController::class, 'eventFiveUpcomingActivities']);
+    Route::get('/total-taskdaily', [TaskController::class, 'totalTaskDaily']);
+});
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::apiResource('/user', UserController::class);

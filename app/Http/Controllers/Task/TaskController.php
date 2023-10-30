@@ -51,7 +51,7 @@ class TaskController extends Controller
         $data['reminder'] = Carbon::parse($data['due_date'])
             ->subHour() // Mengurangkan satu jam dari waktu due_date
             ->setTimezone('Asia/Jakarta');
-        $data['status'] = 1;
+        $data['status'] = 3;
 
         // if (condition) {
         //     # code...
@@ -94,8 +94,13 @@ class TaskController extends Controller
     public function totalTask()
     {
         $totalTask = DB::table('tasks')
-            ->select('user_id', 'status', DB::raw('count(*) as totalTask'))
-            ->where('status', '=', 'Completed')
+            ->select(
+                'user_id',
+                DB::raw('status, count(*) as total_completed_tasks'),
+                DB::raw('(SELECT count(*) FROM tasks WHERE user_id = tasks.user_id) as total_tasks')
+            )
+            ->from('tasks as t')
+            ->where('status', 'Completed') // Sesuaikan status yang ingin dihitung
             ->groupBy('user_id', 'status')
             ->get();
 
@@ -111,7 +116,7 @@ class TaskController extends Controller
         $totalTaskDaily = DB::table('tasks')
             ->select(DB::raw('user_id, count(*) as total_Task_Daily'))
             ->where('status', '=', 'completed')
-            ->whereDate('created_at', $now)
+            ->whereDate('due_date', $now)
             ->groupBy('user_id')
             ->get();
 

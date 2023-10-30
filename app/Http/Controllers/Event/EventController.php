@@ -124,7 +124,21 @@ class EventController extends Controller
         ], 200);
     }
 
-    public function totalUpcomingEvent()
+    public function eventFiveUpcomingActivities()
+    {
+        $fiveUpcomingEvent = DB::table('events')
+            ->select(DB::raw('start_date, count(*) as limaAktifitasAkanDatang'))
+            // ->where('start_date', '>', now())
+            ->groupBy('start_date')
+            ->take(5)
+            ->get();
+
+        return response()->json([
+            'data' => $fiveUpcomingEvent
+        ], 200);
+    }
+
+    public function upcomingEventTotal()
     {
         // $data['start_date'] = Carbon::now(); // Get the current date and time
 
