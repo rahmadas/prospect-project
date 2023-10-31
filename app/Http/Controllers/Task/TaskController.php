@@ -115,8 +115,6 @@ class TaskController extends Controller
 
         $totalTaskDaily = DB::table('tasks')
             ->select(DB::raw('user_id, count(*) as total_Task_Daily'))
-            ->where('status', '=', 'completed')
-            ->whereDate('due_date', $now)
             ->groupBy('user_id')
             ->get();
 

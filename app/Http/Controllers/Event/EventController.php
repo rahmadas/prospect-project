@@ -140,12 +140,12 @@ class EventController extends Controller
 
     public function upcomingEventTotal()
     {
-        // $data['start_date'] = Carbon::now(); // Get the current date and time
-
         $totalUpcomingEvent = DB::table('events')
-            ->select(DB::raw('meeting_type, count(*) as totalEvent'))
-            // ->where('start_date', '>', $data) // Filter events with start dates in the future
-            ->groupBy('meeting_type')
+            ->select('user_id')
+            // . Jika start_date lebih besar dari waktu saat ini (diwakili oleh Carbon::now()), maka 1 akan dihitung, jika tidak, 0 yang akan dihitung.
+            ->selectRaw('SUM(CASE WHEN start_date > ? THEN 1 ELSE 0 END) as eventUpComing', [Carbon::now()])
+            ->selectRaw('count(*) as total_event')
+            ->groupBy('user_id')
             ->get();
 
         return response()->json([
