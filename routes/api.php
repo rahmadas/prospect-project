@@ -7,6 +7,7 @@ use App\Http\Controllers\Category\CategoryController;
 use App\Http\Controllers\Contact\ContactController;
 use App\Http\Controllers\ContactCategory\ContactCategoryController;
 use App\Http\Controllers\ContactMessage\ContactMessageController;
+use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Event\EventController;
 use App\Http\Controllers\Feedback\FeedbackController;
 use App\Http\Controllers\Message\MessageController;
@@ -42,22 +43,13 @@ Route::post('/logout', [LogoutController::class, 'logout']);
 
 //dasboard goal
 Route::prefix('/dashboard')->group(function () {
-    Route::get('/total-contact', [ContactController::class, 'totalContact']);
-    Route::get('/total-messageTemplate', [MessageTemplateController::class, 'totalMessageTemplate']);
-    Route::get('/total-task', [TaskController::class, 'totalTask']);
-    Route::get('/total-event-akandatang', [EventController::class, 'upcomingEventTotal']);
+    Route::get('/goal', [DashboardController::class, 'dashboardGoal']);
+    Route::get('/up-coming-event', [DashboardController::class, 'dashboardUpComingEvent']);
 });
 
-// event ter-Update
-Route::prefix('/recently-updated')->group(function () {
-    Route::get('/event-upcoming-activity', [EventController::class, 'eventFiveUpcomingActivities']);
-    Route::get('/total-taskdaily', [TaskController::class, 'totalTaskDaily']);
-});
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::apiResource('/user', UserController::class);
-    // Route::get('/user/{user}', [UserController::class, 'show']);
-    // Route::put('/user/{user}', [UserController::class, 'update']);
 
     Route::apiResource('/contact', ContactController::class);
     Route::apiResource('/category', CategoryController::class);

@@ -123,33 +123,4 @@ class EventController extends Controller
             'status' => 'Successfully Delelt Date'
         ], 200);
     }
-
-    public function eventFiveUpcomingActivities()
-    {
-        $fiveUpcomingEvent = DB::table('events')
-            ->select(DB::raw('start_date, count(*) as limaAktifitasAkanDatang'))
-            // ->where('start_date', '>', now())
-            ->groupBy('start_date')
-            ->take(5)
-            ->get();
-
-        return response()->json([
-            'data' => $fiveUpcomingEvent
-        ], 200);
-    }
-
-    public function upcomingEventTotal()
-    {
-        $totalUpcomingEvent = DB::table('events')
-            ->select('user_id')
-            // . Jika start_date lebih besar dari waktu saat ini (diwakili oleh Carbon::now()), maka 1 akan dihitung, jika tidak, 0 yang akan dihitung.
-            ->selectRaw('SUM(CASE WHEN start_date > ? THEN 1 ELSE 0 END) as eventUpComing', [Carbon::now()])
-            ->selectRaw('count(*) as total_event')
-            ->groupBy('user_id')
-            ->get();
-
-        return response()->json([
-            'data' => $totalUpcomingEvent
-        ]);
-    }
 }

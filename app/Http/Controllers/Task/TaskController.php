@@ -90,36 +90,4 @@ class TaskController extends Controller
             'message' => 'successfully deleted date'
         ], 200);
     }
-
-    public function totalTask()
-    {
-        $totalTask = DB::table('tasks')
-            ->select(
-                'user_id',
-                DB::raw('status, count(*) as total_completed_tasks'),
-                DB::raw('(SELECT count(*) FROM tasks WHERE user_id = tasks.user_id) as total_tasks')
-            )
-            ->from('tasks as t')
-            ->where('status', 'Completed') // Sesuaikan status yang ingin dihitung
-            ->groupBy('user_id', 'status')
-            ->get();
-
-        return response()->json([
-            'data' => $totalTask
-        ]);
-    }
-
-    public function totalTaskDaily()
-    {
-        $now = now()->format('Y-m-d');
-
-        $totalTaskDaily = DB::table('tasks')
-            ->select(DB::raw('user_id, count(*) as total_Task_Daily'))
-            ->groupBy('user_id')
-            ->get();
-
-        return response()->json([
-            'data' => $totalTaskDaily
-        ]);
-    }
 }

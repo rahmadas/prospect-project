@@ -103,16 +103,4 @@ class ContactController extends Controller
             'message' => 'successfully deleted date'
         ], 200);
     }
-
-    public function totalContact()
-    {
-        $totalContact = DB::table('contact_categories')
-            ->select(DB::raw('count(distinct category_id) as total_category, count(*) as total_contact_category'))
-            ->get();
-        // 'count(distinct category_id) as total_contact_categories')
-
-        return response()->json([
-            'data' => $totalContact
-        ]);
-    }
 }
