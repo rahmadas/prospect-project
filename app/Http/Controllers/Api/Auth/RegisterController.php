@@ -57,10 +57,10 @@ class RegisterController extends Controller
         }
 
         // tabel baru lahir dari tabel user dan pro_feature
-        $userProFeature = User_pro_feature::create([
-            'pro_feature_id' => $data['pro_feature_id'],
-            'user_id' => $user->id
-        ]);
+        // $userProFeature = User_pro_feature::create([
+        //     'pro_feature_id' => $data['pro_feature_id'],
+        //     'user_id' => $user->id
+        // ]);
 
         $token = $user->createToken('auth_token')->plainTextToken;
         $responseData['access_token'] = $token;
