@@ -77,12 +77,6 @@ class EventController extends Controller
             ->setTimezone('Asia/Jakarta');
         $data['meeting_type'] = 4;
 
-        // Tambahkan data latitude, longitude, dan location
-        $data['latitude'] = $request->input('latitude');
-        $data['longitude'] = $request->input('longitude');
-        $data['location'] = $request->input('location');
-        // $data['phone_book_id'] = $request->input('phone_book_id');
-
         $event = Event::create($data);
 
         return (new EventResource($event))->additional([
@@ -106,7 +100,6 @@ class EventController extends Controller
         $data['latitude'] = $request->input('latitude');
         $data['longitude'] = $request->input('longitude');
         $data['location'] = $request->input('location');
-        // $data['phone_book_id'] = $request->input('phone_book_id');
 
         $event->update($data);
 

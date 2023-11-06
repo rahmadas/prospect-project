@@ -33,8 +33,6 @@ class StoreEventRequest extends FormRequest
             'location' => 'required|string',
             // 'reminder' => 'required|YYYY-MM-DD HH:mm:ss',
             'note' => 'required|string',
-            // 'phone_book_id' => 'required'
-
         ];
     }
 }

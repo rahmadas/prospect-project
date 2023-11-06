@@ -29,7 +29,7 @@ class EventResource extends JsonResource
             'location' => $this->location,
             'reminder' => $this->reminder,
             'note' => $this->note,
-            'phone_book_id' => $this->phone_book_id
+            // 'phone_book_id' => $this->phone_book_id
         ];
     }
 }

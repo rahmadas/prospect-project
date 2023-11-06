@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Event extends Model
 {
     use HasFactory;
+    // public $timestamps = false;
     protected $table = 'events';
     protected $fillable = [
         'user_id',
@@ -21,7 +22,6 @@ class Event extends Model
         'location',
         'reminder',
         'note',
-        'phone_book_id'
     ];
 
     public function user()
