@@ -74,11 +74,21 @@ class DashboardController extends Controller
             ],
         ];
 
-
-        return response()->json([
-            'data' => $result,
-        ]);
+        if (true) {
+            return response()->json([
+                'data' => $result,
+                'status' => true,
+                'message' => 'Successfully'
+            ]);
+        } else {
+            return response()->json([
+                'status' => false,
+                'message' => 'Failure Message'
+            ]);
+        }
     }
+
+
 
     public function dashboardUpComingEvent()
     {
