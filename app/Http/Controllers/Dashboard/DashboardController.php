@@ -77,13 +77,13 @@ class DashboardController extends Controller
         if (true) {
             return response()->json([
                 'data' => $result,
+                'message' => 'Successfully',
                 'status' => true,
-                'message' => 'Successfully'
             ]);
         } else {
             return response()->json([
+                'message' => 'Failure Message',
                 'status' => false,
-                'message' => 'Failure Message'
             ]);
         }
     }
@@ -101,6 +101,23 @@ class DashboardController extends Controller
 
         $fiveUpComingEventCount = $fiveUpComingEvent->count();
 
+        $result2 = [
+            [
+                'name' => 'event',
+                'count' => $fiveUpComingEventCount,
+                'total' => $fiveUpComingEventCount
+            ]
+        ];
+
+        return response()->json([
+            'message' => 'Successfully',
+            'status' => true,
+            'data' => $result2
+        ]);
+    }
+
+    public function updateDailyTask()
+    {
         // task harian
         $totalTaskDaily = DB::table('tasks')
             ->select(DB::raw('user_id, count(*) as total_Task_Daily'))
@@ -110,12 +127,7 @@ class DashboardController extends Controller
 
         $totalTaskDailyCount = $totalTaskDaily->count();
 
-        $result2 = [
-            [
-                'name' => 'event',
-                'count' => $fiveUpComingEventCount,
-                'total' => $fiveUpComingEventCount
-            ],
+        $result3 = [
             [
                 'name' => 'task',
                 'count' => $totalTaskDailyCount,
@@ -124,7 +136,9 @@ class DashboardController extends Controller
         ];
 
         return response()->json([
-            'data' => $result2
+            'message' => 'Successfully',
+            'status' => true,
+            'data' => $result3
         ]);
     }
 }

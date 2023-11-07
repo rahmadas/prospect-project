@@ -12,6 +12,9 @@ use App\Models\Contact_category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Process;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\ContactsImport;
+use Maatwebsite\Excel\Excel as ExcelExcel;
 
 class ContactController extends Controller
 {
@@ -45,7 +48,8 @@ class ContactController extends Controller
 
         // Buat koleksi ContactResource
         return ContactResource::collection($contacts)->additional([
-            'status' => 'Successfully Index Date'
+            'message' => 'Successfully Index Date',
+            'status' => true
         ], 200);
     }
 
@@ -66,13 +70,15 @@ class ContactController extends Controller
         ]);
 
         return (new ContactResource($contact))->additional([
-            'status' => 'Successfully Create Date'
+            'message' => 'Successfully Create Date',
+            'status' => true
         ], 200);
     }
 
     function show(Contact $contact)
     {
         return (new ContactResource($contact))->additional([
+            'message' => 'Successfully Show Date',
             'status' => true
         ], 200);
     }
@@ -89,7 +95,8 @@ class ContactController extends Controller
         $contact->update($data);
 
         return (new ContactResource($contact))->additional([
-            'status' => 'Successfully Update Date'
+            'message' => 'Successfully Update Date',
+            'status' => true
         ], 200);
     }
 
@@ -100,7 +107,26 @@ class ContactController extends Controller
 
         // Return a response indicating success or appropriate error handling
         return response()->json([
-            'message' => 'successfully deleted date'
+            'message' => 'Successfully Delete Date',
+            'status' => true
         ], 200);
     }
+
+    // ... Fungsi lainnya ...
+
+    // public function import(Request $request)
+    // {
+    //     // Validasi bahwa file Excel telah diunggah
+    //     $request->validate([
+    //         'file' => 'required|mimes:xls,xlsx',
+    //     ]);
+
+    //     // Dapatkan file Excel yang diunggah
+    //     $file = $request->file('file');
+
+    //     // Jalankan proses impor menggunakan ContactsImport
+    //     Excel::import(new ContactsImport, $file);
+
+    //     return response()->json(['message' => 'Data from Excel file imported successfully'], 200);
+    // }
 }

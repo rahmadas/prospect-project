@@ -33,7 +33,8 @@ class MessageController extends Controller
         $messages = $messages->paginate($perPage);
 
         return MessageResource::collection($messages)->additional([
-            'status' => 'Successfully Index Date'
+            'message' => 'Successfully Index Date',
+            'status' => true
         ], 200);
     }
 
@@ -50,13 +51,15 @@ class MessageController extends Controller
         ]);
 
         return (new MessageResource($message))->additional([
-            'status' => 'Successfully Create Date'
+            'message' => 'Successfully Create Date',
+            'status' => true
         ], 200);
     }
 
     function show(Message $message)
     {
         return (new MessageResource($message))->additional([
+            'message' => 'Successfully Show Date',
             'status' => true
         ], 200);
     }
@@ -68,7 +71,8 @@ class MessageController extends Controller
 
         return response()->json([
             'data' => $data,
-            'status' => 'Successfully Update Date'
+            'message' => 'Successfully Update Date',
+            'status' => true
         ], 200);
     }
 }

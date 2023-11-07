@@ -29,7 +29,8 @@ class ProFeatureController extends Controller
 
         $proFeatures = $proFeatures->paginate($perPage);
         return ProFeatureResource::collection($proFeatures)->additional([
-            'status' => 'Successfully Index Date'
+            'message' => 'Successfully Index Date',
+            'status' => true
         ], 200);
     }
 
@@ -41,13 +42,17 @@ class ProFeatureController extends Controller
 
         $pro_feature = Pro_feature::create($data);
         return (new ProFeatureResource($pro_feature))->additional([
-            'status' => 'Successfully Create Date'
+            'message' => 'Successfully Create Date',
+            'status' => true
         ], 200);
     }
 
     function show(Pro_feature $pro_feature)
     {
-        return new ProFeatureResource($pro_feature);
+        return (new ProFeatureResource($pro_feature))->additional([
+            'message' => 'Successfully Show Date',
+            'status' => true
+        ]);
     }
 
     function update(StoreProFeatureRequest $request, Pro_feature $pro_feature)
@@ -57,7 +62,8 @@ class ProFeatureController extends Controller
         $pro_feature->update($data);
 
         return (new ProFeatureResource($pro_feature))->additional([
-            'status' => 'Seccessfully Update Date'
+            'message' => 'Successfully Update Date',
+            'status' => true
         ], 200);
     }
 
@@ -67,7 +73,8 @@ class ProFeatureController extends Controller
         $pro_feature->delete();
 
         return response()->json([
-            'status' => 'Successfuly Delete Date'
+            'message' => 'Successfully Delete Date',
+            'status' => true
         ], 200);
     }
 }

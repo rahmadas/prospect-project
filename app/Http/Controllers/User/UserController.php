@@ -19,13 +19,9 @@ class UserController extends Controller
 {
     function show(User $user)
     {
-        // return response()->json([
-        //     'data' => auth()->user(),
-        //     'status' => 'true'
-        // ]);
         return (new UserResource($user))->additional([
-            'success' => true,
-            'message' => 'Register Success',
+            'message' => 'Successfully Show User',
+            'success' => true
         ]);
     }
 
@@ -48,7 +44,8 @@ class UserController extends Controller
         $user->update($data);
 
         return (new UserResource($user))->additional([
-            'status' => 'Successfully Update Date'
+            'message' => 'Successfully Update User',
+            'status' => true
         ], 200);
     }
 }

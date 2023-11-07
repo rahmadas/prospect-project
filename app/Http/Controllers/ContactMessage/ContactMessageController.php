@@ -19,8 +19,8 @@ class ContactMessageController extends Controller
         $contactMessage = Contact_message::all();
 
         return response()->json([
-            'date' => $contactMessage,
-            'status' => 'true'
+            'message' => 'Successfully Index Date',
+            'status' => true
         ]);
     }
 }

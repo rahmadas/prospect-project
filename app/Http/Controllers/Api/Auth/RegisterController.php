@@ -66,8 +66,8 @@ class RegisterController extends Controller
         $responseData['access_token'] = $token;
 
         return (new RegisterResource($user))->additional([
-            'success' => true,
             'message' => 'Register Success',
+            'status' => true,
             'data' => $responseData
         ]);
     }

@@ -23,8 +23,8 @@ class LoginController extends Controller
             $full_name = $first_name . ' ' . $last_name;
 
             return response()->json([
-                'success' => true,
                 'message' => 'Login Success',
+                'success' => true,
                 'data' => array_merge(['full_name' => $full_name], $user->toArray(), $responseData)
             ]);
         } elseif (User::where('email', $request->email)->exists()) {

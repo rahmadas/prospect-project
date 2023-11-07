@@ -32,7 +32,8 @@ class MessageTemplateController extends Controller
         $messageTemplates = $messageTemplates->paginate($perPage);
 
         return MessageTemplateResource::collection($messageTemplates)->additional([
-            'status' => 'Successfulyy Index Date'
+            'message' => 'Successfully Index Date',
+            'status' => true
         ], 200);
     }
 
@@ -45,13 +46,15 @@ class MessageTemplateController extends Controller
         $message_template = Message_template::create($data);
 
         return (new MessageTemplateResource($message_template))->additional([
-            'status' => 'Successfully Create Date'
+            'message' => 'Successfully Create Date',
+            'status' => true
         ], 200);
     }
 
     function show(Message_template $message_template)
     {
         return (new MessageTemplateResource($message_template))->additional([
+            'message' => 'Successfully Show Date',
             'status' => true
         ], 200);
     }
@@ -71,7 +74,8 @@ class MessageTemplateController extends Controller
         $message_template->update($data);
 
         return (new MessageTemplateResource($message_template))->additional([
-            'status' => 'Successfully Update Date'
+            'message' => 'Successfully Update Date',
+            'status' => true
         ], 200);
     }
 
@@ -82,7 +86,8 @@ class MessageTemplateController extends Controller
 
         // Return a response indicating success or appropriate error handling
         return response()->json([
-            'message' => 'Category deleted successfully'
+            'message' => 'Successfully Delete Date',
+            'status' => true
         ], 200);
     }
 }

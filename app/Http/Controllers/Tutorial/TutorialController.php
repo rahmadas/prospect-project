@@ -33,7 +33,8 @@ class TutorialController extends Controller
         $tutorials = $tutorials->paginate($perPage);
 
         return TutorialResource::collection($tutorials)->additional([
-            'status' => 'Successfully Index Date'
+            'message' => 'Successfully Index Date',
+            'status' => true
         ], 200);
     }
 
@@ -59,13 +60,15 @@ class TutorialController extends Controller
         $tutorial = Tutorial::create($data);
 
         return (new TutorialResource($tutorial))->additional([
-            'status' => 'Successfully Create Date'
+            'message' => 'Successfully Create Date',
+            'status' => true
         ], 200);
     }
 
     function show(Tutorial $tutorial)
     {
         return (new TutorialResource($tutorial))->additional([
+            'message' => 'Successfully Show Date',
             'status' => true
         ], 200);
     }
@@ -82,7 +85,8 @@ class TutorialController extends Controller
         $tutorial->update($data);
 
         return (new TutorialResource($tutorial))->additional([
-            'status' => 'Successfully Update Date'
+            'message' => 'Successfully Update Date',
+            'status' => true
         ], 200);
     }
 
@@ -91,7 +95,8 @@ class TutorialController extends Controller
         $tutorial->delete();
 
         return response()->json([
-            'message' => 'successfully deleted date'
+            'message' => 'Successfully Delete Date',
+            'status' => true
         ], 200);
     }
 }

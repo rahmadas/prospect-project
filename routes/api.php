@@ -45,6 +45,7 @@ Route::post('/logout', [LogoutController::class, 'logout']);
 Route::prefix('/dashboard')->group(function () {
     Route::get('/goal', [DashboardController::class, 'dashboardGoal']);
     Route::get('/up-coming-event', [DashboardController::class, 'dashboardUpComingEvent']);
+    Route::get('/up-daily-task', [DashboardController::class, 'updateDailyTask']);
 });
 
 

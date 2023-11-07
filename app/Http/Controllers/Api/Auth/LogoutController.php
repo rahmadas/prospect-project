@@ -16,8 +16,8 @@ class LogoutController extends Controller
     {
         $request->user()->currentAccessToken()->delete();
         return response()->json([
+            'status' => true,
             'message' => 'logout successfully',
-            'status' => true
         ]);
     }
 }

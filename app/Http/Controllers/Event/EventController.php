@@ -27,11 +27,13 @@ class EventController extends Controller
         $phoneBook = Event::create($data);
 
         return response()->json([
-            'status' => 'Successfully imported from phone book'
+            'message' => 'Successfully imported from phone book',
+            'status' => true
         ], 200);
 
         return EventResource::collection($phoneBook)->additional([
-            'status' => 'Successfully Index Date'
+            'message' => 'Successfully imported from phone book',
+            'status' => true
         ], 200);
     }
 
@@ -62,7 +64,8 @@ class EventController extends Controller
         $events = $events->paginate($perPage);
 
         return EventResource::collection($events)->additional([
-            'status' => 'Successfully Index Date'
+            'message' => 'Successfully Index Date',
+            'status' => true
         ], 200);
     }
 
@@ -80,13 +83,15 @@ class EventController extends Controller
         $event = Event::create($data);
 
         return (new EventResource($event))->additional([
-            'status' => 'Successfully Create Date'
+            'message' => 'Successfully Create Date',
+            'status' => true
         ], 200);
     }
 
     function show(Event $event)
     {
         return (new EventResource($event))->additional([
+            'message' => 'Successfully Show Date',
             'status' => true
         ], 200);
     }
@@ -104,7 +109,8 @@ class EventController extends Controller
         $event->update($data);
 
         return (new EventResource($event))->additional([
-            'status' => 'Successfully Update Date'
+            'message' => 'Successfully Update Date',
+            'status' => true
         ], 200);
     }
 
@@ -113,7 +119,8 @@ class EventController extends Controller
         $event->delete();
 
         return response()->json([
-            'status' => 'Successfully Delelt Date'
+            'message' => 'Successfully Delete Date',
+            'status' => true
         ], 200);
     }
 }

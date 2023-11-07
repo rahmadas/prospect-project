@@ -177,7 +177,6 @@ return [
         'html'     => Excel::HTML,
         'csv'      => Excel::CSV,
         'tsv'      => Excel::TSV,
-
         /*
         |--------------------------------------------------------------------------
         | PDF Extension

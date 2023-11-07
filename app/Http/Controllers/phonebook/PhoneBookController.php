@@ -31,19 +31,8 @@ class PhoneBookController extends Controller
         $phonebook->update($data);
 
         return (new PhoneBookResource($phonebook))->additional([
-            'status' => 'Phone book entry updated successfully'
+            'message' => 'Successfully Index Date',
+            'status' => true
         ], 200);
     }
 }
-
-// public function up(): void
-// {
-//     Schema::create('phone_books', function (Blueprint $table) {
-//         $table->id();
-//         $table->foreignId('user_id')->constrained();
-//         $table->string('name');
-//         $table->string('phone_number');
-//         $table->string('email');
-//         $table->timestamps();
-//     });
-// }

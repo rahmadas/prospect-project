@@ -17,6 +17,9 @@ class ContactCategoryController extends Controller
     public function index()
     {
         $contact_category = Contact_category::orderBy('contact_id', 'asc')->get();
-        return ContactCategoryResource::collection($contact_category);
+        return (ContactCategoryResource::collection($contact_category))->additional([
+            'message' => 'Successfully Index Date',
+            'status' => true
+        ]);
     }
 }
