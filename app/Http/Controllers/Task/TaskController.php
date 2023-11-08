@@ -48,11 +48,11 @@ class TaskController extends Controller
         $data = $request->validated();
         $data['user_id'] = auth()->user()->id;
         $data['due_date'] = Carbon::now();
-        $data['due_time'] = Carbon::now();
+        $data['due_time'] = Carbon::now()->format('H:i:s');
         $data['reminder'] = Carbon::parse($data['due_date'])
             ->subHour() // Mengurangkan satu jam dari waktu due_date
             ->setTimezone('Asia/Jakarta');
-        $data['status'] = 3;
+        $data['status'] = 1;
 
         // if (condition) {
         //     # code...

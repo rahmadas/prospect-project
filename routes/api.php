@@ -10,6 +10,7 @@ use App\Http\Controllers\ContactMessage\ContactMessageController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Event\EventController;
 use App\Http\Controllers\Feedback\FeedbackController;
+use App\Http\Controllers\Import_excel\ImportExcelController;
 use App\Http\Controllers\Message\MessageController;
 use App\Http\Controllers\MessageTemplate\MessageTemplateController;
 use App\Http\Controllers\Note\NoteController;
@@ -40,6 +41,10 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 Route::post('/register', [RegisterController::class, 'register']);
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LogoutController::class, 'logout']);
+
+//fiturs in contact
+Route::get('/index-excel', [ImportExcelController::class, 'index']);
+Route::get('/import-excel', [ImportExcelController::class, 'importExcel']);
 
 //dasboard goal
 Route::prefix('/dashboard')->group(function () {

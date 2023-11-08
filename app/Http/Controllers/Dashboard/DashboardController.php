@@ -88,26 +88,24 @@ class DashboardController extends Controller
         }
     }
 
-
-
     public function dashboardUpComingEvent()
     {
         // 5 aktivitas yang akan datang
         $fiveUpComingEvent = DB::table('events')
             ->select(DB::raw('start_date, count(*) as limaAktifitasAkanDatang'))
             ->groupBy('start_date')
+            ->orderBy('start_date', 'desc')
             ->take(5)
             ->get();
 
-        $fiveUpComingEventCount = $fiveUpComingEvent->count();
-
-        $result2 = [
-            [
+        foreach ($fiveUpComingEvent as $event) {
+            $result2[] = [
                 'name' => 'event',
-                'count' => $fiveUpComingEventCount,
-                'total' => $fiveUpComingEventCount
-            ]
-        ];
+                'date' => $event->start_date, // Tambahkan tanggal dalam format "Y-m-d"
+                'count' => $event->limaAktifitasAkanDatang,
+                'total' => $event->limaAktifitasAkanDatang,
+            ];
+        }
 
         return response()->json([
             'message' => 'Successfully',
@@ -120,20 +118,25 @@ class DashboardController extends Controller
     {
         // task harian
         $totalTaskDaily = DB::table('tasks')
-            ->select(DB::raw('user_id, count(*) as total_Task_Daily'))
-            ->where('status', 'Completed')
-            ->groupBy('user_id', 'status')
+            ->select(DB::raw('user_id, due_date, due_time, count(*) as total_Task_Daily'))
+            ->where('status', 'completed')
+            ->groupBy('user_id', 'status', 'due_date', 'due_time')
+            ->orderBy('user_id', 'desc')
+            ->take(5)
             ->get();
 
-        $totalTaskDailyCount = $totalTaskDaily->count();
+        $result3 = [];
 
-        $result3 = [
-            [
+        foreach ($totalTaskDaily as $task) {
+            $result3[] = [
                 'name' => 'task',
-                'count' => $totalTaskDailyCount,
-                'total' => $totalTaskDailyCount
-            ],
-        ];
+                'count' => $task->total_Task_Daily,
+                'total' => $task->total_Task_Daily,
+                'due_date' => $task->due_date,
+                'due_time' => $task->due_time,
+            ];
+        }
+
 
         return response()->json([
             'message' => 'Successfully',
