@@ -43,8 +43,9 @@ Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LogoutController::class, 'logout']);
 
 //fiturs in contact
-Route::get('/index-excel', [ImportExcelController::class, 'index']);
-Route::get('/import-excel', [ImportExcelController::class, 'importExcel']);
+
+Route::get('/index-excel', [ImportExcelController::class, 'index'])->name('index-excel');
+Route::post('/import-excel/{categoty}', [ImportExcelController::class, 'import_excel'])->name('import-excel');
 
 //dasboard goal
 Route::prefix('/dashboard')->group(function () {

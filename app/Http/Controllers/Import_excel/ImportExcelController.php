@@ -2,26 +2,28 @@
 
 namespace App\Http\Controllers\Import_excel;
 
-use App\Exports\ContactExport;
 use App\Http\Controllers\Controller;
-use App\Models\Contact;
+use App\Imports\ContactImport;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Excel;
 
+
 class ImportExcelController extends Controller
 {
+    public $excel;
+    public function __construct(Excel $excel)
+    {
+        $this->excel = $excel;
+    }
     public function index()
     {
-        $importExcel = Contact::all();
-        return response()->json([
-            'data' => $importExcel,
-            'message' => 'Success index Data',
-            'status' => true
-        ]);
+        return view('index-excel');
     }
 
-    public function importExcel()
+    public function import_excel(Request $request, $category)
     {
-        return Excel::download(new ContactExport, 'contact.xlsx');
+        $this->excel->import(new ContactImport($category), request()->file('file'));
+        return redirect()->back()->with('success', 'Contacts imported successfully!');
     }
 }
