@@ -46,7 +46,7 @@ class ContactImport implements ToCollection
     }
     public function collection(Collection $rows)
     {
-        dd($this->category);
+        // dd($this->category);
         foreach ($rows as $row) {
             $contact = Contact::create([
                 'first_name' => $row[1],

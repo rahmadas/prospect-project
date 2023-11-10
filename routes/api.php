@@ -20,6 +20,7 @@ use App\Http\Controllers\Task\TaskController;
 use App\Http\Controllers\Tutorial\TutorialController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\UserProFeature\UserProFeatureController;
+use App\Http\Controllers\ZipController;
 use App\Models\PhoneBook;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -42,10 +43,13 @@ Route::post('/register', [RegisterController::class, 'register']);
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LogoutController::class, 'logout']);
 
+//zip
+Route::get('download-zip', [ImportExcelController::class, '__invoke']);
+
 //fiturs in contact
 
 Route::get('/index-excel', [ImportExcelController::class, 'index'])->name('index-excel');
-Route::post('/import-excel/{categoty}', [ImportExcelController::class, 'import_excel'])->name('import-excel');
+Route::post('/import-excel/{category}', [ImportExcelController::class, 'importExcel'])->name('/import-excel');
 
 //dasboard goal
 Route::prefix('/dashboard')->group(function () {
