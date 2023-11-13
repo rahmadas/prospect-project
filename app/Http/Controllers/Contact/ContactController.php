@@ -111,22 +111,4 @@ class ContactController extends Controller
             'status' => true
         ], 200);
     }
-
-    // ... Fungsi lainnya ...
-
-    // public function import(Request $request)
-    // {
-    //     // Validasi bahwa file Excel telah diunggah
-    //     $request->validate([
-    //         'file' => 'required|mimes:xls,xlsx',
-    //     ]);
-
-    //     // Dapatkan file Excel yang diunggah
-    //     $file = $request->file('file');
-
-    //     // Jalankan proses impor menggunakan ContactsImport
-    //     Excel::import(new ContactsImport, $file);
-
-    //     return response()->json(['message' => 'Data from Excel file imported successfully'], 200);
-    // }
 }

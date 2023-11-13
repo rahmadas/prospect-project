@@ -19,7 +19,8 @@ class PhoneBookController extends Controller
         $phoneBook = PhoneBook::create($data);
 
         return (new PhoneBookResource($phoneBook))->additional([
-            'status' => 'Phone book entry created successfully'
+            'message' => 'Successfully Create Phone Book',
+            'status' => true
         ], 200);
     }
 
@@ -31,7 +32,7 @@ class PhoneBookController extends Controller
         $phonebook->update($data);
 
         return (new PhoneBookResource($phonebook))->additional([
-            'message' => 'Successfully Index Date',
+            'message' => 'Successfully Update Phone Book',
             'status' => true
         ], 200);
     }

@@ -11,8 +11,7 @@ class PhoneBook extends Model
     protected $fillable = [
         'user_id',
         'name',
-        'phone_number',
-        'email',
+        'title',
     ];
 
     public function user()

@@ -23,8 +23,7 @@ class StorePhoneBookRequest extends FormRequest
     {
         return [
             'name' => 'required|string',
-            'phone_number' => 'required|string',
-            'email' => 'required|email',
+            'title' => 'required|string',
         ];
     }
 }

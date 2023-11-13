@@ -18,8 +18,7 @@ class PhoneBookResource extends JsonResource
             'id' => $this->id,
             'user_id' => $this->user_id,
             'name' => $this->name,
-            'phone_number' => $this->phone_number,
-            'email' => $this->email,
+            'title' => $this->title
         ];
     }
 }

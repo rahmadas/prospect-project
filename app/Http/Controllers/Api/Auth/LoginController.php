@@ -29,10 +29,10 @@ class LoginController extends Controller
             ]);
         } elseif (User::where('email', $request->email)->exists()) {
             // Autentikasi gagal karena kata sandi salah
-            $errors = ['password' => 'Password yang Anda masukkan salah!'];
+            $errors = ['password' => ['Password yang Anda masukkan salah!']];
         } else {
             // Autentikasi gagal karena email tidak terdaftar
-            $errors = ['email' => 'Email yang Anda masukkan tidak terdaftar!'];
+            $errors = ['email' => ['Email yang Anda masukkan tidak terdaftar!']];
         }
 
         return response()->json([
