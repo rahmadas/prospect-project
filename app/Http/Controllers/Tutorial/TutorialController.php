@@ -43,7 +43,16 @@ class TutorialController extends Controller
 
         $data = $request->validated();
         $data['user_id'] = auth()->user()->id;
-        // $data['type'];
+
+        if ($request->file('thumbnail')) {
+            $uploadedThumbnail = $request->file('thumbnail');
+            $thumbnailName = time() . '_' . $uploadedThumbnail->getClientOriginalName();
+            $data['thumbnail'] = $uploadedThumbnail->storeAs('public/thumbnails', $thumbnailName);
+        } else {
+            $data['thumbnail'] = 'default_thumbnail.jpg'; // Sesuaikan dengan nama file default
+        }
+
+        // $data['thumbnail'] = $uploadedThumbnail->storeAs('public/thumbnails', $thumbnailName);
 
         if ($request->file('video_source')) {
             // Jika ada file video yang diunggah, set tipe ke 2 (video)
@@ -77,6 +86,15 @@ class TutorialController extends Controller
     {
         $data = $request->validated();
         $data['user_id'] = auth()->user()->id;
+
+        if ($request->file('thumbnail')) {
+            $uploadedThumbnail = $request->file('thumbnail');
+            $thumbnailName = time() . '_' . $uploadedThumbnail->getClientOriginalName();
+            $data['thumbnail'] = $uploadedThumbnail->storeAs('public/thumbnails', $thumbnailName);
+        } else {
+            $data['thumbnail'] = 'default_thumbnail.jpg'; // Sesuaikan dengan nama file default
+        }
+
 
         $uploadedVideo = $request->file('video_source');
         $videoName = time() . '_' . $uploadedVideo->getClientOriginalName();

@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('phone_books', function (Blueprint $table) {
-            $table->string('title')->after('name');
+        Schema::table('tutorials', function (Blueprint $table) {
+            $table->string('thumbnail')->after('description');
         });
     }
 
@@ -21,9 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('phone_books', function (Blueprint $table) {
-            // $table->dropColumn('phone_number');
-            // $table->dropColumn('email');
+        Schema::table('tutorials', function (Blueprint $table) {
+            //
         });
     }
 };

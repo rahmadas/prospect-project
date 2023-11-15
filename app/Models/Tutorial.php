@@ -12,6 +12,7 @@ class Tutorial extends Model
     protected $fillable = [
         'type',
         'description',
+        'thumbnail',
         'video_source'
     ];
 }

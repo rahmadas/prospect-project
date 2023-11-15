@@ -47,7 +47,6 @@ Route::post('/logout', [LogoutController::class, 'logout']);
 Route::get('download-zip', [ImportExcelController::class, '__invoke']);
 
 //fiturs in contact
-
 Route::get('/index-excel', [ImportExcelController::class, 'index'])->name('index-excel');
 Route::post('/import-excel/{category}', [ImportExcelController::class, 'importExcel'])->name('/import-excel');
 

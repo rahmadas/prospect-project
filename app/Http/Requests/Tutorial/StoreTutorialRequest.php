@@ -24,6 +24,7 @@ class StoreTutorialRequest extends FormRequest
         return [
             // 'type' => 'required|in:text,vidio',
             'description' => 'required|string',
+            'thumbnail' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'video_source' => 'required|mimetypes:video/avi,video/mp4,video/mpeg,video/quicktime'
         ];
     }

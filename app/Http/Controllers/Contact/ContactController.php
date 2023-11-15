@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Contact;
 
+use App\Exports\ContactExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Contact\ContactRequest;
 use App\Http\Requests\Contact\StoreContactRequest;
 use App\Http\Resources\ContactResource;
+use App\Imports\ContactImport;
 use App\Jobs\ProcessContact;
 use App\Models\Contact;
 use App\Models\Contact_category;
@@ -111,4 +113,13 @@ class ContactController extends Controller
             'status' => true
         ], 200);
     }
+
+    //
+
+    // public function exportExcel($category)
+    // {
+    //     $category = ContactExport::getContacts($category);
+
+    //     return Excel::download(new ContactsExport($category), 'contacts_' . $category . '.xlsx');
+    // }
 }

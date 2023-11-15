@@ -18,6 +18,7 @@ class TutorialResource extends JsonResource
             'id' => $this->id,
             'type' => $this->type,
             'description' => $this->description,
+            'thumbnail' => $this->thumbnail,
             'video_source' => $this->video_source
         ];
     }

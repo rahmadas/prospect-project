@@ -19,25 +19,28 @@ class Contact extends Model
         'email'
     ];
 
-    public function contact_category() {
+    public function contact_category()
+    {
         return $this->belongsToMany(Contact_category::class);
     }
 
-    public function note() {
+    public function note()
+    {
         return $this->hasMany(Note::class);
     }
 
-    public function contact_message() {
+    public function contact_message()
+    {
         return $this->hasMany(Contact_massage::class);
     }
 
-    public function task() {
+    public function task()
+    {
         return $this->hasMany(Task::class);
     }
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
-
-
 }
