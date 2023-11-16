@@ -36,9 +36,6 @@ class UserController extends Controller
             $fileName = $file->getClientOriginalName();
             $file->storeAs('foto_profiles', $fileName, 'public');
             $data['foto_profile'] = $fileName;
-        } else {
-            // Jika tidak ada file 'foto_profile', biarkan kolom 'foto_profile' kosong (NULL).
-            // $data['foto_profile'] = 'sajbkd';
         }
 
         $user->update($data);

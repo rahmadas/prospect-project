@@ -10,6 +10,7 @@ class Tutorial extends Model
     use HasFactory;
     protected $table = 'tutorials';
     protected $fillable = [
+        'title',
         'type',
         'description',
         'thumbnail',

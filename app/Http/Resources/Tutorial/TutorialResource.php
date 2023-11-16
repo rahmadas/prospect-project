@@ -14,12 +14,22 @@ class TutorialResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        // Generate URLs for thumbnail and video (if exists)
+        $thumbnailUrl = $this->type == '2' && $this->thumbnail
+            ? asset(str_replace('public/', 'storage/', $this->thumbnail))
+            : null;
+
+        $videoUrl = $this->type == '2' && $this->video_source
+            ? asset(str_replace('public/', 'storage/', $this->video_source))
+            : null;
+
         return [
             'id' => $this->id,
+            'title' => $this->title,
             'type' => $this->type,
             'description' => $this->description,
-            'thumbnail' => $this->thumbnail,
-            'video_source' => $this->video_source
+            'thumbnail_url' => $thumbnailUrl,
+            'video_url' => $videoUrl,
         ];
     }
 }

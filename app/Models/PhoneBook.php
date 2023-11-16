@@ -10,8 +10,7 @@ class PhoneBook extends Model
     use HasFactory;
     protected $fillable = [
         'user_id',
-        'name',
-        'title',
+        'name'
     ];
 
     public function user()
