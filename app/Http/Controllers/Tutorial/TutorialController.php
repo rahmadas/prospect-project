@@ -65,7 +65,7 @@ class TutorialController extends Controller
             $data['video_source'] = null;
         }
 
-        // Create tutorial
+        // Create tutorialtes
         $tutorial = Tutorial::create($data);
 
         // Generate URLs for thumbnail and video (if exists)
