@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AmountSent\AmountSentController;
 use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Auth\LogoutController;
 use App\Http\Controllers\Api\Auth\RegisterController;
@@ -55,6 +56,10 @@ Route::prefix('/dashboard')->group(function () {
     Route::get('/goal', [DashboardController::class, 'dashboardGoal']);
     Route::get('/up-coming-event', [DashboardController::class, 'dashboardUpComingEvent']);
     Route::get('/up-daily-task', [DashboardController::class, 'updateDailyTask']);
+});
+
+Route::prefix('/status-message-status')->group(function () {
+    Route::get('/amount-sent', [AmountSentController::class, 'amountSent']);
 });
 
 

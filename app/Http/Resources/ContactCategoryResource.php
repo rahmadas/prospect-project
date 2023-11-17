@@ -14,14 +14,18 @@ class ContactCategoryResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        // return parent::toArray($request);
         return [
             'id' => $this->id,
             'contact_id' => $this->contact_id,
+            'contact' => [
+                'id' => $this->contact_id,
+                'first_name' => $this->contact_first_name,
+            ],
             'category_id' => $this->category_id,
-            // 'user_first_name' => $this->user->first_name,
-            // 'user_last_name' => $this->user->last_name,
-
+            'category' => [
+                'id' => $this->category_id,
+                'name' => $this->category_name,
+            ],
         ];
     }
 }

@@ -11,6 +11,7 @@ use App\Models\Message_template;
 use GuzzleHttp\Psr7\Response;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class MessageTemplateController extends Controller
 {
@@ -42,6 +43,14 @@ class MessageTemplateController extends Controller
 
         $data = $request->validated();
         $data['user_id'] = auth()->user()->id;
+
+        // Handle Attachment
+        if ($request->hasFile('attachment')) {
+            $uploadedAttachment = $request->file('attachment');
+            $attachmentName = time() . '_' . str_replace(' ', '_', $uploadedAttachment->getClientOriginalName());
+            $attachmentPath = $uploadedAttachment->storeAs('public/attachments', $attachmentName);
+            $data['attachment'] = Storage::url($attachmentPath);
+        }
 
         $message_template = Message_template::create($data);
 

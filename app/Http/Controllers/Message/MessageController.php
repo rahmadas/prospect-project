@@ -11,6 +11,7 @@ use App\Models\Message;
 use App\Models\Message_template;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class MessageController extends Controller
 {
@@ -42,7 +43,7 @@ class MessageController extends Controller
     {
         $data = $request->validated();
         $data['user_id'] = auth()->user()->id;
-        $data['status'] = 2;
+        $data['status'] = 4;
 
         $message = Message::create($data);
         $contactMessage = Contact_message::create([

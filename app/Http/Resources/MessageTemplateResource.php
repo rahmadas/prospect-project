@@ -23,6 +23,7 @@ class MessageTemplateResource extends JsonResource
             'user_last_name' => $this->user->last_name,
             'title' => $this->title,
             'message' => $this->message,
+            'attachment' => $this->attachment
         ];
     }
 }

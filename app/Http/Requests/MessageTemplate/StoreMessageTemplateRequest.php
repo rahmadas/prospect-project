@@ -25,7 +25,8 @@ class StoreMessageTemplateRequest extends FormRequest
             // 'user_id' => 'required',
             // 'message_template_id' => 'required',
             'title' => 'required|string',
-            'message' => 'required|string'
+            'message' => 'required|string',
+            'attachment' => 'required|string'
         ];
     }
 }

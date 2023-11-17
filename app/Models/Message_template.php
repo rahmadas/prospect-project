@@ -12,14 +12,17 @@ class Message_template extends Model
     protected $fillable = [
         'user_id',
         'title',
-        'message'
-    ]; 
+        'message',
+        'attachment'
+    ];
 
-    public function message() {
+    public function message()
+    {
         return $this->hasMany(Message::class);
     }
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 }

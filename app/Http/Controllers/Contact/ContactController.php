@@ -113,13 +113,4 @@ class ContactController extends Controller
             'status' => true
         ], 200);
     }
-
-    //
-
-    // public function exportExcel($category)
-    // {
-    //     $category = ContactExport::getContacts($category);
-
-    //     return Excel::download(new ContactsExport($category), 'contacts_' . $category . '.xlsx');
-    // }
 }

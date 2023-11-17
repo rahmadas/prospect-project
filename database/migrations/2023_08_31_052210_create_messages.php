@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained();
             $table->foreignId('message_template_id')->constrained();
             $table->string('message');
-            $table->enum('status', ['in_queue', 'success', 'failed']);
+            $table->enum('status', ['in_queue', 'success', 'is_sending', 'failed']);
             $table->timestamps();
             $table->softDeletes();
         });
