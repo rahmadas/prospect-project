@@ -31,7 +31,7 @@ class NoteController extends Controller
         $notes = $notes->paginate($perPage);
 
         return NoteResource::collection($notes)->additional([
-            'message' => 'Successfully Index Date',
+            'message' => 'Successfully Index Data',
             'status' => true
         ], 200);
     }
@@ -45,7 +45,7 @@ class NoteController extends Controller
         $note = Note::create($data);
 
         return (new NoteResource($note))->additional([
-            'message' => 'Successfully Create Date',
+            'message' => 'Successfully Create Data',
             'status' => true
         ], 200);
     }
@@ -53,7 +53,7 @@ class NoteController extends Controller
     function show(Note $note)
     {
         return (new NoteResource($note))->additional([
-            'message' => 'Successfully Show Date',
+            'message' => 'Successfully Show Data',
             'status' => true
         ], 200);
     }
@@ -65,7 +65,7 @@ class NoteController extends Controller
         $note->update($data);
 
         return (new NoteResource($note))->additional([
-            'message' => 'Successfully Update Date',
+            'message' => 'Successfully Update Data',
             'status' => true
         ], 200);
     }
@@ -75,7 +75,7 @@ class NoteController extends Controller
         $note->delete();
 
         return response()->json([
-            'message' => 'Successfully Delete Date',
+            'message' => 'Successfully Delete Data',
             'status' => true
         ], 200);
     }

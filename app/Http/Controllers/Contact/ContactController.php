@@ -50,7 +50,7 @@ class ContactController extends Controller
 
         // Buat koleksi ContactResource
         return ContactResource::collection($contacts)->additional([
-            'message' => 'Successfully Index Date',
+            'message' => 'Successfully Index Data',
             'status' => true
         ], 200);
     }
@@ -72,7 +72,7 @@ class ContactController extends Controller
         ]);
 
         return (new ContactResource($contact))->additional([
-            'message' => 'Successfully Create Date',
+            'message' => 'Successfully Create Data',
             'status' => true
         ], 200);
     }
@@ -80,7 +80,7 @@ class ContactController extends Controller
     function show(Contact $contact)
     {
         return (new ContactResource($contact))->additional([
-            'message' => 'Successfully Show Date',
+            'message' => 'Successfully Show Data',
             'status' => true
         ], 200);
     }
@@ -97,7 +97,7 @@ class ContactController extends Controller
         $contact->update($data);
 
         return (new ContactResource($contact))->additional([
-            'message' => 'Successfully Update Date',
+            'message' => 'Successfully Update Data',
             'status' => true
         ], 200);
     }
@@ -109,7 +109,7 @@ class ContactController extends Controller
 
         // Return a response indicating success or appropriate error handling
         return response()->json([
-            'message' => 'Successfully Delete Date',
+            'message' => 'Successfully Delete Data',
             'status' => true
         ], 200);
     }

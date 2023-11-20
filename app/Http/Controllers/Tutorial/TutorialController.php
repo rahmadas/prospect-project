@@ -33,7 +33,7 @@ class TutorialController extends Controller
         $tutorials = $tutorials->paginate($perPage);
 
         return TutorialResource::collection($tutorials)->additional([
-            'message' => 'Successfully Index Date',
+            'message' => 'Successfully Index Data',
             'status' => true
         ], 200);
     }
@@ -73,7 +73,7 @@ class TutorialController extends Controller
         $videoUrl = $tutorial->type == '2' ? asset(str_replace('public/', 'storage/', $tutorial->video_source)) : null;
 
         return (new TutorialResource($tutorial))->additional([
-            'message' => 'Successfully Create Date',
+            'message' => 'Successfully Create Data',
             'status' => true,
         ], 200);
     }
@@ -81,7 +81,7 @@ class TutorialController extends Controller
     function show(Tutorial $tutorial)
     {
         return (new TutorialResource($tutorial))->additional([
-            'message' => 'Successfully Show Date',
+            'message' => 'Successfully Show Data',
             'status' => true
         ], 200);
     }
@@ -121,7 +121,7 @@ class TutorialController extends Controller
 
 
         return (new TutorialResource($tutorial))->additional([
-            'message' => 'Successfully Update Date',
+            'message' => 'Successfully Update Data',
             'status' => true
         ], 200);
     }
@@ -131,7 +131,7 @@ class TutorialController extends Controller
         $tutorial->delete();
 
         return response()->json([
-            'message' => 'Successfully Delete Date',
+            'message' => 'Successfully Delete Data',
             'status' => true
         ], 200);
     }

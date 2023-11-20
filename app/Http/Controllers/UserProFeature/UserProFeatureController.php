@@ -13,7 +13,7 @@ class UserProFeatureController extends Controller
     {
         $user_pro_feature = User_pro_feature::orderBy('user_id', 'asc')->get();
         return (UserProFeatureResource::collection($user_pro_feature))->additional([
-            'message' => 'Successfully Index Date',
+            'message' => 'Successfully Index Data',
             'status' => true
         ]);
     }

@@ -64,7 +64,7 @@ class EventController extends Controller
         $events = $events->paginate($perPage);
 
         return EventResource::collection($events)->additional([
-            'message' => 'Successfully Index Date',
+            'message' => 'Successfully Index Data',
             'status' => true
         ], 200);
     }
@@ -83,7 +83,7 @@ class EventController extends Controller
         $event = Event::create($data);
 
         return (new EventResource($event))->additional([
-            'message' => 'Successfully Create Date',
+            'message' => 'Successfully Create Data',
             'status' => true
         ], 200);
     }
@@ -91,7 +91,7 @@ class EventController extends Controller
     function show(Event $event)
     {
         return (new EventResource($event))->additional([
-            'message' => 'Successfully Show Date',
+            'message' => 'Successfully Show Data',
             'status' => true
         ], 200);
     }
@@ -109,7 +109,7 @@ class EventController extends Controller
         $event->update($data);
 
         return (new EventResource($event))->additional([
-            'message' => 'Successfully Update Date',
+            'message' => 'Successfully Update Data',
             'status' => true
         ], 200);
     }
@@ -119,7 +119,7 @@ class EventController extends Controller
         $event->delete();
 
         return response()->json([
-            'message' => 'Successfully Delete Date',
+            'message' => 'Successfully Delete Data',
             'status' => true
         ], 200);
     }

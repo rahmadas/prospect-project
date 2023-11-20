@@ -28,7 +28,7 @@ class FeedbackController extends Controller
         $feedbacks = $feedbacks->paginate($perPage);
 
         return FeedbackResource::collection($feedbacks)->additional([
-            'message' => 'Successfully Index Date',
+            'message' => 'Successfully Index Data',
             'status' => true
         ], 200);
     }
@@ -41,7 +41,7 @@ class FeedbackController extends Controller
         $feedback = Feedback::create($data);
 
         return (new FeedbackResource($feedback))->additional([
-            'message' => 'Successfully Create Date',
+            'message' => 'Successfully Create Data',
             'status' => true
         ], 200);
     }
@@ -49,7 +49,7 @@ class FeedbackController extends Controller
     function show(Feedback $feedback)
     {
         return (new FeedbackResource($feedback))->additional([
-            'message' => 'Successfully Show Date',
+            'message' => 'Successfully Show Data',
             'status' => true
         ], 200);
     }
@@ -61,7 +61,7 @@ class FeedbackController extends Controller
         $feedback->update($data);
 
         return (new FeedbackResource($feedback))->additional([
-            'message' => 'Successfully Update Date',
+            'message' => 'Successfully Update Data',
             'status' => true
         ], 200);
     }
@@ -71,7 +71,7 @@ class FeedbackController extends Controller
         $feedback->delete();
 
         return response()->json([
-            'message' => 'Successfully Delete Date',
+            'message' => 'Successfully Delete Data',
             'status' => true
         ], 200);
     }

@@ -34,7 +34,7 @@ class CategoryController extends Controller
         $categories = $categories->paginate($perPage);
 
         return CategoryResource::collection($categories)->additional([
-            'message' => 'Successfully Index Date',
+            'message' => 'Successfully Index Data',
             'status' => true
         ], 200);
     }
@@ -50,7 +50,7 @@ class CategoryController extends Controller
         //     // operasi menyisipkan data
         $category = Category::create($data);
         return (new CategoryResource($category))->additional([
-            'message' => 'Successfully Create Date',
+            'message' => 'Successfully Create Data',
             'status' => true
         ], 200);
     }
@@ -58,7 +58,7 @@ class CategoryController extends Controller
     function show(Category $category)
     {
         return (new CategoryResource($category))->additional([
-            'message' => 'Successfully Show Date',
+            'message' => 'Successfully Show Data',
             'status' => true
         ], 200);
     }
@@ -77,7 +77,7 @@ class CategoryController extends Controller
         $category->update($data);
 
         return (new CategoryResource($category))->additional([
-            'message' => 'Successfully Update Date',
+            'message' => 'Successfully Update Data',
             'status' => true
         ], 200);
     }
@@ -94,7 +94,7 @@ class CategoryController extends Controller
 
         // Return a response indicating success or appropriate error handling
         return response()->json([
-            'message' => 'Successfully Delete Date',
+            'message' => 'Successfully Delete Data',
             'status' => true
         ], 200);
     }

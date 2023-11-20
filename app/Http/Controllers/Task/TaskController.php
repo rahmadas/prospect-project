@@ -38,7 +38,7 @@ class TaskController extends Controller
         $tasks = $tasks->paginate($perPage);
 
         return TaskResource::collection($tasks)->additional([
-            'message' => 'Successfully Index Date',
+            'message' => 'Successfully Index Data',
             'status' => true
         ], 200);
     }
@@ -61,7 +61,7 @@ class TaskController extends Controller
         $task = Task::create($data);
 
         return (new TaskResource($task))->additional([
-            'message' => 'Successfully Create Date',
+            'message' => 'Successfully Create Data',
             'status' => true
         ], 200);
     }
@@ -69,7 +69,7 @@ class TaskController extends Controller
     function show(Task $task)
     {
         return (new TaskResource($task))->additional([
-            'message' => 'Successfully Show Date',
+            'message' => 'Successfully Show Data',
             'status' => true
         ], 200);
     }
@@ -81,7 +81,7 @@ class TaskController extends Controller
         $task->update($data);
 
         return (new TaskResource($task))->additional([
-            'message' => 'Successfully Update Date',
+            'message' => 'Successfully Update Data',
             'status' => true
         ], 200);
     }
@@ -91,7 +91,7 @@ class TaskController extends Controller
         $task->delete();
 
         return response()->json([
-            'message' => 'Successfully Delete Date',
+            'message' => 'Successfully Delete Data',
             'status' => true
         ], 200);
     }

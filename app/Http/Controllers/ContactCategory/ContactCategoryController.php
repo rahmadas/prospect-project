@@ -25,7 +25,7 @@ class ContactCategoryController extends Controller
             ->get();
 
         return (ContactCategoryResource::collection($contact_category))->additional([
-            'message' => 'Successfully Index Date',
+            'message' => 'Successfully Index Data',
             'status' => true
         ]);
     }

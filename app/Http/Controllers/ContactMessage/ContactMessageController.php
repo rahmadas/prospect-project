@@ -24,7 +24,7 @@ class ContactMessageController extends Controller
             ->get();
 
         return (ContactMessageResource::collection($contact_message))->additional([
-            'message' => 'Successfully Index Date',
+            'message' => 'Successfully Index Data',
             'status' => true
         ]);
     }
