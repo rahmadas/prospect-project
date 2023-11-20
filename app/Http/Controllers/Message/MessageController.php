@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Message\MessageRequest;
 use App\Http\Requests\Message\StoreMessageRequest;
 use App\Http\Resources\MessageResource;
+use App\Models\Contact;
 use App\Models\Contact_message;
 use App\Models\Message;
 use App\Models\Message_template;
@@ -34,7 +35,7 @@ class MessageController extends Controller
         $messages = $messages->paginate($perPage);
 
         return MessageResource::collection($messages)->additional([
-            'message' => 'Successfully Index Date',
+            'message' => 'Successfully Index Data',
             'status' => true
         ], 200);
     }
@@ -52,7 +53,7 @@ class MessageController extends Controller
         ]);
 
         return (new MessageResource($message))->additional([
-            'message' => 'Successfully Create Date',
+            'message' => 'Successfully Create Data',
             'status' => true
         ], 200);
     }
@@ -60,20 +61,31 @@ class MessageController extends Controller
     function show(Message $message)
     {
         return (new MessageResource($message))->additional([
-            'message' => 'Successfully Show Date',
+            'message' => 'Successfully Show Data',
             'status' => true
         ], 200);
     }
 
     function update(StoreMessageRequest $request, Message $message)
     {
+        $data = $request->validated();
+        $data['user_id'] = auth()->user()->id;
 
-        $data = $message->update($request->validated());
+        $message->update($data);
 
-        return response()->json([
-            'data' => $data,
-            'message' => 'Successfully Update Date',
+        return (new MessageResource($message))->additional([
+            'message' => 'Successfully Update Data',
             'status' => true
         ], 200);
+    }
+
+    function destroy(Message $message)
+    {
+        $message->delete();
+
+        return response()->json([
+            'message' => 'Successfully Delete Data',
+            'status' => true
+        ]);
     }
 }

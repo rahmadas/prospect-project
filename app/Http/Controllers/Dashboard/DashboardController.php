@@ -102,8 +102,8 @@ class DashboardController extends Controller
             $result2[] = [
                 'name' => 'event',
                 'date' => $event->start_date, // Tambahkan tanggal dalam format "Y-m-d"
-                'count' => $event->limaAktifitasAkanDatang,
-                'total' => $event->limaAktifitasAkanDatang,
+                // 'count' => $event->limaAktifitasAkanDatang,
+                // 'total' => $event->limaAktifitasAkanDatang,
             ];
         }
 
@@ -118,30 +118,18 @@ class DashboardController extends Controller
     {
         // task harian
         $totalTaskDaily = DB::table('tasks')
-            ->select(DB::raw('user_id, due_date, due_time, count(*) as total_Task_Daily'))
-            ->where('status', 'completed')
-            ->groupBy('user_id', 'status', 'due_date', 'due_time')
-            ->orderBy('user_id', 'desc')
+            ->select(DB::raw(' tasks.reminder, CONCAT(contacts.first_name, " ", contacts.last_name) as full_name, tasks.title'))
+            ->join('contacts', 'tasks.relate_to', '=', 'contacts.id')
+            ->where('tasks.status', 'completed')
+            ->groupBy('tasks.reminder', 'contacts.first_name', 'contacts.last_name', 'tasks.title')
+            ->orderBy('tasks.reminder', 'desc')
             ->take(5)
             ->get();
-
-        $result3 = [];
-
-        foreach ($totalTaskDaily as $task) {
-            $result3[] = [
-                'name' => 'task',
-                'count' => $task->total_Task_Daily,
-                'total' => $task->total_Task_Daily,
-                'due_date' => $task->due_date,
-                'due_time' => $task->due_time,
-            ];
-        }
-
 
         return response()->json([
             'message' => 'Successfully',
             'status' => true,
-            'data' => $result3
+            'data' => $totalTaskDaily
         ]);
     }
 }

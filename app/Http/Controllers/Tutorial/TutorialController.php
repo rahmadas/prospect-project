@@ -69,7 +69,7 @@ class TutorialController extends Controller
         $tutorial = Tutorial::create($data);
 
         // Generate URLs for thumbnail and video (if exists)
-        $thumbnailUrl = asset(str_replace('public/', 'storage/', $tutorial->thumbnail));
+        $data['thumbnail'] = 'public/thumbnails/' . $thumbnailName;
         $videoUrl = $tutorial->type == '2' ? asset(str_replace('public/', 'storage/', $tutorial->video_source)) : null;
 
         return (new TutorialResource($tutorial))->additional([
@@ -91,20 +91,34 @@ class TutorialController extends Controller
         $data = $request->validated();
         $data['user_id'] = auth()->user()->id;
 
+        // Handle Thumbnail
         if ($request->file('thumbnail')) {
             $uploadedThumbnail = $request->file('thumbnail');
-            $thumbnailName = time() . '_' . $uploadedThumbnail->getClientOriginalName();
-            $data['thumbnail'] = $uploadedThumbnail->storeAs('public/thumbnails', $thumbnailName);
+            $thumbnailName = time() . '_' . str_replace(' ', '_', $uploadedThumbnail->getClientOriginalName());
+            $thumbnailPath = $uploadedThumbnail->storeAs('public/thumbnails', $thumbnailName);
+            $data['thumbnail'] = 'public/thumbnails/' . $thumbnailName;
         } else {
-            $data['thumbnail'] = 'default_thumbnail.jpg'; // Sesuaikan dengan nama file default
+            $data['thumbnail'] = 'public/thumbnails/default_thumbnail.jpg';
         }
 
-
-        $uploadedVideo = $request->file('video_source');
-        $videoName = time() . '_' . $uploadedVideo->getClientOriginalName();
-        $data['video_source'] = $uploadedVideo->storeAs('public/videos', $videoName);
+        // Handle Video
+        if ($request->file('video_source')) {
+            $data['type'] = '2';
+            $uploadedVideo = $request->file('video_source');
+            $videoName = time() . '_' . str_replace(' ', '_', $uploadedVideo->getClientOriginalName());
+            $videoPath = $uploadedVideo->storeAs('public/videos', $videoName);
+            $data['video_source'] = 'public/videos/' . $videoName;
+        } else {
+            $data['type'] = '1';
+            $data['video_source'] = null;
+        }
 
         $tutorial->update($data);
+
+        // Generate URLs for thumbnail and video (if exists)
+        $data['thumbnail'] = 'public/thumbnails/' . $thumbnailName;
+        $videoUrl = $tutorial->type == '2' ? asset(str_replace('public/', 'storage/', $tutorial->video_source)) : null;
+
 
         return (new TutorialResource($tutorial))->additional([
             'message' => 'Successfully Update Date',

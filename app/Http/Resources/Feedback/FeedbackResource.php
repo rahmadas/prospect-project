@@ -20,7 +20,8 @@ class FeedbackResource extends JsonResource
             'user_first_name' => $this->user->first_name,
             'user_last_name' => $this->user->last_name,
             'title' => $this->title,
-            'feedback_message' => $this->feedback_message
+            'feedback_message' => $this->feedback_message,
+            'rating' => $this->rating
         ];
     }
 }

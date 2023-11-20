@@ -24,7 +24,8 @@ class StoreFeedbackRequest extends FormRequest
         return [
             // 'user_id' => 'required',
             'title' => 'required|string',
-            'feedback_message' => 'required|string'
+            'feedback_message' => 'required|string',
+            'rating' => 'required|integer|min:0|max:5'
         ];
     }
 }

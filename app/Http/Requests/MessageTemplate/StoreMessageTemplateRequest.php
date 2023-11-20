@@ -26,7 +26,7 @@ class StoreMessageTemplateRequest extends FormRequest
             // 'message_template_id' => 'required',
             'title' => 'required|string',
             'message' => 'required|string',
-            'attachment' => 'required|string'
+            'attachment' => 'nullable|file|mimes:pdf,doc,docx,mp4,avi,mov,xlsx,xls,jpg,jpeg,png,gif'
         ];
     }
 }

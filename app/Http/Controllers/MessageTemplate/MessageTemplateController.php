@@ -45,11 +45,18 @@ class MessageTemplateController extends Controller
         $data['user_id'] = auth()->user()->id;
 
         // Handle Attachment
-        if ($request->hasFile('attachment')) {
+        if ($request->file('attachment')) {
             $uploadedAttachment = $request->file('attachment');
+
+            $attachmentType = $uploadedAttachment->getClientOriginalExtension();
+
             $attachmentName = time() . '_' . str_replace(' ', '_', $uploadedAttachment->getClientOriginalName());
-            $attachmentPath = $uploadedAttachment->storeAs('public/attachments', $attachmentName);
-            $data['attachment'] = Storage::url($attachmentPath);
+            $attachmentPath = $uploadedAttachment->storeAs('public/attachments/' . $attachmentType, $attachmentName);
+
+            $data['attachment'] = asset('storage/attachments/' . $attachmentType . '/' . $attachmentName);
+        } else {
+            // Default attachment if none is provided
+            $data['attachment'] = asset('storage/attachments/default_attachment.jpg');
         }
 
         $message_template = Message_template::create($data);

@@ -21,7 +21,8 @@ return new class extends Migration
             $table->enum('priority', ['low', 'medium', 'hight']);
             $table->dateTime('reminder');
             $table->enum('status', ['completed', 'not_completed', 'due_today']);
-            $table->bigInteger('relate_to');
+            $table->bigInteger('relate_to')->unsigned();
+            $table->foreign('relate_to')->references('id')->on('contacts')->onDelete('cascade');
             $table->timestamps();
             $table->softDeletes();
         });
