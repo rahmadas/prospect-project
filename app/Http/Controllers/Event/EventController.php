@@ -73,11 +73,11 @@ class EventController extends Controller
     {
         $data = $request->validated();
         $data['user_id'] = auth()->user()->id;
-        $data['start_date'] = Carbon::now();
-        $data['end_date'] = Carbon::now();
-        $data['reminder'] = Carbon::parse($data['start_date'])
-            ->subHour()
-            ->setTimezone('Asia/Jakarta');
+        // $data['start_date'] = Carbon::now()->format('Y-m-d');
+        // $data['end_date'] = Carbon::now()->format('Y-m-d');
+        // $data['reminder'] = Carbon::parse($data['start_date'])
+        //     ->subHour()
+        //     ->setTimezone('Asia/Jakarta');
         $data['meeting_type'] = 4;
 
         $event = Event::create($data);

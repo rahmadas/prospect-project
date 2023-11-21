@@ -32,6 +32,11 @@ class TutorialController extends Controller
 
         $tutorials = $tutorials->paginate($perPage);
 
+        // Update the type attribute for each tutorial
+        $tutorials->each(function ($tutorial) {
+            $tutorial->type = '2';
+        });
+
         return TutorialResource::collection($tutorials)->additional([
             'message' => 'Successfully Index Data',
             'status' => true
@@ -70,7 +75,9 @@ class TutorialController extends Controller
 
         // Generate URLs for thumbnail and video (if exists)
         $data['thumbnail'] = 'public/thumbnails/' . $thumbnailName;
-        $videoUrl = $tutorial->type == '2' ? asset(str_replace('public/', 'storage/', $tutorial->video_source)) : null;
+        $data['video_url'] = $tutorial->type == '2' && $tutorial->video_source
+            ? asset(str_replace('public/', 'storage/', $tutorial->video_source))
+            : null;
 
         return (new TutorialResource($tutorial))->additional([
             'message' => 'Successfully Create Data',
@@ -80,6 +87,8 @@ class TutorialController extends Controller
 
     function show(Tutorial $tutorial)
     {
+        $tutorial->type = '2';
+
         return (new TutorialResource($tutorial))->additional([
             'message' => 'Successfully Show Data',
             'status' => true

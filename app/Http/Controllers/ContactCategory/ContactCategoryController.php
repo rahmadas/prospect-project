@@ -15,16 +15,16 @@ use Illuminate\Support\Facades\DB;
 
 class ContactCategoryController extends Controller
 {
-    public function index()
+    public function getContactsByCategory($categoryId)
     {
-        $contact_category = DB::table('contact_categories')
-            ->select('contact_categories.id', 'contact_id', 'category_id', 'contacts.first_name as contact_first_name', 'categories.name as category_name')
-            ->join('contacts', 'contact_categories.contact_id', '=', 'contacts.id')
+        $contacts = DB::table('contacts')
+            ->select('contacts.id', 'contacts.first_name as contact_first_name', 'contact_categories.id as contact_category_id', 'categories.name as category_name')
+            ->join('contact_categories', 'contacts.id', '=', 'contact_categories.contact_id')
             ->join('categories', 'contact_categories.category_id', '=', 'categories.id')
-            ->orderBy('contact_id', 'asc')
+            ->where('contact_categories.category_id', $categoryId)
             ->get();
 
-        return (ContactCategoryResource::collection($contact_category))->additional([
+        return (ContactCategoryResource::collection($contacts))->additional([
             'message' => 'Successfully Index Data',
             'status' => true
         ]);

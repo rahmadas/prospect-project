@@ -19,6 +19,11 @@ class Contact extends Model
         'email'
     ];
 
+    // public function contactCategories()
+    // {
+    //     return $this->belongsToMany(ContactCategory::class, 'contact_contact_category');
+    // }
+
     public function contact_category()
     {
         return $this->belongsToMany(Contact_category::class);

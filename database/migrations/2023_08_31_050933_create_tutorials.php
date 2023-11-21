@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('tutorials', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
             $table->enum('type', ['text', 'vidio']);
             $table->string('description');
             $table->string('video_source');

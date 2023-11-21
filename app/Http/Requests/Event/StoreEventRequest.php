@@ -26,12 +26,12 @@ class StoreEventRequest extends FormRequest
             'title' => 'required|string',
             'meeting_with' => 'required|string',
             // 'meeting_type' => 'required|in:create_event,create_presentation,event_create_followup_event,create_call_event',
-            // 'start_date' => 'required|date',
-            // 'end_date' => 'required|date',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date',
             'latitude' => 'required|string',
             'longitude' => 'required|string',
             'location' => 'required|string',
-            // 'reminder' => 'required|YYYY-MM-DD HH:mm:ss',
+            'reminder' => 'required|date_format:H:i:s',
             'note' => 'required|string',
         ];
     }

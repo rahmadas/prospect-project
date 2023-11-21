@@ -44,6 +44,9 @@ Route::post('/register', [RegisterController::class, 'register']);
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LogoutController::class, 'logout']);
 
+// getcontactcategory
+Route::get('/contact-category/{categoryId}', [ContactCategoryController::class, 'getContactsByCategory']);
+
 //zip
 Route::get('download-zip', [ImportExcelController::class, '__invoke']);
 
