@@ -102,9 +102,9 @@ class EventController extends Controller
         $data['user_id'] = auth()->user()->id;
 
         // Tambahkan data latitude, longitude, dan location
-        $data['latitude'] = $request->input('latitude');
-        $data['longitude'] = $request->input('longitude');
-        $data['location'] = $request->input('location');
+        // $data['latitude'] = $request->input('latitude');
+        // $data['longitude'] = $request->input('longitude');
+        // $data['location'] = $request->input('location');
 
         $event->update($data);
 

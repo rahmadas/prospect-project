@@ -27,6 +27,8 @@ class StoreMessageRequest extends FormRequest
             'message_template_id' => 'required',
             'message' => 'required|string',
             // 'status' => 'required|in:pending,success,failed'
+            'name' => 'required|string',
+            'phone_number' => 'required|string'
         ];
     }
 }

@@ -77,16 +77,13 @@ class MessageTemplateController extends Controller
 
     function update(StoreMessageTemplateRequest $request, Message_template $message_template)
     {
-
-        $data = $message_template->update($request->validated());
-
-        // Validate the request data
+        // Validasi data permintaan
         $data = $request->validated();
 
-        // Update the user_id to the authenticated user's ID
-        $data['user_id'] = auth()->user()->id;
+        // // Perbarui user_id ke ID pengguna yang diautentikasi
+        // $data['user_id'] = auth()->user()->id;
 
-        // Update the Category record with the new data
+        // Perbarui catatan Kategori dengan data baru
         $message_template->update($data);
 
         return (new MessageTemplateResource($message_template))->additional([

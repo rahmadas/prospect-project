@@ -14,13 +14,13 @@ use Symfony\Component\HttpFoundation\Test\Constraint\ResponseFormatSame;
 
 class ContactMessageController extends Controller
 {
-    public function index()
+    public function getContactByMessage($messageId)
     {
-        $contact_message = DB::table('contact_messages')
-            ->select('contact_messages.id', 'contact_id', 'message_id', 'contacts.first_name as contact_first_name', 'messages.message as message_name')
-            ->join('contacts', 'contact_messages.contact_id', '=', 'contacts.id')
+        $contact_message = DB::table('contacts')
+            ->select('contacts.id', 'contacts.first_name as contact_name', 'contact_messages.id as contact_message_id', 'messages.name as message_name')
+            ->join('contact_messages', 'contacts.id', '=', 'contact_messages.contact_id')
             ->join('messages', 'contact_messages.message_id', '=', 'messages.id')
-            ->orderBy('contact_id', 'asc')
+            ->where('contact_messages.message_id', $messageId)
             ->get();
 
         return (ContactMessageResource::collection($contact_message))->additional([
@@ -28,4 +28,21 @@ class ContactMessageController extends Controller
             'status' => true
         ]);
     }
+
+    // public function index()
+    // {
+    //     $contact_message = DB::table('contact_messages')
+    //         ->select('contact_messages.id', 'contact_id', 'message_id', 'contacts.first_name as contact_name', 'messages.name as message_name')
+    //         ->join('contacts', 'contact_messages.contact_id', '=', 'contacts.id')
+    //         ->join('messages', 'contact_messages.message_id', '=', 'messages.id')
+    //         ->orderBy('contact_id', 'asc')
+    //         ->get();
+
+    //     return (ContactMessageResource::collection($contact_message))->additional([
+    //         'message' => 'Successfully Index Data',
+    //         'status' => true
+    //     ]);
+    // }
+
+
 }

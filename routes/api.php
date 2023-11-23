@@ -22,6 +22,7 @@ use App\Http\Controllers\Tutorial\TutorialController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\UserProFeature\UserProFeatureController;
 use App\Http\Controllers\ZipController;
+use App\Http\Resources\ContactMessageResource;
 use App\Models\PhoneBook;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -44,8 +45,11 @@ Route::post('/register', [RegisterController::class, 'register']);
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LogoutController::class, 'logout']);
 
-// getcontactcategory
+// getcontactcategories / Categories 
 Route::get('/contact-category/{categoryId}', [ContactCategoryController::class, 'getContactsByCategory']);
+
+// getContactMessages / Messages
+Route::get('/contact-message/{messageId}', [ContactMessageController::class, 'getContactByMessage']);
 
 //zip
 Route::get('download-zip', [ImportExcelController::class, '__invoke']);
@@ -61,10 +65,11 @@ Route::prefix('/dashboard')->group(function () {
     Route::get('/up-daily-task', [DashboardController::class, 'updateDailyTask']);
 });
 
+// Route::post('message_template/{id}', [MessageTemplateController::class, 'update']);
+
 Route::prefix('/status-message-status')->group(function () {
     Route::get('/amount-sent', [AmountSentController::class, 'amountSent']);
 });
-
 
 Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::apiResource('/user', UserController::class);

@@ -14,7 +14,14 @@ class Message extends Model
         'message_template_id',
         'message',
         'status',
+        'name',
+        'phone_number'
     ];
+
+    public function contact()
+    {
+        return $this->belongsTo(Contact::class);
+    }
 
     public function contact_message()
     {
@@ -23,7 +30,7 @@ class Message extends Model
 
     public function message_template()
     {
-        return $this->belongsToMany(Message_template::class);
+        return $this->belongsTo(Message_template::class);
     }
 
     public function user()

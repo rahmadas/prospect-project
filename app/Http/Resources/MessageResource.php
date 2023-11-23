@@ -19,12 +19,14 @@ class MessageResource extends JsonResource
         return [
             'id' => $this->id,
             'user_id' => $this->user_id,
-            // 'contact_id' => $this->contact_id,
             // 'user_first_name' => $this->user->first_name,
             // 'user_last_name' => $this->user->last_name,
             'message_template_id' => $this->message_template_id,
+            'name_contact' => $this->name,
+            'phone_number' => $this->phone_number,
             'message' => $this->message,
-            'status' => $this->status
+            'status' => $this->status,
+            'attachment' => $this->message_template->attachment,
 
         ];
     }

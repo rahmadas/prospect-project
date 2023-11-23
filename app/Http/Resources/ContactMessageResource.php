@@ -17,8 +17,10 @@ class ContactMessageResource extends JsonResource
         // return parent::toArray($request);
         return [
             'id' => $this->id,
-            'contact_id' => $this->contact_id,
-            'message_id' => $this->message_id
+            'contact_id' => $this->id,
+            'contact_name' => $this->contact_name,
+            'contact_message_id' => $this->contact_message_id,
+            'message_name' => $this->message_name
         ];
     }
 }

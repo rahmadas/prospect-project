@@ -13,19 +13,21 @@ class Task extends Model
         'user_id',
         'title',
         'note',
-        'due_date',
-        'due_time',
+        'start_date',
+        'end_date',
         'priority',
         'reminder',
         'status',
         'relate_to'
     ];
 
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
-    public function contact() {
+    public function contact()
+    {
         return $this->belongsTo(Contact::class);
     }
 }
