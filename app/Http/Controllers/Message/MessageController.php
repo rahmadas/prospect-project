@@ -40,11 +40,11 @@ class MessageController extends Controller
         ], 200);
     }
 
-    public function store(StoreMessageRequest $request)
+    public function store(StoreMessageRequest $request, Message $message)
     {
         $data = $request->validated();
         $data['user_id'] = auth()->user()->id;
-        $data['status'] = 4;
+        $data['status'] = 3;
 
         $message = Message::create($data);
         $contactMessage = Contact_message::create([

@@ -65,7 +65,6 @@ Route::prefix('/dashboard')->group(function () {
     Route::get('/up-daily-task', [DashboardController::class, 'updateDailyTask']);
 });
 
-// Route::post('message_template/{id}', [MessageTemplateController::class, 'update']);
 
 Route::prefix('/status-message-status')->group(function () {
     Route::get('/amount-sent', [AmountSentController::class, 'amountSent']);

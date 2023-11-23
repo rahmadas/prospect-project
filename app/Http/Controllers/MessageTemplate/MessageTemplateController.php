@@ -80,8 +80,20 @@ class MessageTemplateController extends Controller
         // Validasi data permintaan
         $data = $request->validated();
 
-        // // Perbarui user_id ke ID pengguna yang diautentikasi
-        // $data['user_id'] = auth()->user()->id;
+        // Handle Attachment
+        if ($request->file('attachment')) {
+            $uploadedAttachment = $request->file('attachment');
+
+            $attachmentType = $uploadedAttachment->getClientOriginalExtension();
+
+            $attachmentName = time() . '_' . str_replace(' ', '_', $uploadedAttachment->getClientOriginalName());
+            $attachmentPath = $uploadedAttachment->storeAs('public/attachments/' . $attachmentType, $attachmentName);
+
+            $data['attachment'] = asset('storage/attachments/' . $attachmentType . '/' . $attachmentName);
+        } else {
+            // Default attachment if none is provided
+            $data['attachment'] = asset('storage/attachments/default_attachment.jpg');
+        }
 
         // Perbarui catatan Kategori dengan data baru
         $message_template->update($data);
