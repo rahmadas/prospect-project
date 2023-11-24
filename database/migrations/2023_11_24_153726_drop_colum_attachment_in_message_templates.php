@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('message_templates', function (Blueprint $table) {
-            // $table->text('attachment')->after('message');
+            //
         });
     }
 
@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('message_templates', function (Blueprint $table) {
-            // 
+            $table->dropColumn('attachment');
         });
     }
 };
