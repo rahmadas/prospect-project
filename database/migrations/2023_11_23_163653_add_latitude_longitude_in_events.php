@@ -16,7 +16,7 @@ return new class extends Migration
             // $table->date('end_date')->change();
             // $table->string('latitude')->after('end_date');
             // $table->string('longitude')->after('latitude');
-            $table->time('reminder')->after('location');
+            // $table->time('reminder')->after('location');
         });
     }
 
