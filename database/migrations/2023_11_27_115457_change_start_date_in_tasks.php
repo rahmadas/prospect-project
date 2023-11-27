@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('events', function (Blueprint $table) {
-            // $table->time('reminder')->after('location');
+        Schema::table('tasks', function (Blueprint $table) {
+            // $table->date('start_date')->after('note');
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('events', function (Blueprint $table) {
-            // $table->dropColumn('reminder');
+        Schema::table('tasks', function (Blueprint $table) {
+            $table->dropColumn('start_date')->after('note');
         });
     }
 };

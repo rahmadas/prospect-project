@@ -11,8 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('events', function (Blueprint $table) {
-            // $table->time('reminder')->after('location');
+        Schema::table('contact_messages', function (Blueprint $table) {
+            $table->dropForeign(['message_id']);
+            $table->foreign('message_id')
+                  ->references('id')->on('messages')
+                  ->onDelete('cascade');
         });
     }
 
@@ -21,8 +24,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('events', function (Blueprint $table) {
-            // $table->dropColumn('reminder');
+        Schema::table('contact_messages', function (Blueprint $table) {
+            //
         });
     }
 };

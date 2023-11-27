@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('events', function (Blueprint $table) {
-            // $table->time('reminder')->after('location');
+        Schema::table('contacts', function (Blueprint $table) {
+            $table->unsignedBigInteger('user_id')->change()->onDelete('cascade');
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('events', function (Blueprint $table) {
-            // $table->dropColumn('reminder');
+        Schema::table('contacts', function (Blueprint $table) {
+            //
         });
     }
 };

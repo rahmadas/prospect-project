@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('contacts', function (Blueprint $table) {
-            $table->foreignId('user_id')->change()->onDelete('cascade');
+            // $table->foreignId('user_id')->change()->onDelete('cascade');
         });
     }
 
