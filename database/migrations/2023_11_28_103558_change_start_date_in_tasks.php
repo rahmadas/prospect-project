@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('tasks', function (Blueprint $table) {
-            // $table->date('start_date')->after('note');
+            // $table->date('start_date')->change();
         });
     }
 
@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('tasks', function (Blueprint $table) {
-            // $table->dropColumn('start_date')->after('note');
+            $table->datetime('start_date')->change();
         });
     }
 };
