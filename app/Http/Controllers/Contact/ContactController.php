@@ -6,6 +6,7 @@ use App\Exports\ContactExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Contact\ContactRequest;
 use App\Http\Requests\Contact\StoreContactRequest;
+use App\Http\Resources\ContactByCategoryResource;
 use App\Http\Resources\ContactResource;
 use App\Imports\ContactImport;
 use App\Jobs\ProcessContact;
@@ -57,7 +58,6 @@ class ContactController extends Controller
 
     public function store(StoreContactRequest $request)
     {
-
         $data = $request->validated();
         $data['user_id'] = auth()->user()->id;
 
@@ -112,5 +112,20 @@ class ContactController extends Controller
             'message' => 'Successfully Delete Data',
             'status' => true
         ], 200);
+    }
+
+    function getContactByCategory($categoryId)
+    {
+        $contacts = DB::table('contacts')
+            ->select('contacts.id', DB::raw("CONCAT(contacts.first_name, ' ', contacts.last_name) as full_name"), 'categories.id as category_id', 'categories.name as category_name')
+            ->join('contact_categories', 'contacts.id', '=', 'contact_categories.contact_id')
+            ->join('categories', 'contact_categories.category_id', '=', 'categories.id')
+            ->where('contact_categories.category_id', $categoryId)
+            ->get();
+
+        return (ContactByCategoryResource::collection($contacts))->additional([
+            'message' => 'Successfully Index Data',
+            'status' => true
+        ]);
     }
 }

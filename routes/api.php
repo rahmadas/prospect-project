@@ -45,6 +45,9 @@ Route::post('/register', [RegisterController::class, 'register']);
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LogoutController::class, 'logout']);
 
+//
+Route::get('/contact/{categoryId}', [ContactController::class, 'getContactByCategory']);
+
 // getcontactcategories / Categories 
 Route::get('/contact-category/{categoryId}', [ContactCategoryController::class, 'getContactsByCategory']);
 
