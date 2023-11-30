@@ -12,10 +12,10 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('tasks', function (Blueprint $table) {
-            // $table->renameColumn('due_date', 'start_date');
-            // $table->renameColumn('due_time', 'end_date');
-            // $table->time('start_date')->change();
-            // $table->time('end_date')->change();
+            $table->renameColumn('due_date', 'start_date');
+            $table->renameColumn('due_time', 'end_date');
+            $table->time('start_date')->change();
+            $table->time('end_date')->change();
         });
     }
 
