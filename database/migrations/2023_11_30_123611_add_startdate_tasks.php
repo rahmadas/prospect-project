@@ -12,7 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('tasks', function (Blueprint $table) {
-            // $table->date('start_date')->nullable();
+            // $table->date('start_date')->after('note');
+            // $table->date('end_date')->after('start_date');
+            // $table->time('reminder')->after('priority');
         });
     }
 
@@ -22,7 +24,9 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('tasks', function (Blueprint $table) {
-            // $table->date('start_date');
+            $table->dropColumn('due_date');
+            $table->dropColumn('due_time');
+            // $table->dropColumn('reminder');
         });
     }
 };

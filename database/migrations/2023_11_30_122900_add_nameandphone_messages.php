@@ -11,8 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('feedbacks', function (Blueprint $table) {
-            // $table->bigInteger('rating')->after('feedback_message')->default(0);
+        Schema::table('messages', function (Blueprint $table) {
+            $table->string('name')->after('status');
+            $table->string('phone_number')->after('name');
         });
     }
 
@@ -21,7 +22,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('feedbacks', function (Blueprint $table) {
+        Schema::table('messages', function (Blueprint $table) {
             //
         });
     }

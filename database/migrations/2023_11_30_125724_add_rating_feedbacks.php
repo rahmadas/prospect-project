@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('feedbacks', function (Blueprint $table) {
-            // $table->bigInteger('rating')->after('feedback_message')->default(0);
+            $table->bigInteger('rating')->after('feedback_message')->default(0);
         });
     }
 
