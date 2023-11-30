@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('message_templates', function (Blueprint $table) {
-            $table->text('attachment')->after('message')->default();
+            // $table->text('attachment')->after('message')->default();
         });
     }
 

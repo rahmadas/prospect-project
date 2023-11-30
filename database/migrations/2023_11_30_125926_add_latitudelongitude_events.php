@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::table('events', function (Blueprint $table) {
             // $table->string('latitude')->after('end_date');
             // $table->string('longitude')->after('latitude');
-            $table->time('reminder')->change();
+            // $table->time('reminder')->change();
         });
     }
 
