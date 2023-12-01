@@ -27,7 +27,6 @@ class MessageResource extends JsonResource
             'message' => $this->message,
             'status' => $this->status,
             'attachment' => $this->message_template->attachment,
-
         ];
     }
 }

@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\DB;
 
 class ContactCategoryController extends Controller
 {
-    public function getContactsByCategory($categoryId)
+    public function getContactCategoryByCategory($categoryId)
     {
         $contacts = DB::table('contacts')
             ->select(

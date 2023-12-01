@@ -49,7 +49,7 @@ Route::post('/logout', [LogoutController::class, 'logout']);
 Route::get('/contact-by-category/{categoryId}', [ContactController::class, 'getContactByCategory']);
 
 // getcontactcategories / Categories 
-Route::get('/contact-category/{categoryId}', [ContactCategoryController::class, 'getContactsByCategory']);
+Route::get('/contact-category/{categoryId}', [ContactCategoryController::class, 'getContactCategoryByCategory']);
 
 // getContactMessages / Messages
 Route::get('/contact-message/{messageId}', [ContactMessageController::class, 'getContactByMessage']);
