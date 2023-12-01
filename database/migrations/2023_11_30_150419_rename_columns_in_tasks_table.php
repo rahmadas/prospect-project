@@ -28,8 +28,8 @@ return new class extends Migration
             // Reverse changes if needed
             $table->renameColumn('start_date', 'due_date');
             $table->renameColumn('end_date', 'due_time');
-            $table->time('start_date')->change();
-            $table->time('end_date')->change();
+            $table->date('start_date')->change();
+            $table->date('end_date')->change();
         });
     }
 };

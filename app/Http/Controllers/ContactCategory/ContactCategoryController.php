@@ -18,11 +18,22 @@ class ContactCategoryController extends Controller
     public function getContactsByCategory($categoryId)
     {
         $contacts = DB::table('contacts')
-            ->select('contacts.id', 'contacts.first_name as contact_first_name', 'contact_categories.id as contact_category_id', 'categories.name as category_name')
+            ->select(
+                'contacts.id',
+                'contacts.first_name',
+                'contacts.last_name',
+                'contacts.phone_number',
+                'contacts.home_number',
+                'contacts.work_number',
+                'contacts.email',
+                'contact_categories.id as contact_category_id',
+                'categories.name as category_name'
+            )
             ->join('contact_categories', 'contacts.id', '=', 'contact_categories.contact_id')
             ->join('categories', 'contact_categories.category_id', '=', 'categories.id')
             ->where('contact_categories.category_id', $categoryId)
             ->get();
+
 
         return (ContactCategoryResource::collection($contacts))->additional([
             'message' => 'Successfully Index Data',

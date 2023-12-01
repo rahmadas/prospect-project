@@ -16,7 +16,13 @@ class ContactByCategoryResource extends JsonResource
     {
         return [
             'contact_id' => $this->id,
-            'contact_name' => $this->full_name,
+            'first_name' => $this->first_name,
+            'last_name' => $this->last_name,
+            'full_name' => $this->first_name . ' ' . $this->last_name,
+            'phone_number' => $this->phone_number,
+            'home_number' => $this->home_number,
+            'work_number' => $this->work_number,
+            'email' => $this->email,
             'category_id' => $this->category_id,
             'category_name' => $this->category_name,
         ];

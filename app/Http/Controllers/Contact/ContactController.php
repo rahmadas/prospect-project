@@ -117,7 +117,17 @@ class ContactController extends Controller
     function getContactByCategory($categoryId)
     {
         $contacts = DB::table('contacts')
-            ->select('contacts.id', DB::raw("CONCAT(contacts.first_name, ' ', contacts.last_name) as full_name"), 'categories.id as category_id', 'categories.name as category_name')
+            ->select(
+                'contacts.id',
+                'contacts.first_name',
+                'contacts.last_name',
+                'contacts.phone_number',
+                'contacts.home_number',
+                'contacts.work_number',
+                'contacts.email',
+                'categories.id as category_id',
+                'categories.name as category_name'
+            )
             ->join('contact_categories', 'contacts.id', '=', 'contact_categories.contact_id')
             ->join('categories', 'contact_categories.category_id', '=', 'categories.id')
             ->where('contact_categories.category_id', $categoryId)

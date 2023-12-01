@@ -12,8 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('messages', function (Blueprint $table) {
-            // $table->string('name')->after('status');
-            // $table->string('phone_number')->after('name');
+            $table->enum('status', ['pending', 'success', 'failed'])->after('message')->change();
         });
     }
 
@@ -23,7 +22,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('messages', function (Blueprint $table) {
-            //
+            $table->enum('status', ['pending', 'success', 'failed']);
+            $table->dropColumn('status');
         });
     }
 };
