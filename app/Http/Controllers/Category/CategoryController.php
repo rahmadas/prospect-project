@@ -30,7 +30,6 @@ class CategoryController extends Controller
             });
         }
 
-        //
         $categories = $categories->paginate($perPage);
 
         return CategoryResource::collection($categories)->additional([

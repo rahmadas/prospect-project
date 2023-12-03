@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Process;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\ContactsImport;
+use App\Models\Category;
 use Maatwebsite\Excel\Excel as ExcelExcel;
 
 class ContactController extends Controller
@@ -114,24 +115,38 @@ class ContactController extends Controller
         ], 200);
     }
 
-    function getContactByCategory($categoryId)
+    function getContactByCategory(Request $request, $categoryId)
     {
-        $contacts = DB::table('contacts')
-            ->select(
-                'contacts.id',
-                'contacts.first_name',
-                'contacts.last_name',
-                'contacts.phone_number',
-                'contacts.home_number',
-                'contacts.work_number',
-                'contacts.email',
-                'categories.id as category_id',
-                'categories.name as category_name'
-            )
-            ->join('contact_categories', 'contacts.id', '=', 'contact_categories.contact_id')
-            ->join('categories', 'contact_categories.category_id', '=', 'categories.id')
-            ->where('contact_categories.category_id', $categoryId)
-            ->get();
+        $perPage = $request->perPage;
+        $query = $request->input('query', '');
+
+        $contactByCategories = Contact::orderBy('user_id', 'asc');
+
+        if (!empty($query)) {
+            $contactByCategories->where(function ($queryBuilder) use ($query) {
+                $queryBuilder->where('first_name', 'like', '%' . $query . '%')
+                    ->orWhere('last_name', 'like', '%' . $query . '%')
+                    ->orWhereRaw("CONCAT(first_name, ' ', last_name) LIKE ?", ['%' . $query . '%']);
+            });
+        }
+
+        $contactByCategories = $contactByCategories->paginate($perPage);
+
+        $contacts = $contactByCategories->map(function ($contact) use ($categoryId) {
+            $category = Category::find($categoryId);
+
+            return (object)[
+                'id' => $contact->id,
+                'first_name' => $contact->first_name,
+                'last_name' => $contact->last_name,
+                'phone_number' => $contact->phone_number,
+                'home_number' => $contact->home_number,
+                'work_number' => $contact->work_number,
+                'email' => $contact->email,
+                'category_id' => $categoryId, // Assuming you want to set a fixed category ID
+                'category_name' => $category ? $category->name : null, // Replace with the actual category name
+            ];
+        });
 
         return (ContactByCategoryResource::collection($contacts))->additional([
             'message' => 'Successfully Index Data',
