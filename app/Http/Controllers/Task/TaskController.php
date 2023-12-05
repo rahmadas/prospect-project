@@ -18,7 +18,7 @@ class TaskController extends Controller
     {
         $perPage = $request->perPage;
         $query = $request->$perPage;
-        $tasks = Task::orderBy('user_id', 'asc');
+        $tasks = Task::where('user_id', auth()->user()->id)->orderBy('user_id', 'asc');
 
         $query = $request->input('query', '');
 

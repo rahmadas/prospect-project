@@ -19,7 +19,7 @@ class MessageTemplateController extends Controller
     {
         $perPage = $request->perPage;
         $query = $request->$perPage;
-        $messageTemplates = Message_template::orderBy('user_id', 'asc');
+        $messageTemplates = Message_template::where('user_id', auth()->user()->id)->orderBy('user_id', 'asc');
 
         $query = $request->input('query', '');
 
