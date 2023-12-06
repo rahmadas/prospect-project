@@ -20,7 +20,7 @@ class MessageController extends Controller
     {
         $perPage = $request->perPage;
         $query = $request->$perPage;
-        $messages = Message::orderBy('user_id', 'asc');
+        $messages = Message::where('user_id', auth()->user()->id)->orderBy('user_id', 'asc');
 
         $query = $request->input('query', '');
 
