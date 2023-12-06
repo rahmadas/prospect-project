@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('tasks', function (Blueprint $table) {
-            // $table->unsignedBigInteger('contact_id')->after('status');
+        Schema::table('attachments', function (Blueprint $table) {
+            $table->enum('type', ['file', 'video', 'image'])->change();
         });
     }
 
@@ -21,9 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('tasks', function (Blueprint $table) {
-            // $table->dropColumn('contact_id');
-            // $table->dropForeign('relate_to')->change()->after('status');
+        Schema::table('attachments', function (Blueprint $table) {
+            //
         });
     }
 };

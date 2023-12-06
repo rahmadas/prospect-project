@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\MessageTemplate\MessageTemplateRequest;
 use App\Http\Requests\MessageTemplate\StoreMessageTemplateRequest;
 use App\Http\Resources\MessageTemplateResource;
+use App\Models\Attachment;
 use App\Models\Message;
 use App\Models\Message_template;
 use GuzzleHttp\Psr7\Response;
@@ -40,32 +41,46 @@ class MessageTemplateController extends Controller
 
     public function store(StoreMessageTemplateRequest $request)
     {
-
         $data = $request->validated();
         $data['user_id'] = auth()->user()->id;
+        $message_template = Message_template::create($data);
 
-        // Handle Attachment
-        if ($request->file('attachment')) {
-            $uploadedAttachment = $request->file('attachment');
-
+        // Handle Attachments
+        $attachments = [];
+        foreach ($request->file('attachments') as $uploadedAttachment) {
             $attachmentType = $uploadedAttachment->getClientOriginalExtension();
-
-            $attachmentName = time() . '_' . str_replace(' ', '_', $uploadedAttachment->getClientOriginalName());
+            $attachmentName = time() . '_' . str_replace('', '_', $uploadedAttachment->getClientOriginalName());
             $attachmentPath = $uploadedAttachment->storeAs('public/attachments/' . $attachmentType, $attachmentName);
 
-            $data['attachment'] = asset('storage/attachments/' . $attachmentType . '/' . $attachmentName);
-        } else {
-            // Default attachment if none is provided
-            $data['attachment'] = asset('storage/attachments/default_attachment.jpg');
-        }
+            $mimeType = $uploadedAttachment->getMimeType();
 
-        $message_template = Message_template::create($data);
+            if (str_starts_with($mimeType, 'image/')) {
+                $type = 'image';
+            } elseif (str_starts_with($mimeType, 'video/')) {
+                $type = 'video';
+            } else {
+                $type = 'file';
+            }
+
+            $uploadedAttachment->storeAs('public/attachments', $attachmentName);
+
+
+            $attachment = new Attachment([
+                'message_template_id' => $message_template->id,
+                'file' => asset('storage/attachments/' . $attachmentType . '/' . $attachmentName),
+                'type' => $type,
+            ]);
+            $attachment->save();
+            $attachments[] = $attachment;
+        }
 
         return (new MessageTemplateResource($message_template))->additional([
             'message' => 'Successfully Create Data',
             'status' => true
         ], 200);
     }
+
+
 
     function show(Message_template $message_template)
     {

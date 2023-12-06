@@ -13,7 +13,7 @@ class Message_template extends Model
         'user_id',
         'title',
         'message',
-        'attachment'
+        // 'attachment'
     ];
 
     public function message()
@@ -24,5 +24,10 @@ class Message_template extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function attachment()
+    {
+        return $this->hasMany(Attachment::class);
     }
 }

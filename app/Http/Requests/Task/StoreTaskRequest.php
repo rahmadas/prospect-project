@@ -22,7 +22,7 @@ class StoreTaskRequest extends FormRequest
     public function rules(): array
     {
         return [
-            // 'contact_id' => 'required',
+            'contact_id' => 'required',
             'title' => 'required|string',
             'note' => 'required|string',
             'start_date' => 'required|date_format:Y-m-d',
@@ -30,7 +30,7 @@ class StoreTaskRequest extends FormRequest
             'priority' => 'required|in:low,medium,hight',
             'reminder' => 'required|date_format:Y-m-d H:i:s',
             // 'status' => 'required|in:completed,not_completed,due_today',
-            'relate_to' => 'nullable|integer'
+            // 'relate_to' => 'nullable|integer'
         ];
     }
 }

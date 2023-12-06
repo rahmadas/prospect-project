@@ -4,6 +4,7 @@ use App\Http\Controllers\AmountSent\AmountSentController;
 use App\Http\Controllers\Api\Auth\LoginController;
 use App\Http\Controllers\Api\Auth\LogoutController;
 use App\Http\Controllers\Api\Auth\RegisterController;
+use App\Http\Controllers\Attachment\AttachmentController;
 use App\Http\Controllers\Category\CategoryController;
 use App\Http\Controllers\Contact\ContactController;
 use App\Http\Controllers\ContactCategory\ContactCategoryController;
@@ -90,6 +91,7 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::apiResource('/feedback', FeedbackController::class);
     Route::apiResource('/event', EventController::class);
     Route::apiResource('/phonebook', PhoneBookController::class);
+    Route::apiResource('/attachment', AttachmentController::class);
 
     Route::post('/logout', [LogoutController::class, 'logout']);
 });
