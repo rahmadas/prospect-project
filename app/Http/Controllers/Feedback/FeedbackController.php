@@ -14,7 +14,7 @@ class FeedbackController extends Controller
     {
         $perPage = $request->perPage;
         $query = $request->$perPage;
-        $feedbacks = Feedback::orderBy('user_id', 'asc');
+        $feedbacks = Feedback::where('user_id', auth()->user()->id)->orderBy('user_id', 'asc');
 
         $query = $request->input('query', '');
 

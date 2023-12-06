@@ -7,6 +7,7 @@ use App\Http\Requests\Note\StoreNoteRequest;
 use App\Http\Resources\Note\NoteResource;
 use App\Models\Contact;
 use App\Models\Note;
+use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -16,7 +17,7 @@ class NoteController extends Controller
     {
         $perPage = $request->perPage;
         $query = $request->$perPage;
-        $notes = Note::orderBy('contact_id');
+        $notes = Note::where('user_id', auth()->user()->id)->orderBy('contact_id');
 
         $query = $request->input('query', '');
 

@@ -26,7 +26,7 @@ class TaskResource extends JsonResource
             'priority' => $this->priority,
             'reminder' => $this->reminder,
             'status' => $this->status,
-            'contact_id' => $this->contact->contact_id
+            'contact_id' => $this->contact_id
             // 'relate_to' => $this->relate_to
         ];
     }

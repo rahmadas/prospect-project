@@ -42,7 +42,7 @@ class EventController extends Controller
     {
         $perPage = $request->Perpage;
         $query = $request->$perPage;
-        $events = Event::orderBy('user_id', 'asc');
+        $events = Event::where('user_id', auth()->user()->id)->orderBy('user_id', 'asc');
 
         $query = $request->input('query', '');
 

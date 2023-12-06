@@ -16,7 +16,7 @@ class ProFeatureController extends Controller
     {
         $perPage = $request->perPage;
         $query = $request->$perPage;
-        $proFeatures = Pro_feature::orderBy('name', 'asc');
+        $proFeatures = Pro_feature::where('user_id', auth()->user()->id)->orderBy('name', 'asc');
 
         $query = $request->input('query', '');
 

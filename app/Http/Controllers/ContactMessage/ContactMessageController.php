@@ -28,21 +28,4 @@ class ContactMessageController extends Controller
             'status' => true
         ]);
     }
-
-    // public function index()
-    // {
-    //     $contact_message = DB::table('contact_messages')
-    //         ->select('contact_messages.id', 'contact_id', 'message_id', 'contacts.first_name as contact_name', 'messages.name as message_name')
-    //         ->join('contacts', 'contact_messages.contact_id', '=', 'contacts.id')
-    //         ->join('messages', 'contact_messages.message_id', '=', 'messages.id')
-    //         ->orderBy('contact_id', 'asc')
-    //         ->get();
-
-    //     return (ContactMessageResource::collection($contact_message))->additional([
-    //         'message' => 'Successfully Index Data',
-    //         'status' => true
-    //     ]);
-    // }
-
-
 }

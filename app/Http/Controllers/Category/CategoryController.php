@@ -19,7 +19,7 @@ class CategoryController extends Controller
     {
         $perPage = $request->perPage;
         $query = $request->perPage;
-        $categories = Category::orderBy('user_id', 'asc');
+        $categories = Category::where('user_id', auth()->user()->id)->orderBy('user_id', 'asc');
 
         // get query parameter for search
         $query = $request->input('query', '');

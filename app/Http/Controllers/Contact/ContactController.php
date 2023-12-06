@@ -31,7 +31,7 @@ class ContactController extends Controller
         $query = $request->$perPage;
 
         // Query data Contact berdasarkan kondisi
-        $contacts = Contact::orderBy('user_id', 'asc');
+        $contacts = Contact::where('user_id', auth()->user()->id)->orderBy('user_id', 'asc');
 
         // Mengambil query parameter "query" untuk pencarian jika diberikan
         $query = $request->input('query', '');
