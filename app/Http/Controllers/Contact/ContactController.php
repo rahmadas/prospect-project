@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\Process;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Imports\ContactsImport;
 use App\Models\Category;
+use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Excel as ExcelExcel;
 
 class ContactController extends Controller
@@ -137,6 +139,9 @@ class ContactController extends Controller
 
             return (object)[
                 'id' => $contact->id,
+                'user_id' => $contact->user_id,
+                'user_first_name' => $contact->user->first_name,
+                'user_last_name' => $contact->user->last_name,
                 'first_name' => $contact->first_name,
                 'last_name' => $contact->last_name,
                 'phone_number' => $contact->phone_number,

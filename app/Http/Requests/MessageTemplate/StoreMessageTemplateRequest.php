@@ -26,7 +26,7 @@ class StoreMessageTemplateRequest extends FormRequest
             // 'message_template_id' => 'required',
             'title' => 'required|string',
             'message' => 'required|string',
-            'attachments.*' => 'required|file|mimes:pdf,doc,docx,mp4,avi,mov,xlsx,xls,jpg,jpeg,png,gif|max:2048'
+            'attachments.*' => 'required|file|mimes:pdf,doc,docx,mp4,avi,mov,xlsx,xls,jpg,jpeg,png,gif|max:7048'
         ];
     }
 }

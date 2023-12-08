@@ -28,7 +28,7 @@ class RegisterRequest extends FormRequest
             'inviter_referral_code ' => 'sometimes|numeric',
             'password' => 'required|min:8|confirmed',
             'password_confirmation' => 'required|min:8',
-            'foto_profile' => 'sometimes|mimes:jpg,bmp,png'
+            'foto_profile' => 'sometimes|mimes:jpg,bmp,png',
             // 'pro_feature_id' => 'required'
             // 'status' => 'required|in:pro,free',
         ];

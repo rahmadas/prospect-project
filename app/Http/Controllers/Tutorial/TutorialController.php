@@ -18,7 +18,7 @@ class TutorialController extends Controller
     {
         $perPage = $request->perPage;
         $query = $request->$perPage;
-        $tutorials = Tutorial::where('user_id', auth()->user()->id)->orderBy('type', 'asc');
+        $tutorials = Tutorial::orderBy('type', 'asc');
 
         $query = $request->input('query', '');
 

@@ -16,6 +16,9 @@ class ContactByCategoryResource extends JsonResource
     {
         return [
             'id' => $this->id,
+            'user_id' => $this->user_id,
+            'user_first_name' => $this->first_name,
+            'user_last_name' => $this->last_name,
             'contact_id' => $this->id,
             'first_name' => $this->first_name,
             'last_name' => $this->last_name,

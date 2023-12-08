@@ -16,14 +16,18 @@ class ProFeatureController extends Controller
     {
         $perPage = $request->perPage;
         $query = $request->$perPage;
-        $proFeatures = Pro_feature::where('user_id', auth()->user()->id)->orderBy('name', 'asc');
 
         $query = $request->input('query', '');
 
+        $proFeatures = Pro_feature::select('pro_features.*')
+            ->join('user_pro_features', 'pro_features.id', '=', 'user_pro_features.pro_feature_id')
+            ->where('user_pro_features.user_id', auth()->user()->id)
+            ->orderBy('pro_features.name', 'asc');
+
         if (!empty($query)) {
             $proFeatures->where(function ($queryBuilder) use ($query) {
-                $queryBuilder->where('name', 'like', '%' . $query . '%')
-                    ->orWhere('description', 'like', '%' . $query . '%');
+                $queryBuilder->where('pro_features.name', 'like', '%' . $query . '%')
+                    ->orWhere('pro_features.description', 'like', '%' . $query . '%');
             });
         }
 

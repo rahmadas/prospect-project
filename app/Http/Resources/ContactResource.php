@@ -21,13 +21,12 @@ class ContactResource extends JsonResource
             'user_first_name' => $this->user->first_name,
             'user_last_name' => $this->user->last_name,
             'full_name' => $this->first_name . ' ' . $this->last_name,
-            'firstName' => $this->first_name,
-            'lastName' => $this->last_name,
-            'phoneNumber' => $this->phone_number,
-            'homeNumber' => $this->home_number,
-            'workNumber' => $this->work_number,
+            'first_name' => $this->first_name,
+            'last_name' => $this->last_name,
+            'phone_number' => $this->phone_number,
+            'home_number' => $this->home_number,
+            'work_number' => $this->work_number,
             'email' => $this->email,
-
         ];
     }
 }

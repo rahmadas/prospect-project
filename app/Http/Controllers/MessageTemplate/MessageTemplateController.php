@@ -47,11 +47,14 @@ class MessageTemplateController extends Controller
 
         // Handle Attachments
         $attachments = [];
+
         foreach ($request->file('attachments') as $uploadedAttachment) {
             $attachmentType = $uploadedAttachment->getClientOriginalExtension();
-            $attachmentName = time() . '_' . str_replace('', '_', $uploadedAttachment->getClientOriginalName());
+            $attachmentName = time() . '_' . str_replace(' ', '_', $uploadedAttachment->getClientOriginalName());
             $attachmentPath = $uploadedAttachment->storeAs('public/attachments/' . $attachmentType, $attachmentName);
 
+            //for group klik link, in the finish
+            $data['attachments'] = 'public/attachments/' . $attachmentName;
             $mimeType = $uploadedAttachment->getMimeType();
 
             if (str_starts_with($mimeType, 'image/')) {
@@ -61,9 +64,6 @@ class MessageTemplateController extends Controller
             } else {
                 $type = 'file';
             }
-
-            $uploadedAttachment->storeAs('public/attachments', $attachmentName);
-
 
             $attachment = new Attachment([
                 'message_template_id' => $message_template->id,
@@ -95,23 +95,37 @@ class MessageTemplateController extends Controller
         // Validasi data permintaan
         $data = $request->validated();
 
-        // Handle Attachment
-        if ($request->file('attachment')) {
-            $uploadedAttachment = $request->file('attachment');
+        $data['user_id'] = auth()->user()->id;
+        $message_template = Message_template::create($data);
 
+        // Handle Attachments
+        $attachments = [];
+
+        foreach ($request->file('attachments') as $uploadedAttachment) {
             $attachmentType = $uploadedAttachment->getClientOriginalExtension();
-
             $attachmentName = time() . '_' . str_replace(' ', '_', $uploadedAttachment->getClientOriginalName());
             $attachmentPath = $uploadedAttachment->storeAs('public/attachments/' . $attachmentType, $attachmentName);
 
-            $data['attachment'] = asset('storage/attachments/' . $attachmentType . '/' . $attachmentName);
-        } else {
-            // Default attachment if none is provided
-            $data['attachment'] = asset('storage/attachments/default_attachment.jpg');
-        }
+            //for group klik link, in the finish
+            $data['attachments'] = 'public/attachments/' . $attachmentName;
+            $mimeType = $uploadedAttachment->getMimeType();
 
-        // Perbarui catatan Kategori dengan data baru
-        $message_template->update($data);
+            if (str_starts_with($mimeType, 'image/')) {
+                $type = 'image';
+            } elseif (str_starts_with($mimeType, 'video/')) {
+                $type = 'video';
+            } else {
+                $type = 'file';
+            }
+
+            $attachment = new Attachment([
+                'message_template_id' => $message_template->id,
+                'file' => asset('storage/attachments/' . $attachmentType . '/' . $attachmentName),
+                'type' => $type,
+            ]);
+            $attachment->save();
+            $attachments[] = $attachment;
+        }
 
         return (new MessageTemplateResource($message_template))->additional([
             'message' => 'Successfully Update Data',
