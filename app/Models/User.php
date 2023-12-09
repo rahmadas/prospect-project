@@ -26,7 +26,8 @@ class User extends Authenticatable
         'referral_code',
         'password',
         'status',
-        'expired_at'
+        'expired_at',
+        'foto_profile'
     ];
 
     public function User_pro_feature()

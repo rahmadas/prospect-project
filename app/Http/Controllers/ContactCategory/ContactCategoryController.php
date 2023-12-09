@@ -31,7 +31,7 @@ class ContactCategoryController extends Controller
             )
             ->join('contact_categories', 'contacts.id', '=', 'contact_categories.contact_id')
             ->join('categories', 'contact_categories.category_id', '=', 'categories.id')
-            ->where('contact_categories.category_id', $categoryId)
+            ->where('contact_categories.category_id')
             ->get();
 
 

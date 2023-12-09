@@ -119,10 +119,11 @@ class ContactController extends Controller
 
     function getContactByCategory(Request $request, $categoryId)
     {
+
         $perPage = $request->perPage;
         $query = $request->input('query', '');
 
-        $contactByCategories = Contact::orderBy('user_id', 'asc');
+        $contactByCategories = Contact::where('user_id')->orderBy('user_id', 'asc');
 
         if (!empty($query)) {
             $contactByCategories->where(function ($queryBuilder) use ($query) {
@@ -135,23 +136,54 @@ class ContactController extends Controller
         $contactByCategories = $contactByCategories->paginate($perPage);
 
         $contacts = $contactByCategories->map(function ($contact) use ($categoryId) {
-            $category = Category::find($categoryId);
+            $category = DB::table('categories')->where('user_id')->find($categoryId);
 
-            return (object)[
+            return [
                 'id' => $contact->id,
-                'user_id' => $contact->user_id,
-                'user_first_name' => $contact->user->first_name,
-                'user_last_name' => $contact->user->last_name,
                 'first_name' => $contact->first_name,
                 'last_name' => $contact->last_name,
                 'phone_number' => $contact->phone_number,
                 'home_number' => $contact->home_number,
                 'work_number' => $contact->work_number,
                 'email' => $contact->email,
-                'category_id' => $categoryId, // Assuming you want to set a fixed category ID
-                'category_name' => $category ? $category->name : null, // Replace with the actual category name
+                'category_id' => $categoryId,
+                'category_name' => optional($category)->name
             ];
         });
+
+
+        // $perPage = $request->perPage;
+        // $query = $request->input('query', '');
+
+        // $contactByCategories = Contact::where('user_id', auth()->user()->id)->orderBy('user_id', 'asc');
+
+        // if (!empty($query)) {
+        //     $contactByCategories->where(function ($queryBuilder) use ($query) {
+        //         $queryBuilder->where('first_name', 'like', '%' . $query . '%')
+        //             ->orWhere('last_name', 'like', '%' . $query . '%')
+        //             ->orWhereRaw("CONCAT(first_name, ' ', last_name) LIKE ?", ['%' . $query . '%']);
+        //     });
+        // }
+
+        // $contactByCategories = $contactByCategories->paginate($perPage);
+
+        // $contacts = $contactByCategories->map(function ($contact) use ($categoryId) {
+        //     $category = Category::where('user_id', auth()->user()->id)->find($categoryId);
+        //     return (object)[
+        //         'id' => $contact->id,
+        //         // 'user_id' => $contact->user_id,
+        //         // 'user_first_name' => optional($contact->user)->first_name,
+        //         // 'user_last_name' => optional($contact->user)->last_name,
+        //         'first_name' => $contact->first_name,
+        //         'last_name' => $contact->last_name,
+        //         'phone_number' => $contact->phone_number,
+        //         'home_number' => $contact->home_number,
+        //         'work_number' => $contact->work_number,
+        //         'email' => $contact->email,
+        //         'category_id' => $categoryId, // Assuming you want to set a fixed category ID
+        //         'category_name' => $category ? $category->name : null, // Replace with the actual category name
+        //     ];
+        // });
 
         return (ContactByCategoryResource::collection($contacts))->additional([
             'message' => 'Successfully Index Data',

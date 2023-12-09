@@ -23,7 +23,7 @@ class UserResource extends JsonResource
             'status' => $this->status,
             'referral_code' => $this->referral_code,
             'password' => $this->password,
-            'foto_profile' => $this->foto_profile
+            'foto_profile' => $this->fullUrl ?? $this->foto_profile,
         ];
     }
 }

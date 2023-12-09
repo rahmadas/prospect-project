@@ -28,16 +28,18 @@ class UserController extends Controller
     function update(StoreUserRequest $request, User $user)
     {
         $data = $request->validated();
-
         $data['user_id'] = auth()->user()->id;
 
         if ($request->hasFile('foto_profile')) {
             $file = $request->file('foto_profile');
-            $fileName = $file->getClientOriginalName();
+            $fileName = time() . '_' . str_replace(' ', '_', $file->getClientOriginalName());
             $file->storeAs('foto_profiles', $fileName, 'public');
-            $data['foto_profile'] = $fileName;
+            $data['foto_profile'] = 'storage/foto_profiles/' . $fileName;
+        } else {
+            $data['foto_profile'] = asset('storage/foto_profiles/' . $user->foto_profile);
         }
 
+        $data['foto_profile'] = asset('storage/foto_profiles/' . $fileName);
         $user->update($data);
 
         return (new UserResource($user))->additional([

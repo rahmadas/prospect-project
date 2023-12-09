@@ -17,7 +17,7 @@ class NoteController extends Controller
     {
         $perPage = $request->perPage;
         $query = $request->$perPage;
-        $notes = Note::where('user_id', auth()->user()->id)->orderBy('contact_id');
+        $notes = Note::orderBy('contact_id');
 
         $query = $request->input('query', '');
 
