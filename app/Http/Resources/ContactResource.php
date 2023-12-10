@@ -12,8 +12,11 @@ class ContactResource extends JsonResource
      *
      * @return array<string, mixed>
      */
+
     public function toArray(Request $request): array
     {
+        $categoryID = $this->category ? $this->category->id : null;
+        $categoryName = $this->category ? $this->category->name : null;
         // return parent::toArray($request);
         return [
             'id' => $this->id,
@@ -27,6 +30,8 @@ class ContactResource extends JsonResource
             'home_number' => $this->home_number,
             'work_number' => $this->work_number,
             'email' => $this->email,
+            // 'category_id' => $this->category->id,
+            // 'category_name' => $this->category->name
         ];
     }
 }

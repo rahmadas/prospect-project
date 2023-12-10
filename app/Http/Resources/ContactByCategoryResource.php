@@ -15,7 +15,7 @@ class ContactByCategoryResource extends JsonResource
     public function toArray(Request $request): array
     {
         return [
-            'id' => $this->id,
+            'id' => optional($this)->id,
             'user_id' => $this->user_id,
             'user_first_name' => $this->first_name,
             'user_last_name' => $this->last_name,
@@ -27,8 +27,8 @@ class ContactByCategoryResource extends JsonResource
             'home_number' => $this->home_number,
             'work_number' => $this->work_number,
             'email' => $this->email,
-            'category_id' => $this->category_id,
-            'category_name' => $this->category_name,
+            'category_id' => $this->category->id,
+            'category_name' => $this->category->name,
         ];
     }
 }

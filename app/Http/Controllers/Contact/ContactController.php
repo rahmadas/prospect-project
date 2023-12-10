@@ -21,6 +21,7 @@ use App\Models\Category;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Excel as ExcelExcel;
+use Symfony\Component\CssSelector\Node\ElementNode;
 
 class ContactController extends Controller
 {
@@ -105,89 +106,46 @@ class ContactController extends Controller
         ], 200);
     }
 
-    function destroy(Contact $contact)
-    {
-        // Delete the Category record
-        $contact->delete();
+    // function getContactByCategory(Request $request, $categoryId)
+    // {
+    //     $perPage = $request->perPage;
+    //     $query = $request->input('query', '');
 
-        // Return a response indicating success or appropriate error handling
-        return response()->json([
-            'message' => 'Successfully Delete Data',
-            'status' => true
-        ], 200);
-    }
+    //     $category = Category::find($categoryId);
 
-    function getContactByCategory(Request $request, $categoryId)
-    {
+    //     if (!$category) {
+    //         return response()->json([
+    //             'message' => 'Category not found',
+    //             'status' => false
+    //         ], 404);
+    //     }
 
-        $perPage = $request->perPage;
-        $query = $request->input('query', '');
+    //     // Retrieve contacts for the specified category
+    //     $contacts = Contact::where('category_id', $categoryId);
 
-        $contactByCategories = Contact::where('user_id')->orderBy('user_id', 'asc');
+    //     if (!empty($query)) {
+    //         $contacts->where(function ($queryBuilder) use ($query) {
+    //             $queryBuilder->where('first_name', 'like', '%' . $query . '%')
+    //                 ->orWhere('last_name', 'like', '%' . $query . '%')
+    //                 ->orWhereRaw("CONCAT(first_name, ' ', last_name) LIKE ?", ['%' . $query . '%'])
+    //                 ->orWhere('email', 'like', '%' . $query . '%');
+    //         });
+    //     }
 
-        if (!empty($query)) {
-            $contactByCategories->where(function ($queryBuilder) use ($query) {
-                $queryBuilder->where('first_name', 'like', '%' . $query . '%')
-                    ->orWhere('last_name', 'like', '%' . $query . '%')
-                    ->orWhereRaw("CONCAT(first_name, ' ', last_name) LIKE ?", ['%' . $query . '%']);
-            });
-        }
+    //     // Paginate the contacts
+    //     $contacts = $contacts->paginate($perPage);
 
-        $contactByCategories = $contactByCategories->paginate($perPage);
+    //     // Check if there are no items in the paginated result
+    //     if ($contacts->isEmpty()) {
+    //         return response()->json([
+    //             'message' => 'Data not found',
+    //             'status' => false
+    //         ]);
+    //     }
 
-        $contacts = $contactByCategories->map(function ($contact) use ($categoryId) {
-            $category = DB::table('categories')->where('user_id')->find($categoryId);
-
-            return [
-                'id' => $contact->id,
-                'first_name' => $contact->first_name,
-                'last_name' => $contact->last_name,
-                'phone_number' => $contact->phone_number,
-                'home_number' => $contact->home_number,
-                'work_number' => $contact->work_number,
-                'email' => $contact->email,
-                'category_id' => $categoryId,
-                'category_name' => optional($category)->name
-            ];
-        });
-
-
-        // $perPage = $request->perPage;
-        // $query = $request->input('query', '');
-
-        // $contactByCategories = Contact::where('user_id', auth()->user()->id)->orderBy('user_id', 'asc');
-
-        // if (!empty($query)) {
-        //     $contactByCategories->where(function ($queryBuilder) use ($query) {
-        //         $queryBuilder->where('first_name', 'like', '%' . $query . '%')
-        //             ->orWhere('last_name', 'like', '%' . $query . '%')
-        //             ->orWhereRaw("CONCAT(first_name, ' ', last_name) LIKE ?", ['%' . $query . '%']);
-        //     });
-        // }
-
-        // $contactByCategories = $contactByCategories->paginate($perPage);
-
-        // $contacts = $contactByCategories->map(function ($contact) use ($categoryId) {
-        //     $category = Category::where('user_id', auth()->user()->id)->find($categoryId);
-        //     return (object)[
-        //         'id' => $contact->id,
-        //         // 'user_id' => $contact->user_id,
-        //         // 'user_first_name' => optional($contact->user)->first_name,
-        //         // 'user_last_name' => optional($contact->user)->last_name,
-        //         'first_name' => $contact->first_name,
-        //         'last_name' => $contact->last_name,
-        //         'phone_number' => $contact->phone_number,
-        //         'home_number' => $contact->home_number,
-        //         'work_number' => $contact->work_number,
-        //         'email' => $contact->email,
-        //         'category_id' => $categoryId, // Assuming you want to set a fixed category ID
-        //         'category_name' => $category ? $category->name : null, // Replace with the actual category name
-        //     ];
-        // });
-
-        return (ContactByCategoryResource::collection($contacts))->additional([
-            'message' => 'Successfully Index Data',
-            'status' => true
-        ]);
-    }
+    //     return (ContactByCategoryResource::collection($contacts))->additional([
+    //         'message' => 'Successfully Index Data',
+    //         'status' => true
+    //     ]);
+    // }
 }

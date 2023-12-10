@@ -15,29 +15,57 @@ use Illuminate\Support\Facades\DB;
 
 class ContactCategoryController extends Controller
 {
-    public function getContactCategoryByCategory($categoryId)
+    public function getContactCategoryByCategory(Request $request, $categoryId)
     {
-        $contacts = DB::table('contacts')
+        $perPage = $request->perPage;
+        // $query = $request->input('query', '');
+
+        $category = Contact_category::find($categoryId);
+
+        $contact_categories = DB::table('contact_categories')
             ->select(
-                'contacts.id',
+                'contact_categories.id as id',
+                'contacts.id as contact_id',
                 'contacts.first_name',
                 'contacts.last_name',
                 'contacts.phone_number',
                 'contacts.home_number',
                 'contacts.work_number',
                 'contacts.email',
-                'contact_categories.id as contact_category_id',
+                'categories.id as cotegory_id',
                 'categories.name as category_name'
             )
-            ->join('contact_categories', 'contacts.id', '=', 'contact_categories.contact_id')
             ->join('categories', 'contact_categories.category_id', '=', 'categories.id')
-            ->where('contact_categories.category_id')
+            ->join('contacts', 'contact_categories.contact_id', '=', 'contacts.id')
+            ->where('categories.id', $categoryId)
             ->get();
 
+        $contact_categories = Contact::where('category_id', $categoryId);
 
-        return (ContactCategoryResource::collection($contacts))->additional([
+        // if (!empty($query)) {
+        //     $contact_categories->where(function ($queryBuilder) use ($query) {
+        //         $queryBuilder->where('first_name', 'like', '%' . $query . '%')
+        //             ->orWhere('last_name', 'like', '%' . $query . '%')
+        //             ->orWhereRaw("CONCAT(first_name, ' ', last_name) LIKE ?", ['%' . $query . '%'])
+        //             ->orWhere('email', 'like', '%' . $query . '%');
+        //     });
+        // }
+
+        // Paginate the contacts
+        $contact_categories = $contact_categories->paginate($perPage);
+
+        // // Check if there are no items in the paginated result
+        // if ($contact_categories->isEmpty()) {
+        //     return response()->json([
+        //         'message' => 'Data not found',
+        //         'status' => false
+        //     ]);
+        // }
+
+        return response()->json([
+            'status' => true,
             'message' => 'Successfully Index Data',
-            'status' => true
+            'data' => $contact_categories,
         ]);
     }
 }

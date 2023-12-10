@@ -24,7 +24,7 @@ class ContactCategoryResource extends JsonResource
             'home_number' => $this->home_number,
             'work_number' => $this->work_number,
             'email' => $this->email,
-            'contact_category_id' => $this->contact_category_id,
+            'contact_category_id' => $this->contact_category->contact_category_id,
             'category_name' => $this->category_name,
         ];
     }

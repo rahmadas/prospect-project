@@ -16,13 +16,19 @@ class Contact extends Model
         'phone_number',
         'home_number',
         'work_number',
-        'email'
+        'email',
+        'category_id'
     ];
 
-    // public function contactCategories()
-    // {
-    //     return $this->belongsToMany(ContactCategory::class, 'contact_contact_category');
-    // }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 
     public function contact_category()
     {
@@ -42,10 +48,5 @@ class Contact extends Model
     public function task()
     {
         return $this->hasMany(Task::class);
-    }
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
     }
 }

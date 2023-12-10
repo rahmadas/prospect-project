@@ -17,6 +17,11 @@ class Category extends Model
         'name',
     ];
 
+    public function contact()
+    {
+        return $this->hasMany(Contact::class);
+    }
+
     public function contact_category()
     {
         return $this->hasMany(Contact_category::class);
