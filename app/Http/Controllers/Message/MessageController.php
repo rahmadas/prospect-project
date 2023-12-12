@@ -47,10 +47,10 @@ class MessageController extends Controller
         $data['status'] = 1;
 
         $message = Message::create($data);
-        $contactMessage = Contact_message::create([
-            'contact_id' => $data['contact_id'],
-            'message_id' => $message->id
-        ]);
+        // $contactMessage = Contact_message::create([
+        //     'contact_id' => $data['contact_id'],
+        //     'message_id' => $message->id
+        // ]);
 
         return (new MessageResource($message))->additional([
             'message' => 'Successfully Create Data',
