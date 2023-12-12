@@ -54,7 +54,7 @@ Route::get('/contact-by-category/{categoryId}', [ContactController::class, 'getC
 // getcontactcategories / Categories 
 Route::get('/contact-category/{categoryId}', [ContactCategoryController::class, 'getContactCategoryByCategory']);
 
-// getContactMessages / Messages
+// getContactMessages / Messagesit -
 Route::get('/contact-message/{messageId}', [ContactMessageController::class, 'getContactByMessage']);
 
 //zip
