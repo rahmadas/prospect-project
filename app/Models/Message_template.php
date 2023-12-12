@@ -21,13 +21,13 @@ class Message_template extends Model
         return $this->hasMany(Message::class);
     }
 
+    public function attachment()
+    {
+        return $this->hasMany(Attachment::class, 'message_template_id');
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
-    }
-
-    public function attachment()
-    {
-        return $this->hasMany(Attachment::class);
     }
 }

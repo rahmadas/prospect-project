@@ -28,7 +28,8 @@ class StoreMessageRequest extends FormRequest
             'message' => 'required|string',
             // 'status' => 'required|in:pending,success,failed'
             'name' => 'required|string',
-            'phone_number' => 'required|string'
+            'phone_number' => 'required|string',
+            // 'attachments.*' => 'required|file|mimes:pdf,doc,docx,mp4,avi,mov,xlsx,xls,jpg,jpeg,png,gif|max:7048'
         ];
     }
 }

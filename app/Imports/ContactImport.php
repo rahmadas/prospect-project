@@ -30,7 +30,7 @@ class ContactImport implements ToCollection
                 'phone_number' => $row[3],
                 'home_number' => $row[4],
                 'work_number' => $row[5],
-                'email' => $row[6]
+                'email' => $row[6],
             ]);
             $contactCategory = Contact_category::create([
                 'category_id' => $this->category,

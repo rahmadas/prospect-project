@@ -106,46 +106,46 @@ class ContactController extends Controller
         ], 200);
     }
 
-    // function getContactByCategory(Request $request, $categoryId)
-    // {
-    //     $perPage = $request->perPage;
-    //     $query = $request->input('query', '');
+    function getContactByCategory(Request $request, $categoryId)
+    {
+        $perPage = $request->perPage;
+        $query = $request->input('query', '');
 
-    //     $category = Category::find($categoryId);
+        $category = Category::find($categoryId);
 
-    //     if (!$category) {
-    //         return response()->json([
-    //             'message' => 'Category not found',
-    //             'status' => false
-    //         ], 404);
-    //     }
+        if (!$category) {
+            return response()->json([
+                'message' => 'Category not found',
+                'status' => false
+            ], 404);
+        }
 
-    //     // Retrieve contacts for the specified category
-    //     $contacts = Contact::where('category_id', $categoryId);
+        // Retrieve contacts for the specified category
+        $contacts = Contact::where('category_id', $categoryId);
 
-    //     if (!empty($query)) {
-    //         $contacts->where(function ($queryBuilder) use ($query) {
-    //             $queryBuilder->where('first_name', 'like', '%' . $query . '%')
-    //                 ->orWhere('last_name', 'like', '%' . $query . '%')
-    //                 ->orWhereRaw("CONCAT(first_name, ' ', last_name) LIKE ?", ['%' . $query . '%'])
-    //                 ->orWhere('email', 'like', '%' . $query . '%');
-    //         });
-    //     }
+        if (!empty($query)) {
+            $contacts->where(function ($queryBuilder) use ($query) {
+                $queryBuilder->where('first_name', 'like', '%' . $query . '%')
+                    ->orWhere('last_name', 'like', '%' . $query . '%')
+                    ->orWhereRaw("CONCAT(first_name, ' ', last_name) LIKE ?", ['%' . $query . '%'])
+                    ->orWhere('email', 'like', '%' . $query . '%');
+            });
+        }
 
-    //     // Paginate the contacts
-    //     $contacts = $contacts->paginate($perPage);
+        // Paginate the contacts
+        $contacts = $contacts->paginate($perPage);
 
-    //     // Check if there are no items in the paginated result
-    //     if ($contacts->isEmpty()) {
-    //         return response()->json([
-    //             'message' => 'Data not found',
-    //             'status' => false
-    //         ]);
-    //     }
+        // Check if there are no items in the paginated result
+        if ($contacts->isEmpty()) {
+            return response()->json([
+                'message' => 'Data not found',
+                'status' => false
+            ]);
+        }
 
-    //     return (ContactByCategoryResource::collection($contacts))->additional([
-    //         'message' => 'Successfully Index Data',
-    //         'status' => true
-    //     ]);
-    // }
+        return (ContactByCategoryResource::collection($contacts))->additional([
+            'message' => 'Successfully Index Data',
+            'status' => true
+        ]);
+    }
 }

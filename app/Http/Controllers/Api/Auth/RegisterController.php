@@ -31,10 +31,10 @@ class RegisterController extends Controller
         // Di sini, kata sandi (password) yang ada dalam data pendaftaran dienkripsi menggunakan bcrypt, 
         $data['password'] = bcrypt(($data['password']));
         // dan status pengguna diatur menjadi 1 (ini mungkin mengindikasikan status aktif). 
-        $data['status'] = 1;
+        $data['status'] = 2;
         // Selanjutnya, kode referral baru yang berisi 6 karakter acak (huruf dan angka) dibuat menggunakan Str::random(6).
         $data['referral_code'] = Str::random(6);
-        $data['pro_feature_id'] = 1;
+        // $data['pro_feature_id'] = 2;
         // $data['foto_profile'] = null;
         $responseData = $data;
 
@@ -57,10 +57,10 @@ class RegisterController extends Controller
         }
 
         // tabel baru lahir dari tabel user dan pro_feature
-        $userProFeature = User_pro_feature::create([
-            'pro_feature_id' => $data['pro_feature_id'],
-            'user_id' => $user->id
-        ]);
+        // $userProFeature = User_pro_feature::create([
+        //     'pro_feature_id' => $data['pro_feature_id'],
+        //     'user_id' => $user->id
+        // ]);
 
         $token = $user->createToken('auth_token')->plainTextToken;
         $responseData['access_token'] = $token;

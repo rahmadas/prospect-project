@@ -26,8 +26,14 @@ class TaskResource extends JsonResource
             'priority' => $this->priority,
             'reminder' => $this->reminder,
             'status' => $this->status,
-            'contact_id' => $this->contact_id
-            // 'relate_to' => $this->relate_to
+            'contact_id' => $this->contact->id,
+            'first_name' => $this->contact->first_name,
+            'last_name' => $this->contact->last_name,
+            'full_name' => $this->contact->first_name . ' ' . $this->contact->last_name,
+            'phone_number' => $this->contact->phone_number,
+            'home_number' => $this->contact->home_number,
+            'work_number' => $this->contact->work_number,
+            'email' => $this->contact->email,
         ];
     }
 }

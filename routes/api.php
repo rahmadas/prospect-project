@@ -91,7 +91,6 @@ Route::group(['middleware' => 'auth:sanctum'], function () {
     Route::apiResource('/feedback', FeedbackController::class);
     Route::apiResource('/event', EventController::class);
     Route::apiResource('/phonebook', PhoneBookController::class);
-    Route::apiResource('/attachment', AttachmentController::class);
 
     Route::post('/logout', [LogoutController::class, 'logout']);
 });

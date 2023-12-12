@@ -14,19 +14,18 @@ class MessageResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
-        // return parent::toArray($request);
-        //   $user = $this->user;
+        // dd($this->message_template->attachments);
         return [
             'id' => $this->id,
             'user_id' => $this->user_id,
             // 'user_first_name' => $this->user->first_name,
             // 'user_last_name' => $this->user->last_name,
             'message_template_id' => $this->message_template_id,
-            'name_contact' => $this->name,
-            'phone_number' => $this->phone_number,
+            'name_message_template' => $this->name,
+            'phone_number_message_template' => $this->phone_number,
             'message' => $this->message,
             'status' => $this->status,
-            'attachment' => $this->message_template->attachment,
+            'attachment' => $this->message_template->attachment
         ];
     }
 }

@@ -42,7 +42,7 @@ class Contact extends Model
 
     public function contact_message()
     {
-        return $this->hasMany(Contact_massage::class);
+        return $this->hasMany(Contact_message::class);
     }
 
     public function task()

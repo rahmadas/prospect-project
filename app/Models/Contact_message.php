@@ -14,11 +14,13 @@ class Contact_message extends Model
         'message_id'
     ];
 
-    public function message() {
-        return $this->belongsToMany(Message::class);
+    public function message()
+    {
+        return $this->belongsTo(Message::class);
     }
 
-    public function contact() {
+    public function contact()
+    {
         return $this->belongsToMany(Contact::class);
     }
 }
