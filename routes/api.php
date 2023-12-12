@@ -41,10 +41,12 @@ use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 |
 */
 
-
 Route::post('/register', [RegisterController::class, 'register']);
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LogoutController::class, 'logout']);
+
+//
+Route::get('/count-attachment/{messageTemplateId}', [MessageTemplateController::class, 'getCountAttachment']);
 
 //
 Route::get('/contact-by-category/{categoryId}', [ContactController::class, 'getContactByCategory']);

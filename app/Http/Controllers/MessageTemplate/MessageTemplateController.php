@@ -80,8 +80,6 @@ class MessageTemplateController extends Controller
         ], 200);
     }
 
-
-
     function show(Message_template $message_template)
     {
         return (new MessageTemplateResource($message_template))->additional([
@@ -143,5 +141,33 @@ class MessageTemplateController extends Controller
             'message' => 'Successfully Delete Data',
             'status' => true
         ], 200);
+    }
+
+    public function getCountAttachment(Request $request, $messageTemplateId)
+    {
+        // Check if both parameters are present
+        if (!$messageTemplateId) {
+            return response()->json(['error' => 'Both message_template_id and type are required.'], 400);
+        }
+
+        $attachmentCounts = DB::table('attachments')
+            ->select(
+                DB::raw('COALESCE(SUM(CASE WHEN type = "file" THEN 1 ELSE 0 END), 0) as file'),
+                DB::raw('COALESCE(SUM(CASE WHEN type = "video" THEN 1 ELSE 0 END), 0) as video'),
+                DB::raw('COALESCE(SUM(CASE WHEN type = "image" THEN 1 ELSE 0 END), 0) as image')
+            )
+            ->where('message_template_id', $messageTemplateId)
+            ->where('type')
+            ->first(); // Assuming you expect a single result for counts
+
+        $outputCounts = [
+            'file' => $attachmentCounts->file,
+            'video' => $attachmentCounts->video,
+            'image' => $attachmentCounts->image,
+        ];
+
+        return response()->json([
+            'attachmentCounts' => $outputCounts,
+        ]);
     }
 }
