@@ -17,7 +17,6 @@ class Contact extends Model
         'home_number',
         'work_number',
         'email',
-        'category_id'
     ];
 
     public function user()

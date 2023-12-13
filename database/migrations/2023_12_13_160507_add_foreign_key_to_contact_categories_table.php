@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('contacts', function (Blueprint $table) {
-            $table->unsignedBigInteger('category_id')->after('email')->nullable();
-            $table->foreign('category_id')
-                ->references('id')->on('categories')
-                ->onDelete('cascade');
+        Schema::table('contact_categories', function (Blueprint $table) {
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('CASCADE');
         });
     }
 
@@ -24,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('contacts', function (Blueprint $table) {
-            //
+        Schema::table('contact_categories', function (Blueprint $table) {
+            // $table->dropForeign(['category_id']);
         });
     }
 };
