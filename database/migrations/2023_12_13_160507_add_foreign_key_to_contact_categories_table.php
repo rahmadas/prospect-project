@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('contact_categories', function (Blueprint $table) {
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('CASCADE');
+            // $table->foreign('category_id')->references('id')->on('categories')->onDelete('CASCADE');
         });
     }
 
@@ -22,7 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('contact_categories', function (Blueprint $table) {
-            // $table->dropForeign(['category_id']);
+            $table->dropForeign(['category_id']);
         });
     }
 };
