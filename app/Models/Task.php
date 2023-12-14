@@ -18,7 +18,7 @@ class Task extends Model
         'priority',
         'reminder',
         'status',
-        'contact_id'
+        // 'contact_id'
     ];
 
     public function user()
