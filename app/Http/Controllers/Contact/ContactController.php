@@ -128,7 +128,8 @@ class ContactController extends Controller
                 $queryBuilder->where('first_name', 'like', '%' . $query . '%')
                     ->orWhere('last_name', 'like', '%' . $query . '%')
                     ->orWhereRaw("CONCAT(first_name, ' ', last_name) LIKE ?", ['%' . $query . '%'])
-                    ->orWhere('email', 'like', '%' . $query . '%');
+                    ->orWhereRaw('email LIKE ?', ['%' . $query . '%'])
+                    ->orWhereRaw('contact_id LIKE ?', ['%' . $query . '%']);
             });
         }
 

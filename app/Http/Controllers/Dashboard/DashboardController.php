@@ -124,14 +124,20 @@ class DashboardController extends Controller
 
     public function dashboardUpComingEvent()
     {
+        // Total event
+        $totalEvent = DB::table('events')
+            ->count();
+
         // 5 aktivitas yang akan datang
         $fiveUpComingEvent = DB::table('events')
-            ->select(DB::raw('start_date, count(*) as limaAktifitasAkanDatang'))
-            ->groupBy('start_date')
-            ->orderBy('start_date', 'desc')
+            ->select('user_id', 'start_date', DB::raw('count(*) as limaAktifitasAkanDatang'))
+            ->groupBy('start_date', 'user_id')
+            ->orderBy('start_date')
             ->take(5)
             ->get();
 
+        // Prepare the data for JSON response
+        $result2 = [];
         foreach ($fiveUpComingEvent as $event) {
             $result2[] = [
                 'name' => 'five up coming event',
@@ -142,31 +148,28 @@ class DashboardController extends Controller
         return response()->json([
             'message' => 'Successfully',
             'status' => true,
-            'data' => $result2
+            'data' => [
+                'totalEvent' => $totalEvent,
+                'upcomingEvents' => $result2
+            ]
         ]);
     }
 
     public function updateDailyTask()
     {
-        // task harian
         $totalTaskDaily = DB::table('tasks')
-            ->select(
-                DB::raw(
-                    ' 
-            tasks.reminder, 
-            CONCAT(contacts.first_name, " ", contacts.last_name) as full_name, 
-            tasks.title,
-            tasks.status
-            '
-                )
-            )
+            ->select(DB::raw('tasks.reminder, CONCAT(contacts.first_name, " ", contacts.last_name) as full_name, tasks.title, tasks.status'))
             ->join('contacts', 'tasks.contact_id', '=', 'contacts.id')
             ->where('tasks.status', 'completed')
-            ->groupBy('tasks.reminder', 'contacts.first_name', 'contacts.last_name', 'tasks.title',  'tasks.status')
+            ->groupBy('tasks.reminder', 'contacts.first_name', 'contacts.last_name', 'tasks.title', 'tasks.status')
             ->orderBy('tasks.reminder', 'desc')
             ->take(5)
             ->get();
 
+        // Print the SQL query (for debugging purposes)
+        // dd($totalTaskDaily->toSql());
+
+        // Execute the query and return the JSON response
         return response()->json([
             'message' => 'Successfully',
             'status' => true,

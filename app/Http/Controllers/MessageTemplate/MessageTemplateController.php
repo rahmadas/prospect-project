@@ -161,9 +161,9 @@ class MessageTemplateController extends Controller
             ->first(); // Assuming you expect a single result for counts
 
         $outputCounts = [
-            'file' => $attachmentCounts->file,
-            'video' => $attachmentCounts->video,
-            'image' => $attachmentCounts->image,
+            'count_file' => $attachmentCounts->file,
+            'count_video' => $attachmentCounts->video,
+            'count_image' => $attachmentCounts->image,
         ];
 
         return response()->json([

@@ -52,7 +52,7 @@ class TaskController extends Controller
         // $data['reminder'] = Carbon::parse($data['due_date'])
         //     ->subHour() // Mengurangkan satu jam dari waktu due_date
         //     ->setTimezone('Asia/Jakarta');
-        $data['status'] = 2;
+        $data['status'] = 1;
 
         // if (condition) {
         //     # code...
