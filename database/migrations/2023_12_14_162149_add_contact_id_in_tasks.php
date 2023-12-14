@@ -11,8 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('contact_categories', function (Blueprint $table) {
-            // $table->foreign('category_id')->references('id')->on('categories')->onDelete('CASCADE');
+        Schema::table('tasks', function (Blueprint $table) {
+            $table->dropColumn('relate_to');
+            $table->unsignedBigInteger('contact_id')->after('status');
+            $table->foreign('contact_id')->references('id')->on('contacts');
         });
     }
 
@@ -21,8 +23,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('contact_categories', function (Blueprint $table) {
-            $table->dropForeign(['category_id']);
+        Schema::table('tasks', function (Blueprint $table) {
+            //
         });
     }
 };
