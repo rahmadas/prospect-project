@@ -12,7 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('tasks', function (Blueprint $table) {
-            $table->dropColumn('relate_to');
+            // $table->dropForeign(['contact_id']);
+            // $table->dropColumn('contact_id');
             $table->unsignedBigInteger('contact_id')->after('status');
             $table->foreign('contact_id')->references('id')->on('contacts');
         });
