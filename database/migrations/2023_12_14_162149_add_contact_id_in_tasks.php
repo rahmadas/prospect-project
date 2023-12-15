@@ -24,7 +24,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('tasks', function (Blueprint $table) {
-            $table->unsignedBigInteger('contact_id')->after('status');
+            $table->unsignedBigInteger('contact_id')->after('status')->nullable();
             $table->foreign('contact_id')->references('id')->on('contacts');
         });
     }
