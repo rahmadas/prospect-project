@@ -28,9 +28,9 @@ class RegisterController extends Controller
             ]);
         }
 
-        // Di sini, kata sandi (password) yang ada dalam data pendaftaran dienkripsi menggunakan bcrypt, 
+        // Di sini, kata sandi (password) yang ada dalam data pendaftaran dienkripsi menggunakan bcrypt,
         $data['password'] = bcrypt(($data['password']));
-        // dan status pengguna diatur menjadi 1 (ini mungkin mengindikasikan status aktif). 
+        // dan status pengguna diatur menjadi 1 (ini mungkin mengindikasikan status aktif).
         $data['status'] = 2;
         // Selanjutnya, kode referral baru yang berisi 6 karakter acak (huruf dan angka) dibuat menggunakan Str::random(6).
         $data['referral_code'] = Str::random(6);
@@ -38,14 +38,14 @@ class RegisterController extends Controller
         // $data['foto_profile'] = null;
         $responseData = $data;
 
-        // Pengguna baru kemudian dibuat di dalam basis data dengan menggunakan data yang telah disiapkan. 
+        // Pengguna baru kemudian dibuat di dalam basis data dengan menggunakan data yang telah disiapkan.
         // Hasilnya disimpan dalam variabel $user.
         $user = User::create($data);
 
-        // Jika pengguna yang merujuk ditemukan, maka ID pengguna yang merujuk ($inviterId) diambil.  
+        // Jika pengguna yang merujuk ditemukan, maka ID pengguna yang merujuk ($inviterId) diambil.
         if ($inviter) {
 
-            // Kemudian, pencatatan di tabel referral dibuat dengan ID pengguna yang baru dibuat ($user->id), 
+            // Kemudian, pencatatan di tabel referral dibuat dengan ID pengguna yang baru dibuat ($user->id),
             $inviterId = $inviter->id;
 
             // ID pengguna yang merujuk ($inviterId), dan tanggal saat ini.

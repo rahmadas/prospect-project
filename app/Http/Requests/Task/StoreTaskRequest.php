@@ -29,7 +29,7 @@ class StoreTaskRequest extends FormRequest
             'end_date' => 'required|date_format:Y-m-d',
             'priority' => 'required|in:low,medium,hight',
             'reminder' => 'required|date_format:Y-m-d H:i:s',
-            // 'status' => 'required|in:completed,not_completed,due_today',
+            'status' => 'required|in:completed,not_completed,due_today',
             // 'relate_to' => 'nullable|integer'
         ];
     }
